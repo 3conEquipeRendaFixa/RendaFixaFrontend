@@ -1,1 +1,26 @@
-<p>calendar works!</p>
+<main class="calendar-page">
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
+    <span>PÁGINA INICIAL</span>
+    <span class="separator">›</span>
+    <span>ADMINISTRATIVO</span>
+    <span class="separator">›</span>
+    <span class="current">CALENDÁRIO POR PRAÇA</span>
+  </nav>
+
+  <!-- Título -->
+  <h1 class="page-title">Calendário por Praça</h1>
+
+  <!-- Filtro -->
+  <srf-b3-calendar-filter (searchFilters)="onSearch()" (clearFilters)="onClear()" />
+
+  <!-- Grid -->
+  <srf-b3-calendar-grid [items]="calendarItems()" (rowClick)="onRowClick($event)" />
+
+  <!-- Modal -->
+  <srf-b3-calendar-view-modal
+    [isOpen]="isModalOpen()"
+    [calendarItem]="selectedItem()"
+    (closeModal)="onCloseModal()"
+  />
+</main>

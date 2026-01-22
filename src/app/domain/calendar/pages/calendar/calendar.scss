@@ -1,0 +1,18 @@
+.calendar-page {
+  padding: 24px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  .separator {
+    margin: 0 4px;
+  }
+}
+
+.page-title {
+  margin: 0 0 24px 0;
+}
