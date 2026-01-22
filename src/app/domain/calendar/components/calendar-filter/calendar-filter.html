@@ -1,0 +1,44 @@
+<section class="filter-container">
+  <div class="filter-row">
+    <div class="filter-field">
+      <label for="exchange">Instituição</label>
+      <select id="exchange" [(ngModel)]="exchange">
+        <option value="">Selecione...</option>
+        <option value="B3">B3</option>
+        <option value="BCB">BCB</option>
+      </select>
+    </div>
+
+    <div class="filter-field">
+      <label for="location">Praça</label>
+      <select id="location" [(ngModel)]="location">
+        <option value="">Selecione...</option>
+        <option value="São Paulo">São Paulo</option>
+      </select>
+    </div>
+
+    <div class="filter-field">
+      <label for="segment">Segmento</label>
+      <select id="segment" [(ngModel)]="segment">
+        <option value="">Selecione...</option>
+        <option value="Cetip UTVM">Cetip UTVM</option>
+        <option value="Listados">Listados</option>
+        <option value="Selic">Selic</option>
+      </select>
+    </div>
+
+    <div class="filter-field">
+      <label for="process">Processo</label>
+      <select id="process" [(ngModel)]="process">
+        <option value="">Selecione...</option>
+        <option value="Registro">Registro</option>
+        <option value="Liquidação">Liquidação</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="filter-actions">
+    <srf-b3-button-secondary (clicked)="onClear()">Limpar</srf-b3-button-secondary>
+    <srf-b3-button-primary (clicked)="onSearch()">Pesquisar</srf-b3-button-primary>
+  </div>
+</section>
