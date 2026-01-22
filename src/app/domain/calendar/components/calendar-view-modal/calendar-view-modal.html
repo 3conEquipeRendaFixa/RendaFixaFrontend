@@ -1,0 +1,89 @@
+@if (isOpen()) {
+  <div class="modal-overlay" (click)="onClose()" (keydown.escape)="onClose()" tabindex="0" role="dialog" aria-modal="true">
+    <div class="modal-container" (click)="$event.stopPropagation()" (keydown.escape)="$event.stopPropagation()" role="document">
+      <!-- Header -->
+      <header class="modal-header">
+        <div class="modal-title">
+          <span>📅</span>
+          <span>Visualizar Calendário</span>
+        </div>
+        <srf-b3-button-close (clicked)="onClose()" />
+      </header>
+
+      <!-- Content -->
+      <main class="modal-content">
+        <h3 class="section-title">Características do Calendário</h3>
+
+        <div class="characteristics-grid">
+          <div class="field">
+            <label for="instituicao-field">Instituição</label>
+            <input id="instituicao-field" type="text" [value]="calendarItem()?.instituicao ?? ''" readonly />
+          </div>
+
+          <div class="field">
+            <label for="praca-field">Praça</label>
+            <input id="praca-field" type="text" [value]="calendarItem()?.praca ?? ''" readonly />
+          </div>
+
+          <div class="field">
+            <label for="segmento-field">Segmento</label>
+            <input id="segmento-field" type="text" [value]="calendarItem()?.segmento ?? ''" readonly />
+          </div>
+
+          <div class="field">
+            <label for="processo-field">Processo</label>
+            <input id="processo-field" type="text" [value]="calendarItem()?.processo ?? ''" readonly />
+          </div>
+
+          <div class="field-checkboxes">
+            <label class="checkbox-label">
+              <input type="checkbox" [checked]="calendarItem()?.sabadoUtil" disabled />
+              <span>Sábado Útil?</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" [checked]="calendarItem()?.domingoUtil" disabled />
+              <span>Domingo Útil?</span>
+            </label>
+          </div>
+
+          <div class="field">
+            <label for="ano-field">Ano</label>
+            <select id="ano-field" [(ngModel)]="selectedYear">
+              <option [value]="2024">2024</option>
+              <option [value]="2025">2025</option>
+              <option [value]="2026">2026</option>
+              <option [value]="2027">2027</option>
+            </select>
+          </div>
+
+          <div class="field-action">
+            <srf-b3-button-icon (clicked)="onExport()">📄 Exportar</srf-b3-button-icon>
+          </div>
+        </div>
+
+        <!-- Tabela de Feriados -->
+        <table class="holidays-table">
+          <thead>
+            <tr>
+              <th>Data ↕</th>
+              <th>Descrição ↕</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (holiday of holidays(); track holiday.data) {
+              <tr>
+                <td>{{ holiday.data }}</td>
+                <td>{{ holiday.descricao }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </main>
+
+      <!-- Footer -->
+      <footer class="modal-footer">
+        <srf-b3-button-primary (clicked)="onClose()">Fechar</srf-b3-button-primary>
+      </footer>
+    </div>
+  </div>
+}
