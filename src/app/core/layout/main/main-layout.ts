@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-main-layout',
+  selector: 'srf-b3-main-layout',
   imports: [],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
 })
-export class MainLayout {
-
-}
+export class MainLayout {}
