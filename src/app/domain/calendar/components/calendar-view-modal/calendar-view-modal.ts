@@ -1,6 +1,6 @@
 import { Component, input, output, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CalendarItem, CalendarHoliday } from '@domain/calendar/types/calendar.interface';
+import { CalendarItem, CalendarHoliday } from '@domain/calendar/types/interfaces/calendar.interface';
 import { ButtonPrimary } from 'widget/components/buttons/button-primary/button-primary';
 import { ButtonClose } from 'widget/components/buttons/button-close/button-close';
 import { ButtonIcon } from 'widget/components/buttons/button-icon/button-icon';

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { CalendarViewModal } from './calendar-view-modal';
-import { CalendarItem } from '@domain/calendar/types/calendar.interface';
+import { CalendarItem } from '@domain/calendar/types/interfaces/calendar.interface';
 
 describe('CalendarViewModal', () => {
   let component: CalendarViewModal;
