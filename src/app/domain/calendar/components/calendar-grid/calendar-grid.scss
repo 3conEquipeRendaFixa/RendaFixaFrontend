@@ -1,0 +1,38 @@
+.grid-container {
+  width: 100%;
+}
+
+.grid-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 12px;
+    text-align: left;
+  }
+
+  thead tr {
+    border-bottom: 2px solid currentColor;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid currentColor;
+  }
+}
+
+.grid-row {
+  cursor: pointer;
+}
+
+.action-cell {
+  text-align: center;
+}
+
+.btn-calendar {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.grid-footer {
+  padding: 12px;
+}

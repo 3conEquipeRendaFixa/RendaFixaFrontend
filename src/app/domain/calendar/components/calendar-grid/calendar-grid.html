@@ -1,0 +1,34 @@
+<section class="grid-container">
+  <table class="grid-table">
+    <thead>
+      <tr>
+        <th>Instituição ↕</th>
+        <th>Praça ↕</th>
+        <th>Segmento ↕</th>
+        <th>Processo ↕</th>
+        <th>Sábado Útil ? ↕</th>
+        <th>Domingo Útil ? ↕</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of items(); track item.instituicao + item.segmento + item.processo) {
+        <tr class="grid-row" (click)="onRowClick(item)">
+          <td>{{ item.instituicao }}</td>
+          <td>{{ item.praca }}</td>
+          <td>{{ item.segmento }}</td>
+          <td>{{ item.processo }}</td>
+          <td>{{ formatBoolean(item.sabadoUtil) }}</td>
+          <td>{{ formatBoolean(item.domingoUtil) }}</td>
+          <td class="action-cell">
+            <srf-b3-button-icon (clicked)="onRowClick(item)">📅</srf-b3-button-icon>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <div class="grid-footer">
+    {{ items().length }} resultados disponíveis.
+  </div>
+</section>
