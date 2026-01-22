@@ -7,6 +7,4 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.scss',
   template: '<router-outlet></router-outlet>',
 })
-export class App {
-  
-}
+export class App {}
