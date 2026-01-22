@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { CalendarItem } from '@shared/interfaces/calendar.interface';
+import { CalendarItem } from '@domain/calendar/types/calendar.interface';
 import { ButtonIcon } from 'widget/components/buttons/button-icon/button-icon';
 
 @Component({

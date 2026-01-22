@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { CalendarFilter } from '@domain/calendar/components/calendar-filter/calendar-filter';
 import { CalendarGrid } from '@domain/calendar/components/calendar-grid/calendar-grid';
 import { CalendarViewModal } from '@domain/calendar/components/calendar-view-modal/calendar-view-modal';
-import { CalendarItem } from '@shared/interfaces/calendar.interface';
+import { CalendarItem } from '@domain/calendar/types/calendar.interface';
 
 @Component({
   selector: 'srf-b3-calendar',
