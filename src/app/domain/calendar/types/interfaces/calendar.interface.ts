@@ -18,3 +18,10 @@ export interface CalendarHoliday {
   data: string;
   descricao: string;
 }
+
+export interface FilterOptions {
+  exchanges: string[];
+  locations: string[];
+  segments: string[];
+  processes: string[];
+}

@@ -12,10 +12,10 @@
   <h1 class="page-title">Calendário por Praça</h1>
 
   <!-- Filtro -->
-  <srf-b3-calendar-filter (searchFilters)="onSearch()" (clearFilters)="onClear()" />
+  <srf-b3-calendar-filter (searchFilters)="onSearch($event)" (clearFilters)="onClear()" />
 
   <!-- Grid -->
-  <srf-b3-calendar-grid [items]="calendarItems()" (rowClick)="onRowClick($event)" />
+  <srf-b3-calendar-grid [items]="displayedItems()" (rowClick)="onRowClick($event)" (sortChange)="onSort($event)" />
 
   <!-- Modal -->
   <srf-b3-calendar-view-modal

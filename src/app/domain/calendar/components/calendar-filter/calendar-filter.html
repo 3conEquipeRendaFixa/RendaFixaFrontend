@@ -4,8 +4,9 @@
       <label for="exchange">Instituição</label>
       <select id="exchange" [(ngModel)]="exchange">
         <option value="">Selecione...</option>
-        <option value="B3">B3</option>
-        <option value="BCB">BCB</option>
+        @for (option of filterOptions().exchanges; track option) {
+          <option [value]="option">{{ option }}</option>
+        }
       </select>
     </div>
 
@@ -13,7 +14,9 @@
       <label for="location">Praça</label>
       <select id="location" [(ngModel)]="location">
         <option value="">Selecione...</option>
-        <option value="São Paulo">São Paulo</option>
+        @for (option of filterOptions().locations; track option) {
+          <option [value]="option">{{ option }}</option>
+        }
       </select>
     </div>
 
@@ -21,9 +24,9 @@
       <label for="segment">Segmento</label>
       <select id="segment" [(ngModel)]="segment">
         <option value="">Selecione...</option>
-        <option value="Cetip UTVM">Cetip UTVM</option>
-        <option value="Listados">Listados</option>
-        <option value="Selic">Selic</option>
+        @for (option of filterOptions().segments; track option) {
+          <option [value]="option">{{ option }}</option>
+        }
       </select>
     </div>
 
@@ -31,8 +34,9 @@
       <label for="process">Processo</label>
       <select id="process" [(ngModel)]="process">
         <option value="">Selecione...</option>
-        <option value="Registro">Registro</option>
-        <option value="Liquidação">Liquidação</option>
+        @for (option of filterOptions().processes; track option) {
+          <option [value]="option">{{ option }}</option>
+        }
       </select>
     </div>
   </div>

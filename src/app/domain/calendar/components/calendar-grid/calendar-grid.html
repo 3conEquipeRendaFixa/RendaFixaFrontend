@@ -2,12 +2,12 @@
   <table class="grid-table">
     <thead>
       <tr>
-        <th>Instituição ↕</th>
-        <th>Praça ↕</th>
-        <th>Segmento ↕</th>
-        <th>Processo ↕</th>
-        <th>Sábado Útil ? ↕</th>
-        <th>Domingo Útil ? ↕</th>
+        <th class="sortable" (click)="onSort('exchange')" [attr.data-sort]="sortField() === 'exchange' ? sortOrder() : null">Instituição {{ getSortIndicator('exchange') }}</th>
+        <th class="sortable" (click)="onSort('location')" [attr.data-sort]="sortField() === 'location' ? sortOrder() : null">Praça {{ getSortIndicator('location') }}</th>
+        <th class="sortable" (click)="onSort('segment')" [attr.data-sort]="sortField() === 'segment' ? sortOrder() : null">Segmento {{ getSortIndicator('segment') }}</th>
+        <th class="sortable" (click)="onSort('process')" [attr.data-sort]="sortField() === 'process' ? sortOrder() : null">Processo {{ getSortIndicator('process') }}</th>
+        <th class="sortable" (click)="onSort('saturdayWorkDay')" [attr.data-sort]="sortField() === 'saturdayWorkDay' ? sortOrder() : null">Sábado Útil ? {{ getSortIndicator('saturdayWorkDay') }}</th>
+        <th class="sortable" (click)="onSort('sundayWorkDay')" [attr.data-sort]="sortField() === 'sundayWorkDay' ? sortOrder() : null">Domingo Útil ? {{ getSortIndicator('sundayWorkDay') }}</th>
         <th></th>
       </tr>
     </thead>

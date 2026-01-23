@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CalendarItem } from '@domain/calendar/types/interfaces/calendar.interface';
+import { CalendarItem, FilterOptions } from '@domain/calendar/types/interfaces/calendar.interface';
 
 interface ApiResponse<T> {
   data: T;
@@ -44,5 +44,11 @@ export class CalendarService {
 
   getAllCalendars(): Observable<CalendarItem[]> {
     return this.getCalendars();
+  }
+
+  getFilterOptions(): Observable<FilterOptions> {
+    return this.http.get<ApiResponse<FilterOptions>>(`${this.apiUrl}/filters`).pipe(
+      map(response => response.data)
+    );
   }
 }

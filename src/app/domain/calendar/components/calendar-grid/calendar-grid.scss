@@ -18,6 +18,23 @@
   tbody tr {
     border-bottom: 1px solid currentColor;
   }
+
+  th.sortable {
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      font-weight: 600;
+    }
+
+    &[data-sort="asc"],
+    &[data-sort="desc"] {
+      background-color: rgba(0, 0, 0, 0.08);
+      font-weight: 600;
+    }
+  }
 }
 
 .grid-row {
