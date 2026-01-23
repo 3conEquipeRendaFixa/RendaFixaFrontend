@@ -18,7 +18,7 @@ export class CalendarGrid {
     this.rowClick.emit(item);
   }
 
-  formatBoolean(value: boolean): string {
-    return value ? 'Sim' : 'Não';
+  formatWorkDay(value: string): string {
+    return value === 'S' || value === 'Y' ? 'Sim' : 'Não';
   }
 }

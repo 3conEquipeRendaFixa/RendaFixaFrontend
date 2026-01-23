@@ -12,14 +12,14 @@
       </tr>
     </thead>
     <tbody>
-      @for (item of items(); track item.instituicao + item.segmento + item.processo) {
+      @for (item of items(); track item.exchange + item.location + item.segment + item.process) {
         <tr class="grid-row" (click)="onRowClick(item)">
-          <td>{{ item.instituicao }}</td>
-          <td>{{ item.praca }}</td>
-          <td>{{ item.segmento }}</td>
-          <td>{{ item.processo }}</td>
-          <td>{{ formatBoolean(item.sabadoUtil) }}</td>
-          <td>{{ formatBoolean(item.domingoUtil) }}</td>
+          <td>{{ item.exchange }}</td>
+          <td>{{ item.location }}</td>
+          <td>{{ item.segment }}</td>
+          <td>{{ item.process }}</td>
+          <td>{{ formatWorkDay(item.saturdayWorkDay) }}</td>
+          <td>{{ formatWorkDay(item.sundayWorkDay) }}</td>
           <td class="action-cell">
             <srf-b3-button-icon (clicked)="onRowClick(item)">📅</srf-b3-button-icon>
           </td>

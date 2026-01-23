@@ -17,31 +17,31 @@
         <div class="characteristics-grid">
           <div class="field">
             <label for="instituicao-field">Instituição</label>
-            <input id="instituicao-field" type="text" [value]="calendarItem()?.instituicao ?? ''" readonly />
+            <input id="instituicao-field" type="text" [value]="calendarItem()?.exchange ?? ''" readonly />
           </div>
 
           <div class="field">
             <label for="praca-field">Praça</label>
-            <input id="praca-field" type="text" [value]="calendarItem()?.praca ?? ''" readonly />
+            <input id="praca-field" type="text" [value]="calendarItem()?.location ?? ''" readonly />
           </div>
 
           <div class="field">
             <label for="segmento-field">Segmento</label>
-            <input id="segmento-field" type="text" [value]="calendarItem()?.segmento ?? ''" readonly />
+            <input id="segmento-field" type="text" [value]="calendarItem()?.segment ?? ''" readonly />
           </div>
 
           <div class="field">
             <label for="processo-field">Processo</label>
-            <input id="processo-field" type="text" [value]="calendarItem()?.processo ?? ''" readonly />
+            <input id="processo-field" type="text" [value]="calendarItem()?.process ?? ''" readonly />
           </div>
 
           <div class="field-checkboxes">
             <label class="checkbox-label">
-              <input type="checkbox" [checked]="calendarItem()?.sabadoUtil" disabled />
+              <input type="checkbox" [checked]="isWorkDay(calendarItem()?.saturdayWorkDay)" disabled />
               <span>Sábado Útil?</span>
             </label>
             <label class="checkbox-label">
-              <input type="checkbox" [checked]="calendarItem()?.domingoUtil" disabled />
+              <input type="checkbox" [checked]="isWorkDay(calendarItem()?.sundayWorkDay)" disabled />
               <span>Domingo Útil?</span>
             </label>
           </div>

@@ -42,4 +42,8 @@ export class CalendarViewModal {
   onExport(): void {
     console.log('Exportar calendário');
   }
+
+  isWorkDay(value: string | undefined): boolean {
+    return value === 'S' || value === 'Y';
+  }
 }
