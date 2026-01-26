@@ -3,11 +3,12 @@ import { CalendarFilter } from '@domain/calendar/components/calendar-filter/cale
 import { CalendarGrid } from '@domain/calendar/components/calendar-grid/calendar-grid';
 import { CalendarViewModal } from '@domain/calendar/components/calendar-view-modal/calendar-view-modal';
 import { CalendarItem } from '@domain/calendar/types/interfaces/calendar.interface';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'srf-b3-calendar',
   standalone: true,
-  imports: [CalendarFilter, CalendarGrid, CalendarViewModal],
+  imports: [CalendarFilter, CalendarGrid, CalendarViewModal, RouterLink],
   templateUrl: './calendar.html',
   styleUrl: './calendar.scss',
 })

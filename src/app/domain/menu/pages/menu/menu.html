@@ -1,0 +1,146 @@
+<!-- Header -->
+<header class="header">
+  <div class="header-left">
+    <div class="logo-b3">
+      <img src="icons/Logo.svg" alt="B3 Logo">
+    </div>
+    <span class="header-title">Sinacor Renda Fixa</span>
+  </div>
+  <div class="header-right">
+    <div class="user-avatar">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+      </svg>
+    </div>
+    <span class="company-name">Empresa [UAT 3099]</span>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="main-content">
+  <!-- Background Lateral -->
+  <div class="bg-lateral">
+    <img src="images/background/bg_fundo.png" alt="Background">
+  </div>
+
+  <!-- Content Area -->
+  <div class="content-area">
+    <p class="welcome-text">
+      <span class="greeting">Boas vindas, </span>
+      <span class="username">ADM</span>
+    </p>
+
+    <div class="main-title">
+      <div class="sinacor">SINACOR</div>
+      <div class="renda-fixa">RENDA FIXA</div>
+    </div>
+
+    <section class="modules-section">
+      <h2 class="modules-title">SOLUÇÕES E MÓDULOS PARA VOCÊ</h2>
+
+      <div class="modules-grid">
+        <!-- Linha 1 -->
+        <div class="modules-row">
+          @for (item of modulesRow1; track item.label; let i = $index) {
+            @if (item.submenu) {
+              <div class="module-dropdown" [class.active]="activeDropdown() === i">
+                <a href="#" class="module-btn" (click)="toggleDropdown(i, $event)">
+                  <span class="icon">
+                    <img [src]="item.icon" [alt]="item.label">
+                  </span>
+                  <span class="label">{{ item.label }}</span>
+                </a>
+                <div class="dropdown-menu">
+                  @for (subItem of item.submenu; track subItem.label) {
+                    @if (hasSubmenu(subItem)) {
+                      <div class="dropdown-submenu">
+                        <a href="#">{{ subItem.label }}</a>
+                        <div class="submenu">
+                          @for (subSubItem of subItem.submenu; track subSubItem.label) {
+                            <a [href]="subSubItem.link || '#'">{{ subSubItem.label }}</a>
+                          }
+                        </div>
+                      </div>
+                    } @else {
+                      <a [href]="subItem.link || '#'">{{ subItem.label }}</a>
+                    }
+                  }
+                </div>
+              </div>
+            } @else {
+              <a href="#" class="module-btn" 
+                 [attr.data-module]="item.dataModule"
+                 [class.highlight]="isHighlighted(item.dataModule)">
+                <span class="icon">
+                  <img [src]="item.icon" [alt]="item.label">
+                </span>
+                <span class="label">{{ item.label }}</span>
+              </a>
+            }
+          }
+        </div>
+
+        <!-- Linha 2 -->
+        <div class="modules-row">
+          @for (item of modulesRow2; track item.label; let i = $index) {
+            @if (item.submenu) {
+              <div class="module-dropdown" [class.active]="activeDropdown() === (i + 100)">
+                <a href="#" class="module-btn" (click)="toggleDropdown(i + 100, $event)">
+                  <span class="icon">
+                    <img [src]="item.icon" [alt]="item.label">
+                  </span>
+                  <span class="label">{{ item.label }}</span>
+                </a>
+                <div class="dropdown-menu">
+                  @for (subItem of item.submenu; track subItem.label) {
+                    @if (hasSubmenu(subItem)) {
+                      <div class="dropdown-submenu">
+                        <a href="#">{{ subItem.label }}</a>
+                        <div class="submenu">
+                          @for (subSubItem of subItem.submenu; track subSubItem.label) {
+                            <a [href]="subSubItem.link || '#'">{{ subSubItem.label }}</a>
+                          }
+                        </div>
+                      </div>
+                    } @else {
+                      <a [href]="subItem.link || '#'">{{ subItem.label }}</a>
+                    }
+                  }
+                </div>
+              </div>
+            } @else {
+              @if (item.dataModule === 'relatorios') {
+                <a href="#" class="module-btn" 
+                   [attr.data-module]="item.dataModule"
+                   (click)="onRelatoriosClick($event)">
+                  <span class="icon">
+                    <img [src]="item.icon" [alt]="item.label">
+                  </span>
+                  <span class="label">{{ item.label }}</span>
+                </a>
+              } @else {
+                <a href="#" class="module-btn" 
+                   [attr.data-module]="item.dataModule"
+                   [class.highlight]="isHighlighted(item.dataModule)">
+                  <span class="icon">
+                    <img [src]="item.icon" [alt]="item.label">
+                  </span>
+                  <span class="label">{{ item.label }}</span>
+                </a>
+              }
+            }
+          }
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <span class="footer-text">Copyright © 2025 SINACOR RENDA FIXA</span>
+  <div class="footer-logo">
+    <img src="icons/Logo.svg" alt="B3 Logo">
+  </div>
+  <span class="footer-text">Versão 22.3.1.1475 / Angular: 21</span>
+</footer>
