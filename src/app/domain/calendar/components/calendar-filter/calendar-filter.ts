@@ -1,12 +1,10 @@
 import { Component, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonPrimary } from 'widget/components/buttons/button-primary/button-primary';
-import { ButtonSecondary } from 'widget/components/buttons/button-secondary/button-secondary';
 
 @Component({
   selector: 'srf-b3-calendar-filter',
   standalone: true,
-  imports: [FormsModule, ButtonPrimary, ButtonSecondary],
+  imports: [FormsModule],
   templateUrl: './calendar-filter.html',
   styleUrl: './calendar-filter.scss',
 })
@@ -18,9 +16,16 @@ export class CalendarFilter {
 
   readonly searchFilters = output<void>();
   readonly clearFilters = output<void>();
+  readonly exportData = output<void>();
+
+  hasFilters(): boolean {
+    return !!(this.exchange || this.location || this.segment || this.process);
+  }
 
   onSearch(): void {
-    this.searchFilters.emit();
+    if (this.hasFilters()) {
+      this.searchFilters.emit();
+    }
   }
 
   onClear(): void {
@@ -29,5 +34,9 @@ export class CalendarFilter {
     this.segment = '';
     this.process = '';
     this.clearFilters.emit();
+  }
+
+  onExport(): void {
+    this.exportData.emit();
   }
 }

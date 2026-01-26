@@ -39,4 +39,8 @@ export default class Calendar {
     this.isModalOpen.set(false);
     this.selectedItem.set(null);
   }
+
+  onExport(): void {
+    console.log('Exportar calendário');
+  }
 }

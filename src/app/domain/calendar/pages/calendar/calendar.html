@@ -1,21 +1,67 @@
 <main class="calendar-page">
+  <!-- Topo Sinacor (Header) -->
+  <header class="topo-sinacor">
+    <div class="topo-sinacor-content">
+      <div class="logo-section">
+        <svg class="menu-icon" width="13" height="11" viewBox="0 0 13 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 0H0V1.51724H13V0Z" fill="white"/>
+          <path d="M13 9.48276H0V11H13V9.48276Z" fill="white"/>
+          <path d="M13 4.74138H0V6.25862H13V4.74138Z" fill="white"/>
+        </svg>
+        <svg class="logo-b3" width="29" height="27" viewBox="0 0 29 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M28.9481 4.02778C28.9481 4.5404 28.7293 4.9798 28.3647 5.34596C27.9272 5.71212 27.4168 5.85859 26.8335 5.85859C26.2502 5.85859 25.7397 5.71212 25.3752 5.34596C25.0106 5.05303 24.7189 4.61364 24.646 4.02778H26.1772C26.3231 4.32071 26.5418 4.5404 26.8335 4.5404C27.0522 4.5404 27.1981 4.5404 27.271 4.39394C27.4897 4.32071 27.4897 4.17424 27.4897 4.02778C27.4897 3.88131 27.4168 3.73485 27.3439 3.66162C27.1981 3.58838 27.0522 3.51515 26.8335 3.51515H26.3231V2.34343H26.8335C27.0522 2.34343 27.1981 2.34343 27.271 2.19697C27.3439 2.12374 27.4168 1.97727 27.4168 1.83081C27.4168 1.68434 27.3439 1.53788 27.271 1.39141C27.1981 1.31818 26.9793 1.24495 26.8335 1.24495C26.6147 1.24495 26.4689 1.31818 26.396 1.46465C26.3231 1.53788 26.2502 1.61111 26.2502 1.75758H24.7918C24.8647 1.17172 25.0835 0.732323 25.521 0.439394C25.8127 0.146465 26.2502 0 26.8335 0C27.4168 0 27.9272 0.146465 28.2918 0.512626C28.6564 0.878788 28.8752 1.24495 28.8752 1.83081C28.8752 2.34343 28.6564 2.63636 28.2918 2.92929C28.7293 3.07576 28.9481 3.51515 28.9481 4.02778Z" fill="white"/>
+          <path d="M17.573 24.2402V25.9978H22.8959V2.05078H17.573V3.88159H21.1459V24.3134H17.573V24.2402Z" fill="white"/>
+          <path d="M12.5419 18.6742H8.75024V15.3787H12.5419C13.4169 15.3787 14.0732 16.111 14.0732 16.9898C14.0732 17.9418 13.344 18.6742 12.5419 18.6742ZM8.75024 9.37366H12.1773C13.0523 9.37366 13.7086 10.106 13.7086 10.9848C13.7086 11.8636 12.9794 12.5959 12.1773 12.5959H8.75024V9.37366ZM16.1877 13.6944C16.6982 12.962 17.0627 12.0833 17.0627 11.058C17.0627 8.64134 15.1669 6.66406 12.9065 6.66406H5.25024V12.6691V15.3787V21.3838H9.11483H13.4898C15.7502 21.3838 17.6461 19.4065 17.6461 16.9898C17.719 15.6716 17.1357 14.4999 16.1877 13.6944Z" fill="white"/>
+          <path d="M5.32292 3.80836V2.05078H0V26.071H5.32292V24.3134H1.75V3.80836H5.32292Z" fill="white"/>
+        </svg>
+        <span class="logo-text">Sinacor Renda Fixa</span>
+      </div>
+      <div class="user-section">
+        <div class="user-avatar">
+          <svg viewBox="0 0 37 37" width="37" height="37">
+            <circle cx="18.5" cy="18.5" r="18.5" fill="#386BAA"/>
+            <circle cx="18.5" cy="13.5" r="6" fill="#7295BF"/>
+            <path d="M8 32C8 25 12.5 20 18.5 20C24.5 20 29 25 29 32" fill="#7295BF"/>
+          </svg>
+        </div>
+        <span class="user-company">Empresa [UAT 3099]</span>
+      </div>
+    </div>
+  </header>
+
   <!-- Breadcrumb -->
   <nav class="breadcrumb">
-    <span>PÁGINA INICIAL</span>
-    <span class="separator">›</span>
-    <span>ADMINISTRATIVO</span>
-    <span class="separator">›</span>
-    <span class="current">CALENDÁRIO POR PRAÇA</span>
+    <div class="breadcrumb-content">
+      <span class="breadcrumb-item">PÁGINA INICIAL</span>
+      <svg class="breadcrumb-separator" viewBox="0 0 5 9" width="5" height="9">
+        <path d="M0.5 0.5L4 4.5L0.5 8.5" stroke="currentColor" stroke-width="1" fill="none"/>
+      </svg>
+      <span class="breadcrumb-item">ADMINISTRATIVO</span>
+      <svg class="breadcrumb-separator" viewBox="0 0 5 9" width="5" height="9">
+        <path d="M0.5 0.5L4 4.5L0.5 8.5" stroke="currentColor" stroke-width="1" fill="none"/>
+      </svg>
+      <span class="breadcrumb-item current">CALENDÁRIO POR PRAÇA</span>
+    </div>
   </nav>
 
-  <!-- Título -->
-  <h1 class="page-title">Calendário por Praça</h1>
+  <!-- Header da Tela -->
+  <div class="screen-header">
+    <h1 class="screen-title">Calendário por Praça</h1>
+  </div>
 
-  <!-- Filtro -->
-  <srf-b3-calendar-filter (searchFilters)="onSearch()" (clearFilters)="onClear()" />
+  <!-- Conteúdo Principal -->
+  <div class="main-content">
+    <!-- Filtro -->
+    <div class="filter-section">
+      <srf-b3-calendar-filter (searchFilters)="onSearch()" (clearFilters)="onClear()" />
+    </div>
 
-  <!-- Grid -->
-  <srf-b3-calendar-grid [items]="calendarItems()" (rowClick)="onRowClick($event)" />
+    <!-- Grid -->
+    <div class="grid-section">
+      <srf-b3-calendar-grid [items]="calendarItems()" (rowClick)="onRowClick($event)" (export)="onExport()" />
+      <p class="results-info">4 resultados disponíveis.</p>
+    </div>
+  </div>
 
   <!-- Modal -->
   <srf-b3-calendar-view-modal
@@ -23,4 +69,18 @@
     [calendarItem]="selectedItem()"
     (closeModal)="onCloseModal()"
   />
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="footer-content">
+      <span class="footer-text">Copyright © 2026 SINACOR RENDA FIXA</span>
+      <svg class="footer-logo" width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13.3244 1.85393C13.3244 2.08989 13.2238 2.29213 13.0559 2.46067C12.8546 2.62921 12.6196 2.69663 12.3511 2.69663C12.0826 2.69663 11.8477 2.62921 11.6799 2.46067C11.5121 2.32584 11.3778 2.12359 11.3443 1.85393H12.0491C12.1162 1.98876 12.2169 2.08989 12.3511 2.08989C12.4518 2.08989 12.5189 2.08989 12.5525 2.02247C12.6532 1.98876 12.6532 1.92135 12.6532 1.85393C12.6532 1.78652 12.6196 1.7191 12.5861 1.68539C12.5189 1.65168 12.4518 1.61798 12.3511 1.61798H12.1162V1.07865H12.3511C12.4518 1.07865 12.5189 1.07865 12.5525 1.01124C12.5861 0.977527 12.6196 0.910112 12.6196 0.842696C12.6196 0.77528 12.5861 0.707865 12.5525 0.640449C12.5189 0.606741 12.4183 0.573033 12.3511 0.573033C12.2504 0.573033 12.1833 0.606741 12.1498 0.674157C12.1162 0.707865 12.0826 0.741573 12.0826 0.808988H11.4114C11.4449 0.539325 11.5456 0.337078 11.747 0.202247C11.8813 0.0674157 12.0826 0 12.3511 0C12.6196 0 12.8546 0.0674157 13.0224 0.235955C13.1902 0.404494 13.2909 0.573033 13.2909 0.842696C13.2909 1.07865 13.1902 1.21348 13.0224 1.34831C13.2238 1.41573 13.3244 1.61798 13.3244 1.85393Z" fill="currentColor"/>
+        <path d="M8.08859 11.1573V11.9663H10.5387V0.943828H8.08859V1.78652H9.73316V11.191H8.08859V11.1573Z" fill="currentColor"/>
+        <path d="M5.77282 8.5955H4.02757V7.07864H5.77282C6.17557 7.07864 6.47764 7.41572 6.47764 7.82022C6.47764 8.25842 6.14201 8.5955 5.77282 8.5955ZM4.02757 4.3146H5.60501C6.00776 4.3146 6.30982 4.65168 6.30982 5.05617C6.30982 5.46067 5.9742 5.79775 5.60501 5.79775H4.02757V4.3146ZM7.45095 6.30336C7.68589 5.96628 7.8537 5.56179 7.8537 5.08988C7.8537 3.97752 6.98108 3.06741 5.94064 3.06741H2.41657V9.84269H6.20914C7.24958 9.84269 8.1222 8.93257 8.1222 7.82022C8.15576 7.21347 7.88726 6.67415 7.45095 6.30336Z" fill="currentColor"/>
+        <path d="M2.45007 1.75282V0.943828H0V12H2.45007V11.191H0.805501V1.75282H2.45007Z" fill="currentColor"/>
+      </svg>
+      <span class="footer-version">Versão 22.3.1.1475 / Angular: 21.1.0</span>
+    </div>
+  </footer>
 </main>

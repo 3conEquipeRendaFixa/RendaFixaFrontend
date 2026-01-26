@@ -1,38 +1,409 @@
+@use 'styles/variables' as v;
+
+// Typography
+$font-family: 'Rubik', sans-serif;
+$font-size-sm: 12px;
+
+// Spacing
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 12px;
+$spacing-lg: 15px;
+
 .grid-container {
   width: 100%;
+  height: 100%;
+  background-color: v.$color-white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.btn-export-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: v.$color-neutral-600;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.grid-wrapper {
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .grid-table {
   width: 100%;
   border-collapse: collapse;
+  background-color: v.$color-white;
+  font-family: $font-family;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
-  th, td {
-    padding: 12px;
-    text-align: left;
+  thead {
+    background-color: v.$color-data-table-header;
+    flex-shrink: 0;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+
+    tr {
+      border: 1px solid v.$color-border;
+    }
+
+    th {
+      padding: 0;
+      text-align: left;
+      font-weight: 500;
+      font-size: $font-size-sm;
+      color: v.$color-neutral-600;
+      user-select: none;
+      border-right: 1px solid v.$color-border;
+      height: 35px;
+      line-height: 35px;
+      background-color: v.$color-data-table-header;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: darken(#E1E8F0, 3%);
+      }
+
+      &:last-child {
+        border-right: none;
+      }
+
+      .header-content {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: #{$spacing-xs};
+        padding: 0;
+        padding-left: 12px;
+        height: 100%;
+        width: 100%;
+      }
+
+      .header-text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        letter-spacing: -0.03em;
+      }
+
+      .sort-icon {
+        width: 14px;
+        height: 18px;
+        opacity: 0.5;
+        flex-shrink: 0;
+        color: currentColor;
+        transition: opacity 0.2s ease;
+      }
+
+      &:hover .sort-icon {
+        opacity: 0.8;
+      }
+    }
+
+    // Column Width Definitions - Proporcionais
+    .col-institution {
+      width: 16%;
+      border-radius: 5px 0 0 0;
+    }
+
+    .col-location {
+      width: 16%;
+    }
+
+    .col-segment {
+      width: 16%;
+    }
+
+    .col-process {
+      width: 31%;
+    }
+
+    .col-saturday {
+      width: 9%;
+    }
+
+    .col-sunday {
+      width: 9%;
+    }
+
+    .col-action {
+      width: 3%;
+      min-width: 35px;
+      border-radius: 0 5px 0 0;
+    }
   }
 
-  thead tr {
-    border-bottom: 2px solid currentColor;
-  }
+  tbody {
+    background-color: v.$color-white;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: block;
+    width: 100%;
 
-  tbody tr {
-    border-bottom: 1px solid currentColor;
+    tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+      border-bottom: 1px solid v.$color-border;
+      border-left: 1px solid v.$color-border;
+      border-right: 1px solid v.$color-border;
+      transition: background-color 0.15s ease;
+      cursor: pointer;
+
+      &:hover {
+        background-color: v.$color-bg;
+
+        .action-button {
+          opacity: 1;
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid #2660f0;
+        outline-offset: -1px;
+      }
+
+      &:last-child {
+        border-bottom: 1px solid v.$color-border;
+      }
+
+      td {
+        padding: 0;
+        text-align: left;
+        font-size: $font-size-sm;
+        font-weight: 400;
+        color: v.$color-neutral-500;
+        border-right: 1px solid v.$color-border;
+        height: 35px;
+        vertical-align: middle;
+        line-height: 35px;
+        letter-spacing: -0.03em;
+        background-color: transparent;
+
+        &:last-child {
+          border-right: none;
+        }
+
+        .cell-content {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          padding: 0;
+          padding-left: 12px;
+          width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          height: 100%;
+          line-height: 35px;
+        }
+      }
+
+      // Column Classes - Proporcionais
+      .col-institution {
+        width: 16%;
+      }
+
+      .col-location {
+        width: 16%;
+      }
+
+      .col-segment {
+        width: 16%;
+      }
+
+      .col-process {
+        width: 31%;
+      }
+
+      .col-saturday {
+        width: 9%;
+      }
+
+      .col-sunday {
+        width: 9%;
+      }
+
+      .col-action {
+        text-align: center;
+        width: 3%;
+        min-width: 35px;
+        padding: 0;
+      }
+    }
   }
 }
 
 .grid-row {
+  &:active {
+    background-color: darken(#F8F9FB, 2%);
+  }
+
+  &:focus-within .action-button {
+    opacity: 1;
+  }
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: #{$spacing-sm};
   cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+  height: 35px;
+  width: 35px;
+  border-radius: 3px;
+
+  &:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #2660f0;
+    outline-offset: -1px;
+  }
+
+  &:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .calendar-icon {
+    width: 15px;
+    height: 17px;
+    color: v.$color-neutral-500;
+    flex-shrink: 0;
+  }
 }
 
-.action-cell {
-  text-align: center;
+// Responsive Design
+@media (max-width: 1024px) {
+  .grid-table {
+    font-size: 11px;
+
+    thead th {
+      .header-content {
+        padding: #{$spacing-sm} #{$spacing-md};
+      }
+
+      .header-text {
+        font-size: 11px;
+      }
+    }
+
+    tbody td {
+      font-size: 11px;
+      height: 32px;
+
+      .cell-content {
+        padding: 0 #{$spacing-md};
+      }
+    }
+  }
 }
 
-.btn-calendar {
-  padding: 8px;
-  cursor: pointer;
-}
+@media (max-width: 768px) {
+  .grid-container {
+    overflow-x: auto;
+  }
 
-.grid-footer {
-  padding: 12px;
+  .grid-table {
+    min-width: 100%;
+    font-size: 10px;
+
+    thead th {
+      .header-content {
+        padding: #{$spacing-xs} #{$spacing-sm};
+        gap: #{$spacing-xs};
+      }
+
+      .header-text {
+        font-size: 10px;
+      }
+
+      .sort-icon {
+        width: 12px;
+        height: 16px;
+      }
+    }
+
+    tbody td {
+      font-size: 10px;
+      height: 30px;
+
+      .cell-content {
+        padding: 0 #{$spacing-sm};
+      }
+    }
+
+    .col-institution {
+      min-width: 150px;
+    }
+
+    .col-location {
+      min-width: 120px;
+    }
+
+    .col-segment {
+      min-width: 120px;
+    }
+
+    .col-process {
+      min-width: 150px;
+    }
+
+    .col-saturday {
+      min-width: 80px;
+    }
+
+    .col-sunday {
+      min-width: 80px;
+    }
+
+    .col-action {
+      min-width: 30px;
+    }
+
+    .action-button {
+      padding: #{$spacing-xs};
+      height: 30px;
+      width: 30px;
+
+      .calendar-icon {
+        width: 12px;
+        height: 14px;
+      }
+    }
+  }
 }

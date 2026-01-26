@@ -34,7 +34,13 @@
             ],
             "styles": [
               "src/styles.scss"
-            ]
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src",
+                "src/styles"
+              ]
+            }
           },
           "configurations": {
             "production": {

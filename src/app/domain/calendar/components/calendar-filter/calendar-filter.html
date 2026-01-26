@@ -1,44 +1,68 @@
 <section class="filter-container">
-  <div class="filter-row">
-    <div class="filter-field">
-      <label for="exchange">Instituição</label>
-      <select id="exchange" [(ngModel)]="exchange">
-        <option value="">Selecione...</option>
-        <option value="B3">B3</option>
-        <option value="BCB">BCB</option>
-      </select>
+  <div class="filter-wrapper">
+    <div class="filter-input-group">
+      <div class="filter-fields-box">
+        <div class="filter-field">
+          <label for="exchange" class="filter-label">Instituição</label>
+          <select id="exchange" [(ngModel)]="exchange" class="filter-select">
+            <option value="">Selecione</option>
+            <option value="B3">B3</option>
+            <option value="BCB">BCB</option>
+          </select>
+        </div>
+
+        <div class="filter-field">
+          <label for="location" class="filter-label">Praça</label>
+          <select id="location" [(ngModel)]="location" class="filter-select">
+            <option value="">Selecione</option>
+            <option value="São Paulo">São Paulo</option>
+          </select>
+        </div>
+
+        <div class="filter-field">
+          <label for="segment" class="filter-label">Segmento</label>
+          <select id="segment" [(ngModel)]="segment" class="filter-select">
+            <option value="">Selecione</option>
+            <option value="Cetip UTVM">Cetip UTVM</option>
+            <option value="Listados">Listados</option>
+            <option value="Selic">Selic</option>
+          </select>
+        </div>
+
+        <div class="filter-field">
+          <label for="process" class="filter-label">Processo</label>
+          <select id="process" [(ngModel)]="process" class="filter-select">
+            <option value="">Selecione</option>
+            <option value="Registro">Registro</option>
+            <option value="Liquidação">Liquidação</option>
+          </select>
+        </div>
+      </div>
     </div>
 
-    <div class="filter-field">
-      <label for="location">Praça</label>
-      <select id="location" [(ngModel)]="location">
-        <option value="">Selecione...</option>
-        <option value="São Paulo">São Paulo</option>
-      </select>
+    <div class="filter-actions">
+      <button class="btn-filter-dropdown" aria-label="Expandir filtros">
+        <svg viewBox="0 0 14 9" width="14" height="9" fill="none">
+          <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+      <button 
+        class="btn-search" 
+        [disabled]="!hasFilters()" 
+        (click)="onSearch()"
+        aria-label="Pesquisar">
+        <svg class="btn-search-icon" viewBox="0 0 15 15" width="15" height="15" fill="none">
+          <circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M10 10L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        Pesquisar
+      </button>
+      <button class="btn-export" (click)="onExport()" aria-label="Exportar">
+        <svg class="export-icon" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 0.5H30C32.4853 0.5 34.5 2.51472 34.5 5V30C34.5 32.4853 32.4853 34.5 30 34.5H5C2.51472 34.5 0.5 32.4853 0.5 30V5C0.5 2.51472 2.51472 0.5 5 0.5Z" stroke="#2660F0"/>
+          <path d="M10.6572 10H18.783L22.4394 13.6564V17.2002H21.1303V15.2365H17.2029V11.3091H11.9664V23.0913H15.8937V24.4004H10.6572V10ZM18.512 11.5801V13.9274H20.8593L18.512 11.5801ZM21.163 18.5669L24.3429 21.7835L21.163 25L20.2322 24.0797L21.8555 22.438H17.2016V21.1289H21.8555L20.2322 19.4873L21.163 18.5669Z" fill="#2660F0"/>
+        </svg>
+      </button>
     </div>
-
-    <div class="filter-field">
-      <label for="segment">Segmento</label>
-      <select id="segment" [(ngModel)]="segment">
-        <option value="">Selecione...</option>
-        <option value="Cetip UTVM">Cetip UTVM</option>
-        <option value="Listados">Listados</option>
-        <option value="Selic">Selic</option>
-      </select>
-    </div>
-
-    <div class="filter-field">
-      <label for="process">Processo</label>
-      <select id="process" [(ngModel)]="process">
-        <option value="">Selecione...</option>
-        <option value="Registro">Registro</option>
-        <option value="Liquidação">Liquidação</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="filter-actions">
-    <srf-b3-button-secondary (clicked)="onClear()">Limpar</srf-b3-button-secondary>
-    <srf-b3-button-primary (clicked)="onSearch()">Pesquisar</srf-b3-button-primary>
   </div>
 </section>

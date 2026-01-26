@@ -1,11 +1,10 @@
 import { Component, input, output } from '@angular/core';
 import { CalendarItem } from '@domain/calendar/types/interfaces/calendar.interface';
-import { ButtonIcon } from 'widget/components/buttons/button-icon/button-icon';
 
 @Component({
   selector: 'srf-b3-calendar-grid',
   standalone: true,
-  imports: [ButtonIcon],
+  imports: [],
   templateUrl: './calendar-grid.html',
   styleUrl: './calendar-grid.scss',
 })
@@ -13,9 +12,14 @@ export class CalendarGrid {
   readonly items = input<CalendarItem[]>([]);
 
   readonly rowClick = output<CalendarItem>();
+  readonly export = output<void>();
 
   onRowClick(item: CalendarItem): void {
     this.rowClick.emit(item);
+  }
+
+  onExport(): void {
+    this.export.emit();
   }
 
   formatBoolean(value: boolean): string {
