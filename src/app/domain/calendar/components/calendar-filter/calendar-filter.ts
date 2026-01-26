@@ -18,6 +18,21 @@ export class CalendarFilter {
   readonly clearFilters = output<void>();
   readonly exportData = output<void>();
 
+  onExchangeChange(): void {
+    this.location = '';
+    this.segment = '';
+    this.process = '';
+  }
+
+  onLocationChange(): void {
+    this.segment = '';
+    this.process = '';
+  }
+
+  onSegmentChange(): void {
+    this.process = '';
+  }
+
   hasFilters(): boolean {
     return !!(this.exchange || this.location || this.segment || this.process);
   }

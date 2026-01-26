@@ -4,7 +4,7 @@
       <div class="filter-fields-box">
         <div class="filter-field">
           <label for="exchange" class="filter-label">Instituição</label>
-          <select id="exchange" [(ngModel)]="exchange" class="filter-select">
+          <select id="exchange" [(ngModel)]="exchange" class="filter-select" (ngModelChange)="onExchangeChange()">
             <option value="">Selecione</option>
             <option value="B3">B3</option>
             <option value="BCB">BCB</option>
@@ -13,7 +13,7 @@
 
         <div class="filter-field">
           <label for="location" class="filter-label">Praça</label>
-          <select id="location" [(ngModel)]="location" class="filter-select">
+          <select id="location" [(ngModel)]="location" class="filter-select" [disabled]="!exchange" (ngModelChange)="onLocationChange()">
             <option value="">Selecione</option>
             <option value="São Paulo">São Paulo</option>
           </select>
@@ -21,7 +21,7 @@
 
         <div class="filter-field">
           <label for="segment" class="filter-label">Segmento</label>
-          <select id="segment" [(ngModel)]="segment" class="filter-select">
+          <select id="segment" [(ngModel)]="segment" class="filter-select" [disabled]="!location" (ngModelChange)="onSegmentChange()">
             <option value="">Selecione</option>
             <option value="Cetip UTVM">Cetip UTVM</option>
             <option value="Listados">Listados</option>
@@ -31,7 +31,7 @@
 
         <div class="filter-field">
           <label for="process" class="filter-label">Processo</label>
-          <select id="process" [(ngModel)]="process" class="filter-select">
+          <select id="process" [(ngModel)]="process" class="filter-select" [disabled]="!segment">
             <option value="">Selecione</option>
             <option value="Registro">Registro</option>
             <option value="Liquidação">Liquidação</option>
