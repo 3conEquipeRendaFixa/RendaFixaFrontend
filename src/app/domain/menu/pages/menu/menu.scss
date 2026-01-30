@@ -33,8 +33,8 @@
 }
 
 .logo-b3 {
-  width: 35px;
-  height: 30px;
+  width: $logo-header-width;
+  height: $logo-header-height;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -365,8 +365,8 @@
 }
 
 .footer-logo {
-  width: 13px;
-  height: 12px;
+  width: $logo-footer-width;
+  height: $logo-footer-height;
 
   img {
     width: 100%;

@@ -35,8 +35,8 @@ export class MenuComponent {
       label: 'Cadastro de Ativos',
       icon: 'icons/Vector.svg',
       submenu: [
-        { label: 'Títulos Públicos', link: '#' },
-        { label: 'Títulos Privados', link: '#' },
+        { label: 'Títulos Públicos', link: '/asset-registration/public-securities' },
+        { label: 'Títulos Privados', link: '/asset-registration/private-securities'},
         { label: 'Agenda de Eventos', link: '#' }
       ]
     },

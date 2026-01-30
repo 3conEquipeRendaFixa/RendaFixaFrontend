@@ -67,8 +67,8 @@ $border-radius-md: 5px;
     }
 
     .logo-b3 {
-      width: 29px;
-      height: 27px;
+      width: v.$logo-header-width;
+      height: v.$logo-header-height;
       flex-shrink: 0;
     }
 
@@ -244,8 +244,8 @@ $border-radius-md: 5px;
     }
 
     .footer-logo {
-      width: 13.32px;
-      height: 12px;
+      width: v.$logo-footer-width;
+      height: v.$logo-footer-height;
       color: v.$color-text-footer;
     }
   }
