@@ -84,21 +84,17 @@
   text-transform: uppercase;
 }
 
-/* Main Content */
 .main-content {
-  padding-top: 50px;
   min-height: calc(100vh - 25px);
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  padding-bottom: 50px;
 }
 
-/* Background Lateral */
 .bg-lateral {
   position: absolute;
   right: 0;
-  top: 88px;
+  top: 38px;
   width: 449px;
   height: 430px;
   pointer-events: none;
@@ -111,9 +107,8 @@
   }
 }
 
-/* Content Area */
 .content-area {
-  padding: 80px 16px 40px;
+  padding: 64px 16px 70px; 
   position: relative;
   z-index: 1;
 }
@@ -151,7 +146,6 @@
   }
 }
 
-/* Modules Section */
 .modules-section {
   margin-top: 40px;
 }
@@ -176,7 +170,6 @@
   gap: 12px;
 }
 
-/* Button Style */
 .module-btn {
   display: flex;
   align-items: center;
@@ -228,7 +221,6 @@
   }
 }
 
-/* Dropdown */
 .module-dropdown {
   position: relative;
   display: inline-block;
@@ -279,7 +271,6 @@
   }
 }
 
-/* Submenu (dropdown dentro de dropdown) */
 .dropdown-submenu {
   position: relative;
 
@@ -328,7 +319,6 @@
   }
 }
 
-/* Highlight effect for Relatórios */
 .module-btn.highlight {
   animation: highlightPulse 0.5s ease-in-out 3;
 }
@@ -344,7 +334,6 @@
   }
 }
 
-/* Footer */
 .footer {
   position: fixed;
   bottom: 0;
@@ -376,7 +365,6 @@
   }
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .bg-lateral {
     display: none;

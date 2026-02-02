@@ -1,0 +1,340 @@
+@use 'styles/variables' as v;
+
+// Typography
+$font-family: 'Rubik', sans-serif;
+$font-family-secondary: 'Mulish', sans-serif;
+$font-size-sm: 12px;
+
+// Spacing
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 12px;
+$spacing-lg: 15px;
+
+// Border Radius
+$border-radius-sm: 4px;
+
+.grid-container {
+  width: 100%;
+
+  background-color: v.$color-white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: v.$color-white;
+  font-family: $font-family;
+  display: flex;
+  flex-direction: column;
+
+  thead {
+    background-color: v.$color-data-table-header;
+    flex-shrink: 0;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    overflow: hidden;
+
+    tr {
+      border: 1px solid v.$color-border;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+    }
+
+    th {
+      padding: 0;
+      text-align: left;
+      font-weight: 500;
+      font-size: $font-size-sm;
+      color: v.$color-neutral-600;
+      user-select: none;
+      border-right: 1px solid v.$color-border;
+      height: 35px;
+      line-height: 35px;
+      background-color: v.$color-data-table-header;
+      cursor: default;
+      transition: background-color 0.2s ease;
+
+      &.sortable {
+        cursor: pointer;
+
+        &:hover {
+          background-color: darken(#E1E8F0, 3%);
+        }
+      }
+
+      &:first-child {
+        border-top-left-radius: 6px;
+      }
+
+      &:last-child {
+        border-right: none;
+        border-top-right-radius: 6px;
+      }
+
+      .header-content {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: $spacing-xs;
+        padding: 0 $spacing-md;
+        height: 100%;
+        width: 100%;
+      }
+
+      .header-text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        letter-spacing: -0.03em;
+      }
+
+      .sort-icon {
+        width: 15px;
+        height: 18px;
+        opacity: 0.5;
+        flex-shrink: 0;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+
+        &.active {
+          opacity: 1;
+        }
+
+        &.desc {
+          transform: rotate(180deg);
+        }
+      }
+
+      &:hover .sort-icon {
+        opacity: 0.8;
+      }
+    }
+
+    .col-actions {
+      width: 50px;
+      min-width: 50px;
+
+      .header-content {
+        justify-content: center;
+      }
+    }
+  }
+
+  tbody {
+    background-color: v.$color-white;
+    display: block;
+    width: 100%;
+
+    tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+      border-bottom: 1px solid v.$color-border;
+      border-left: 1px solid v.$color-border;
+      border-right: 1px solid v.$color-border;
+      transition: background-color 0.15s ease;
+      cursor: pointer;
+
+      &:hover {
+        background-color: v.$color-bg;
+
+        .action-button {
+          opacity: 1;
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid v.$color-primary;
+        outline-offset: -1px;
+      }
+
+      td {
+        padding: 0;
+        text-align: left;
+        font-size: $font-size-sm;
+        font-weight: 400;
+        color: v.$color-neutral-500;
+        border-right: 1px solid v.$color-border;
+        height: 35px;
+        vertical-align: middle;
+        line-height: 35px;
+        letter-spacing: -0.03em;
+        background-color: transparent;
+
+        &:last-child {
+          border-right: none;
+        }
+
+        .cell-content {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          padding: 0 $spacing-md;
+          width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          height: 100%;
+          line-height: 35px;
+        }
+      }
+
+      .col-actions {
+        width: 50px;
+        min-width: 50px;
+        text-align: center;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.grid-row {
+  &:active {
+    background-color: darken(#F8F9FB, 2%);
+  }
+
+  &:focus-within .action-button {
+    opacity: 1;
+  }
+}
+
+.actions-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  height: 100%;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: $spacing-sm;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+  height: 35px;
+  width: 35px;
+  border-radius: 3px;
+
+  &:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  &:focus-visible {
+    outline: 2px solid v.$color-primary;
+    outline-offset: -1px;
+  }
+
+  &:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .action-icon {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+}
+
+// Results Info
+.results-info {
+  margin-top: $spacing-md;
+  font-family: $font-family-secondary;
+  font-weight: 400;
+  font-size: $font-size-sm;
+  line-height: 1.255;
+  color: #A2A8AE;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+  .grid-table {
+    font-size: 11px;
+
+    thead th {
+      .header-content {
+        padding: $spacing-sm $spacing-md;
+      }
+
+      .header-text {
+        font-size: 11px;
+      }
+    }
+
+    tbody td {
+      font-size: 11px;
+      height: 32px;
+
+      .cell-content {
+        padding: 0 $spacing-md;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    overflow-x: auto;
+  }
+
+  .grid-table {
+    min-width: 100%;
+    font-size: 10px;
+
+    thead th {
+      .header-content {
+        padding: $spacing-xs $spacing-sm;
+        gap: $spacing-xs;
+      }
+
+      .header-text {
+        font-size: 10px;
+      }
+
+      .sort-icon {
+        width: 12px;
+        height: 16px;
+      }
+    }
+
+    tbody td {
+      font-size: 10px;
+      height: 30px;
+
+      .cell-content {
+        padding: 0 $spacing-sm;
+      }
+    }
+
+    .action-button {
+      padding: $spacing-xs;
+      height: 30px;
+      width: 30px;
+
+      .action-icon {
+        width: 12px;
+        height: 14px;
+      }
+    }
+  }
+}

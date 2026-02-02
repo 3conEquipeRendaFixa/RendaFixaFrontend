@@ -138,11 +138,18 @@
 .footer-logo {
 	width: v.$logo-footer-width;
 	height: v.$logo-footer-height;
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 10;
 
-	img {
-		width: 100%;
-		height: 100%;
-		object-fit: contain;
-		filter: brightness(0) saturate(100%) invert(73%) sepia(6%) saturate(415%) hue-rotate(169deg) brightness(91%) contrast(89%);
-	}
+	   img {
+		   width: 100%;
+		   height: 100%;
+		   object-fit: contain;
+		   filter: brightness(0) saturate(100%) invert(73%) sepia(6%) saturate(415%) hue-rotate(169deg) brightness(91%) contrast(89%);
+		   display: block;
+	   }
 }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PublicSecurities } from './public-securities';
+import { Breadcrumb } from './breadcrumb';
 
-describe('PublicSecurities', () => {
-  let component: PublicSecurities;
-  let fixture: ComponentFixture<PublicSecurities>;
+describe('Breadcrumb', () => {
+  let component: Breadcrumb;
+  let fixture: ComponentFixture<Breadcrumb>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PublicSecurities]
+      imports: [Breadcrumb]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PublicSecurities);
+    fixture = TestBed.createComponent(Breadcrumb);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

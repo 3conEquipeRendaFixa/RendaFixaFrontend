@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PrivateSecurities } from './private-securities';
+import { Grid } from './grid';
 
-describe('PrivateSecurities', () => {
-  let component: PrivateSecurities;
-  let fixture: ComponentFixture<PrivateSecurities>;
+describe('Grid', () => {
+  let component: Grid;
+  let fixture: ComponentFixture<Grid>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PrivateSecurities]
+      imports: [Grid]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PrivateSecurities);
+    fixture = TestBed.createComponent(Grid);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

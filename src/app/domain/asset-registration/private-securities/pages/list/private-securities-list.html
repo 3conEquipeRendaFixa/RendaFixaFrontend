@@ -1,0 +1,175 @@
+<main class="private-securities-page">
+  <srf-b3-breadcrumb [items]="breadcrumbItems" />
+
+  <div class="screen-header">
+    <h1 class="screen-title">Títulos Privados</h1>
+  </div>
+
+  <div class="main-content">
+    <section class="filter-section">
+      <div class="filter-container">
+        <div class="filter-row">
+          <div class="filter-field">
+            <label for="tipoAtivo" class="filter-label">Tipo do Ativo<span class="required">*</span></label>
+            <div class="select-wrapper">
+              <select 
+                id="tipoAtivo"
+                class="filter-select"
+                [(ngModel)]="filters.tipoAtivo">
+                <option value="">Selecione...</option>
+                <option value="DEB">DEB</option>
+                <option value="CRI">CRI</option>
+                <option value="CRA">CRA</option>
+                <option value="CBIO">CBIO</option>
+                <option value="CFF">CFF</option>
+                <option value="LF">LF</option>
+                <option value="LCI">LCI</option>
+                <option value="LCA">LCA</option>
+                <option value="CDB">CDB</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filter-field">
+            <label for="codigoAtivo" class="filter-label">Código do Ativo</label>
+            <input 
+              id="codigoAtivo"
+              type="text" 
+              class="filter-input"
+              placeholder="Digite..." 
+              [(ngModel)]="filters.codigoAtivo"
+            />
+          </div>
+
+          <div class="filter-field">
+            <label for="apelidoAtivo" class="filter-label">Apelido do Ativo</label>
+            <input 
+              id="apelidoAtivo"
+              type="text" 
+              class="filter-input"
+              placeholder="Digite..." 
+              [(ngModel)]="filters.apelidoAtivo"
+            />
+          </div>
+
+          <div class="filter-field">
+            <label for="emissor" class="filter-label">Emissor (Razão Social)</label>
+            <input 
+              id="emissor"
+              type="text" 
+              class="filter-input"
+              placeholder="Digite..." 
+              [(ngModel)]="filters.emissor"
+            />
+          </div>
+        </div>
+
+        <div class="filter-row">
+          <div class="filter-field">
+            <label for="dataEmissao" class="filter-label">Data Emissão</label>
+            <div class="date-range-group">
+              <div class="date-input-wrapper">
+                <input 
+                  id="dataEmissao"
+                  type="text" 
+                  class="filter-input date-input"
+                  placeholder="DD/MM/AAAA" 
+                  [(ngModel)]="filters.dataEmissao"
+                />
+                <img src="icons/calendario.svg" alt="" class="calendar-icon" />
+              </div>
+              <span class="date-separator">Até</span>
+              <div class="date-input-wrapper">
+                <input 
+                  type="text" 
+                  class="filter-input date-input"
+                  placeholder="DD/MM/AAAA" 
+                />
+                <img src="icons/calendario.svg" alt="" class="calendar-icon" />
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-field">
+            <label for="dataVencimento" class="filter-label">Data Vencimento</label>
+            <div class="date-range-group">
+              <div class="date-input-wrapper">
+                <input 
+                  id="dataVencimento"
+                  type="text" 
+                  class="filter-input date-input"
+                  placeholder="DD/MM/AAAA" 
+                  [(ngModel)]="filters.dataVencimento"
+                />
+                <img src="icons/calendario.svg" alt="" class="calendar-icon" />
+              </div>
+              <span class="date-separator">Até</span>
+              <div class="date-input-wrapper">
+                <input 
+                  type="text" 
+                  class="filter-input date-input"
+                  placeholder="DD/MM/AAAA" 
+                />
+                <img src="icons/calendario.svg" alt="" class="calendar-icon" />
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-field filter-field-with-switch">
+            <label for="situacaoAtivo" class="filter-label">Situação do Ativo</label>
+            <div class="situacao-row">
+              <div class="select-wrapper">
+                <select 
+                  id="situacaoAtivo"
+                  class="filter-select"
+                  [(ngModel)]="filters.situacaoAtivo">
+                  <option value="">Selecione...</option>
+                  <option value="Confirmado sem Restrição">Confirmado sem Restrição</option>
+                  <option value="Pendente">Pendente</option>
+                  <option value="Cancelado">Cancelado</option>
+                </select>
+              </div>
+              <div class="inadimplente-switch">
+                <label class="switch-label">Inadimplente</label>
+                <label class="switch">
+                  <input type="checkbox" [(ngModel)]="inadimplenteSwitch">
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      @if (appliedFilters.length > 0) {
+        <div class="filter-chips">
+          @for (filter of appliedFilters; track filter.key) {
+            <div class="filter-chip">
+              <div class="chip-label">{{ filter.label }}</div>
+              <div class="chip-value">
+                <span>{{ filter.value }}</span>
+                <button class="chip-remove" (click)="removeFilter(filter.key)" aria-label="Remover filtro">
+                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+                    <path d="M6 2L2 6M2 2L6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </section>
+
+    <div class="grid-section">
+      <srf-b3-grid 
+        [columns]="gridColumns"
+        [data]="securities"
+        [actions]="gridActions"
+        [trackByKey]="'codigo'"
+        (rowClick)="onRowClick($event)"
+        (actionClick)="onActionClick($event)"
+      />
+      <p class="results-info">{{ filteredResults }} resultados disponíveis</p>
+    </div>
+  </div>
+</main>
