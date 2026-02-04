@@ -1,0 +1,368 @@
+@use 'styles/variables' as v;
+
+// Typography
+$font-family: 'Rubik', sans-serif;
+$font-family-secondary: 'Mulish', sans-serif;
+$font-size-xs: 10px;
+$font-size-sm: 12px;
+$font-size-base: 16px;
+
+// Spacing
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 12px;
+$spacing-lg: 16px;
+
+// Border Radius
+$border-radius-sm: 4px;
+$border-radius-md: 5px;
+
+.private-bound-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #F8FAFB;
+  font-family: $font-family;
+  color: v.$color-neutral-700;
+}
+
+// Screen Header
+.screen-header {
+  padding: $spacing-lg;
+  flex-shrink: 0;
+}
+
+.screen-title {
+  font-family: $font-family;
+  font-weight: 500;
+  font-size: $font-size-base;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  color: v.$color-secondary;
+  margin: 0;
+}
+
+// Main Content
+.main-content {
+  flex: 1;
+  padding: 0 $spacing-lg $spacing-lg;
+  display: flex;
+  flex-direction: column;
+}
+
+// Filter Section
+.filter-section {
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+.filter-container {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.filter-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: $spacing-md;
+  margin-bottom: $spacing-md;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .filter-label {
+    font-family: $font-family;
+    font-weight: 400;
+    font-size: $font-size-xs;
+    line-height: 1.185em;
+    color: v.$color-neutral-500;
+
+    .required {
+      color: v.$color-danger;
+      margin-left: 2px;
+    }
+  }
+
+  .filter-input {
+    width: 100%;
+    padding: 0 8px;
+    height: 30px;
+    border: 1px solid v.$color-border;
+    border-radius: $border-radius-md;
+    background-color: v.$color-white;
+    color: v.$color-neutral-600;
+    font-family: $font-family;
+    font-size: $font-size-sm;
+    font-weight: 400;
+
+    &::placeholder {
+      color: v.$color-neutral-300;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: v.$color-primary;
+    }
+
+    &:hover {
+      background-color: v.$color-bg;
+    }
+  }
+}
+
+// Field with switch inline (Situação + Inadimplente)
+.filter-field-with-switch {
+  .situacao-row {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+
+    .select-wrapper {
+      flex: 1;
+    }
+
+    .inadimplente-switch {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      white-space: nowrap;
+
+      .switch-label {
+        font-family: $font-family;
+        font-weight: 400;
+        font-size: $font-size-xs;
+        color: v.$color-neutral-500;
+      }
+    }
+  }
+}
+
+// Select wrapper with dropdown arrow
+.select-wrapper {
+  position: relative;
+  width: 100%;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid v.$color-neutral-400;
+    pointer-events: none;
+  }
+}
+
+.filter-select {
+  width: 100%;
+  padding: 0 32px 0 8px;
+  height: 30px;
+  border: 1px solid v.$color-border;
+  border-radius: $border-radius-md;
+  background-color: v.$color-white;
+  color: v.$color-neutral-300;
+  font-family: $font-family;
+  font-size: $font-size-sm;
+  font-weight: 400;
+  cursor: pointer;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+    border-color: v.$color-primary;
+  }
+
+  &:hover {
+    background-color: v.$color-bg;
+  }
+
+  option {
+    color: v.$color-neutral-600;
+  }
+}
+
+// Date range group
+.date-range-group {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.date-input-wrapper {
+  position: relative;
+  flex: 1;
+
+  .date-input {
+    padding-right: 36px;
+  }
+
+  .calendar-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+  }
+}
+
+.date-separator {
+  font-family: $font-family;
+  font-size: $font-size-sm;
+  color: v.$color-neutral-500;
+  white-space: nowrap;
+}
+
+// Toggle Switch
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .slider {
+      background-color: v.$color-primary;
+    }
+
+    &:checked + .slider::before {
+      transform: translateX(20px);
+    }
+
+    &:focus + .slider {
+      box-shadow: 0 0 1px v.$color-primary;
+    }
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: v.$color-neutral-200;
+    transition: 0.3s;
+    border-radius: 24px;
+
+    &::before {
+      position: absolute;
+      content: '';
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: v.$color-white;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+  }
+}
+
+// Filter Chips
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: $spacing-md;
+}
+
+.filter-chip {
+  display: flex;
+  align-items: stretch;
+  height: 20px;
+}
+
+.chip-label {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  background-color: v.$color-primary;
+  border-radius: $border-radius-md 0 0 $border-radius-md;
+  font-family: $font-family;
+  font-weight: 400;
+  font-size: $font-size-xs;
+  line-height: 11.85px;
+  color: v.$color-white;
+}
+
+.chip-value {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: v.$color-neutral-100;
+  border-radius: 0 $border-radius-md $border-radius-md 0;
+
+  span {
+    font-family: $font-family;
+    font-weight: 400;
+    font-size: $font-size-xs;
+    line-height: 11.85px;
+    color: v.$color-neutral-600;
+  }
+}
+
+.chip-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8px;
+  height: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: v.$color-neutral-600;
+
+  svg {
+    width: 8px;
+    height: 8px;
+  }
+
+  &:hover {
+    color: v.$color-danger;
+  }
+}
+
+// Grid Section
+.grid-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: $spacing-lg;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+}
+
+// Results Info
+.results-info {
+  margin-top: $spacing-md;
+  margin-bottom: 30px;
+  font-family: $font-family-secondary;
+  font-weight: 400;
+  font-size: $font-size-sm;
+  line-height: 1.255;
+  color: #A2A8AE;
+  flex-shrink: 0;
+  padding: 0;
+}

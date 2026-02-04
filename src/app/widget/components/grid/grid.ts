@@ -13,8 +13,8 @@ export interface GridColumn {
 export interface GridAction {
   icon: string;
   label: string;
-  route?: string;              // Rota base para navegação (ex: '/private-securities/details')
-  routeIdKey?: string;         // Chave do objeto para obter o ID na rota (ex: 'id')
+  route?: string;
+  routeIdKey?: string;         
   onClick?: (item: unknown) => void;
 }
 
@@ -63,7 +63,6 @@ export class Grid<T extends object = Record<string, unknown>> {
       return;
     }
 
-    // Caso contrário, executa o callback se existir
     if (action.onClick) {
       action.onClick(item);
     }

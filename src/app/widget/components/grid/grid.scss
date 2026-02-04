@@ -1,23 +1,10 @@
 @use 'styles/variables' as v;
-
-// Typography
-$font-family: 'Rubik', sans-serif;
-$font-family-secondary: 'Mulish', sans-serif;
-$font-size-sm: 12px;
-
-// Spacing
-$spacing-xs: 4px;
-$spacing-sm: 8px;
-$spacing-md: 12px;
-$spacing-lg: 15px;
-
-// Border Radius
-$border-radius-sm: 4px;
+@use 'styles/colors' as c;
 
 .grid-container {
   width: 100%;
 
-  background-color: v.$color-white;
+  background-color: c.$color-white;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -32,13 +19,13 @@ $border-radius-sm: 4px;
 .grid-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: v.$color-white;
-  font-family: $font-family;
+  background-color: c.$color-white;
+  font-family: v.$font-family;
   display: flex;
   flex-direction: column;
 
   thead {
-    background-color: v.$color-data-table-header;
+    background-color: c.$color-data-table-header;
     flex-shrink: 0;
     display: table;
     width: 100%;
@@ -48,7 +35,7 @@ $border-radius-sm: 4px;
     overflow: hidden;
 
     tr {
-      border: 1px solid v.$color-border;
+      border: 1px solid c.$color-border;
       border-top-left-radius: 3px;
       border-top-right-radius: 3px;
     }
@@ -57,13 +44,13 @@ $border-radius-sm: 4px;
       padding: 0;
       text-align: left;
       font-weight: 500;
-      font-size: $font-size-sm;
-      color: v.$color-neutral-600;
+      font-size: v.$font-size-sm;
+      color: c.$color-neutral-600;
       user-select: none;
-      border-right: 1px solid v.$color-border;
+      border-right: 1px solid c.$color-border;
       height: 35px;
       line-height: 35px;
-      background-color: v.$color-data-table-header;
+      background-color: c.$color-data-table-header;
       cursor: default;
       transition: background-color 0.2s ease;
 
@@ -88,8 +75,8 @@ $border-radius-sm: 4px;
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        gap: $spacing-xs;
-        padding: 0 $spacing-md;
+        gap: v.$spacing-xs;
+        padding: 0 v.$spacing-md;
         height: 100%;
         width: 100%;
       }
@@ -141,14 +128,15 @@ $border-radius-sm: 4px;
       display: table;
       width: 100%;
       table-layout: fixed;
-      border-bottom: 1px solid v.$color-border;
-      border-left: 1px solid v.$color-border;
-      border-right: 1px solid v.$color-border;
-      transition: background-color 0.15s ease;
+      border-bottom: 1px solid c.$color-border;
+      border-left: 1px solid c.$color-border;
+      border-right: 1px solid c.$color-border;
+      transition: background-color 0.08s ease, box-shadow 0.08s ease;
       cursor: pointer;
 
       &:hover {
-        background-color: v.$color-bg;
+        background-color: c.$color-bg;
+        box-shadow: inset 4px 0 0 0 c.$color-primary;
 
         .action-button {
           opacity: 1;
@@ -156,17 +144,17 @@ $border-radius-sm: 4px;
       }
 
       &:focus-visible {
-        outline: 2px solid v.$color-primary;
+        outline: 2px solid c.$color-primary;
         outline-offset: -1px;
       }
 
       td {
         padding: 0;
         text-align: left;
-        font-size: $font-size-sm;
+        font-size: v.$font-size-sm;
         font-weight: 400;
-        color: v.$color-neutral-500;
-        border-right: 1px solid v.$color-border;
+        color: c.$color-neutral-500;
+        border-right: 1px solid c.$color-border;
         height: 35px;
         vertical-align: middle;
         line-height: 35px;
@@ -181,7 +169,7 @@ $border-radius-sm: 4px;
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          padding: 0 $spacing-md;
+          padding: 0 v.$spacing-md;
           width: 100%;
           white-space: nowrap;
           overflow: hidden;
@@ -215,7 +203,7 @@ $border-radius-sm: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: $spacing-xs;
+  gap: v.$spacing-xs;
   height: 100%;
 }
 
@@ -225,7 +213,7 @@ $border-radius-sm: 4px;
   justify-content: center;
   background: none;
   border: none;
-  padding: $spacing-sm;
+  padding: v.$spacing-sm;
   cursor: pointer;
   opacity: 0.6;
   transition: opacity 0.2s ease;
@@ -256,10 +244,10 @@ $border-radius-sm: 4px;
 
 // Results Info
 .results-info {
-  margin-top: $spacing-md;
-  font-family: $font-family-secondary;
+  margin-top: v.$spacing-md;
+  font-family: v.$font-family-secondary;
   font-weight: 400;
-  font-size: $font-size-sm;
+  font-size: v.$font-size-sm;
   line-height: 1.255;
   color: #A2A8AE;
   flex-shrink: 0;
@@ -273,7 +261,7 @@ $border-radius-sm: 4px;
 
     thead th {
       .header-content {
-        padding: $spacing-sm $spacing-md;
+        padding: v.$spacing-sm v.$spacing-md;
       }
 
       .header-text {
@@ -286,7 +274,7 @@ $border-radius-sm: 4px;
       height: 32px;
 
       .cell-content {
-        padding: 0 $spacing-md;
+        padding: 0 v.$spacing-md;
       }
     }
   }
@@ -303,8 +291,8 @@ $border-radius-sm: 4px;
 
     thead th {
       .header-content {
-        padding: $spacing-xs $spacing-sm;
-        gap: $spacing-xs;
+        padding: v.$spacing-xs v.$spacing-sm;
+        gap: v.$spacing-xs;
       }
 
       .header-text {
@@ -322,12 +310,12 @@ $border-radius-sm: 4px;
       height: 30px;
 
       .cell-content {
-        padding: 0 $spacing-sm;
+        padding: 0 v.$spacing-sm;
       }
     }
 
     .action-button {
-      padding: $spacing-xs;
+      padding: v.$spacing-xs;
       height: 30px;
       width: 30px;
 

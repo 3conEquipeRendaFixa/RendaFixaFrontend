@@ -4,7 +4,7 @@
  */
 export interface PrivateFixedIncomeCharact {
   // Ativo
-  tickerSymbolTypeCode: string;              // Tipo de Ativo
+  tickerSymbolTypeCode: string;               // Tipo de Ativo
   tickerSymbol: string;                       // Código do Ativo
   tickerSymbolSurname: string;                // Apelido
   issuerCorporationName: string;              // Emissor (Razão Social)
