@@ -42,7 +42,7 @@ export class PrivateBoundDetails implements OnInit {
 
   private loadSecurityDetails(): void {
     if (this.securityCodigo) {
-      this.service.getByCodigo(this.securityCodigo).subscribe(data => {
+      this.service.getByCode(this.securityCodigo).subscribe(data => {
         if (data) {
           this.security = data;
           this.assetConfig = getAssetTypeConfig(data.tickerSymbolTypeCode);

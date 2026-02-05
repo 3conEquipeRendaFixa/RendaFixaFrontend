@@ -8,7 +8,7 @@ export interface IPrivateFixedIncomeCharact {
   tickerSymbol: string;                       // Código do Ativo
   tickerSymbolSurname: string;                // Apelido
   issuerCorporationName: string;              // Emissor (Razão Social)
-  registerName: string;                       // Registradora
+  registerName: string;                       // Registradora: verificar essa coluna com o Reinaldo
   issueDate: string;                          // Data de Emissão (ddmmaaaa)
   maturityDate: string;                       // Data de Vencimento (ddmmaaaa)
   instrumentStatusDescription: string;        // Situação do Ativo

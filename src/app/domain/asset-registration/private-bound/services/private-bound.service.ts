@@ -5,7 +5,6 @@ import {
   IPrivateSecurityRecord, 
   PrivateSecurityFilters,
   IDebenture,
-  IPrivateFixedIncomeCharact
 } from '../interfaces';
 
 @Injectable({
@@ -34,13 +33,12 @@ export class PrivateBoundService {
     return of(this.mockData);
   }
 
-  getByCodigo(codigo: string): Observable<IPrivateSecurityRecord | undefined> {
-    return of(this.mockData.find(item => item.tickerSymbol === codigo));
+  getByCode(code: string): Observable<IPrivateSecurityRecord | undefined> {
+    return of(this.mockData.find(item => item.tickerSymbol === code));
   }
 
   getDebentureDetails(tickerSymbol: string): Observable<IDebenture | null> {
     // Mock data específico para Debêntures
-    // Em produção, retornaria dados da API específica para DEB
     const mockDebenture: IDebenture = {
       tickerSymbol: tickerSymbol,
       tickerSymbolSurname: 'DEBÊNTURE',
