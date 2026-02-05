@@ -1,0 +1,80 @@
+<div class="filter-panel">
+  <!-- Filter Header with Tags and Actions -->
+  <div class="filter-header">
+    <div class="filter-content" (click)="toggleExpanded()">
+      @if (activeTags().length === 0) {
+        <span class="filter-label">{{ emptyLabel() }}</span>
+      } @else {
+        <div class="filter-tags">
+          @for (tag of activeTags(); track tag.key) {
+            <srf-b3-chip
+              [label]="tag.label"
+              [value]="tag.displayValue ?? tag.value"
+              [removable]="true"
+              (remove)="removeTag(tag)"
+              (click)="$event.stopPropagation()"
+            />
+          }
+        </div>
+      }
+    </div>
+
+    <div class="filter-actions">
+      <button type="button" class="toggle-button" (click)="toggleExpanded()">
+        <svg 
+          width="14" 
+          height="9" 
+          viewBox="0 0 14 9" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+          [class.rotated]="isExpanded()"
+        >
+          <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      @if (showSearchButton()) {
+        <button type="button" class="search-button" (click)="onSearch()" title="Pesquisar">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.875 11.875C9.63642 11.875 11.875 9.63642 11.875 6.875C11.875 4.11358 9.63642 1.875 6.875 1.875C4.11358 1.875 1.875 4.11358 1.875 6.875C1.875 9.63642 4.11358 11.875 6.875 11.875Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M13.125 13.125L10.4062 10.4062" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Expandable Filter Form -->
+  @if (isExpanded()) {
+    <div class="filter-form">
+      <div class="form-actions-top">
+        @if (showClearButton()) {
+          <button type="button" class="btn-clear" (click)="onClear()" title="Limpar filtros">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 4H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12.6667 4V13.3333C12.6667 14 12 14.6667 11.3333 14.6667H4.66667C4 14.6667 3.33333 14 3.33333 13.3333V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5.33333 4V2.66667C5.33333 2 6 1.33333 6.66667 1.33333H9.33333C10 1.33333 10.6667 2 10.6667 2.66667V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        }
+        <button type="button" class="btn-remove" (click)="toggleExpanded()" title="Fechar filtros">
+          <svg width="10" height="10" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L13 13M13 1L1 13" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="filter-form-content">
+        <div class="form-grid" [style.grid-template-columns]="'repeat(' + columns() + ', 1fr)'">
+          @for (field of fields(); track field.key) {
+            <div class="form-field" [class.col-span-2]="field.colSpan === 2" [class.col-span-3]="field.colSpan === 3" [class.col-span-4]="field.colSpan === 4">
+              <srf-b3-filter-field
+                [field]="field"
+                [value]="getFieldValue(field.key)"
+                (valueChange)="onFieldValueChange($event)"
+              />
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>

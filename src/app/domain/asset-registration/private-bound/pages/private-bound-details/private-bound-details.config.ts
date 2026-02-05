@@ -26,123 +26,117 @@ export interface AssetTypeConfig {
  */
 const DEB_ATIVO_FIELDS: DetailField[] = [
   // Linha 1
-  { key: 'codigo', label: 'Código do Ativo' },
-  { key: 'esforcoRestrito', label: 'Esforço Restrito' },
-  { key: 'dataEmissao', label: 'Data de Emissão' },
-  { key: 'debentureSecuritizacao', label: 'Debênture de securitização' },
+  { key: 'tickerSymbol', label: 'Código do Ativo' },
+  { key: 'emissionRestrictedWorkIndicator', label: 'Esforço Restrito' },
+  { key: 'issueDate', label: 'Data de Emissão' },
+  { key: 'securitizationDebentureInd', label: 'Debênture de securitização' },
   // Linha 2
-  { key: 'apelido', label: 'Apelido', editable: true },
-  { key: 'debentureIncentivada', label: 'Debênture Incentivada' },
-  { key: 'dataVencimento', label: 'Data de Vencimento' },
-  { key: 'eventosCursadosB3', label: 'Eventos Cursados na B3?' },
+  { key: 'tickerSymbolSurname', label: 'Apelido', editable: true },
+  { key: 'law12431SupportIndicator', label: 'Debênture Incentivada' },
+  { key: 'maturityDate', label: 'Data de Vencimento' },
+  { key: 'b3EventAttendedIndicator', label: 'Eventos Cursados na B3?' },
   // Linha 3
-  { key: 'emissor', label: 'Emissor (Razão Social)' },
-  { key: 'regraIncentivo', label: 'Regra do Incentivo' },
-  { key: 'classe', label: 'Classe' },
-  { key: 'ritoOferta', label: 'Rito de Oferta' },
+  { key: 'issuerCorporationName', label: 'Emissor (Razão Social)' },
+  { key: 'law12431SupportRuleCode', label: 'Regra do Incentivo' },
+  { key: 'classTypeName', label: 'Classe' },
+  { key: 'offerRitual', label: 'Rito de Oferta' },
   // Linha 4
-  { key: 'emissorCnpj', label: 'Emissor (CNPJ)' },
-  { key: 'statusDebenture', label: 'Status da Debênture' },
-  { key: 'instrumentoVencidoInadimplido', label: 'Instrumento Vencido e Inadimplido' },
-  { key: 'pendenteDemonstracao', label: 'Pendente de Demonstração Financeiro' },
+  { key: 'issuerDocumentNumber', label: 'Emissor (CNPJ)' },
+  { key: 'instrumentStatusDescription', label: 'Status da Debênture' },
+  { key: 'nonPaymentIndicator', label: 'Instrumento Vencido e Inadimplido' },
+  { key: 'financialStatmentPendingInd', label: 'Pendente de Demonstração Financeiro' },
   // Linha 5
-  { key: 'emissao', label: 'Emissão' },
-  { key: 'dataUltimaAlteracao', label: 'Data Última Alteração' },
-  { key: 'agenteFiduciario', label: 'Agente Fiduciário' },
-  { key: 'possibilidadeResgateAntecipado', label: 'Possibilidade de Resgate Antecipado?' },
+  { key: 'issueNumber', label: 'Emissão' },
+  { key: 'updateLastDate', label: 'Data Última Alteração' },
+  { key: 'fiduciaryAgentName', label: 'Agente Fiduciário' },
+  { key: 'earlyRedemptionIndicator', label: 'Possibilidade de Resgate Antecipado?' },
   // Linha 6
-  { key: 'tipoEmissao', label: 'Tipo de Emissão' },
-  { key: 'escrituradorNomeSimples', label: 'Escriturador/Emissor (Nome Simples)' },
-  { key: 'serie', label: 'Série' },
-  { key: 'codigoISIN', label: 'ISIN' },
+  { key: 'issueTypeName', label: 'Tipo de Emissão' },
+  { key: 'otcAccountBookkeeperShortName', label: 'Escriturador/Emissor (Nome Simples)' },
+  { key: 'seriesIdentificationCode', label: 'Série' },
+  { key: 'isinCode', label: 'ISIN' },
   // Linha 7
-  { key: 'forma', label: 'Forma' },
-  { key: 'garantiaEspecie', label: 'Garantia/Espécie' },
-  { key: 'tipoRegime', label: 'Tipo de Regime' },
-  { key: 'admiteSubscricaoSemIntegralizacao', label: 'Admite Subscrição sem a Integralização?' },
+  { key: 'scripturalEmissionName', label: 'Forma' },
+  { key: 'collateralTypeName', label: 'Garantia/Espécie' },
+  { key: 'regimeTypeName', label: 'Tipo de Regime' },
+  { key: 'subscriptionPaymentIndicator', label: 'Admite Subscrição sem a Integralização?' },
 ];
 
 /**
  * Campos da seção "Quantidade" para Debêntures
  */
 const DEB_QUANTIDADE_FIELDS: DetailField[] = [
-  { key: 'quantidadeEmitida', label: 'Quantidade Emitida' },
-  { key: 'quantidadeResgatada', label: 'Quantidade Resgatada' },
-  { key: 'quantidadeCirculacao', label: 'Quantidade em Circulação' },
-  { key: 'quantidadeConvertida', label: 'Quantidade Convertida' },
+  { key: 'issueQuantity', label: 'Quantidade Emitida' },
+  { key: 'redemptionQuantity', label: 'Quantidade Resgatada' },
+  { key: 'depositQuantity', label: 'Quantidade Depositada' },
 ];
 
 /**
  * Campos da seção "Valores" para Debêntures
  */
 const DEB_VALORES_FIELDS: DetailField[] = [
-  { key: 'valorNominalEmissao', label: 'Valor Nominal na Emissão' },
-  { key: 'valorNominalAtualizado', label: 'Valor Nominal Atualizado' },
-  { key: 'precoUnitario', label: 'Preço Unitário' },
-  { key: 'valorFinanceiro', label: 'Valor Financeiro' },
+  { key: 'nominalUnitValue', label: 'Valor Nominal Unitário na Emissão (R$)' },
+  { key: 'updatedNominalValue', label: 'Valor Nominal Atualizado' },
+  { key: 'issueTotalValue', label: 'Valor Total da Emissão (R$)' },
+  { key: 'nominalValueReferenceDate', label: 'Valor Atualizado em' },
 ];
 
 /**
  * Campos da seção "Remuneração" para Debêntures
  */
 const DEB_REMUNERACAO_FIELDS: DetailField[] = [
-  { key: 'tipoRemuneracao', label: 'Tipo de Remuneração' },
-  { key: 'indexador', label: 'Indexador' },
-  { key: 'percentualIndexador', label: 'Percentual do Indexador' },
-  { key: 'spreadRemuneracao', label: 'Spread da Remuneração' },
-  { key: 'dataPagamentoRemuneracao', label: 'Data de Pagamento' },
-  { key: 'periodicidadePagamento', label: 'Periodicidade de Pagamento' },
-  { key: 'baseCalculoDias', label: 'Base de Cálculo (Dias)' },
-  { key: 'criterioCalculoRemuneracao', label: 'Critério de Cálculo' },
-  { key: 'tipoTaxaRemuneracao', label: 'Tipo de Taxa' },
+  { key: 'sndIndicator', label: 'Padrão SND' },
+  { key: 'indexShortName', label: 'Índice' },
+  { key: 'profitabilityPercentage', label: 'Rentabilidade / Multiplicador (%)' },
+  { key: 'adjustmentFrequencyDayQuantity', label: 'Periodicidade em Dias' },
+  { key: 'profitabilityStartDate', label: 'Data de Início de Rentabilidade' },
+  { key: 'adjustmentFrequencyDay', label: 'Dia de Referência p/Índice de Preços' },
+  { key: 'curveCalculationIndicator', label: 'Calcula Curva' },
+  { key: 'projectionTypeCode', label: 'Tipo de Projeção' },
+  { key: 'nominalValueAdjustmentIndicator', label: 'Corrige o Valor Nominal' },
 ];
 
 /**
  * Campos da seção "Juros/Spread" para Debêntures
  */
 const DEB_JUROS_SPREAD_FIELDS: DetailField[] = [
-  { key: 'taxaJuros', label: 'Taxa de Juros' },
-  { key: 'spreadJuros', label: 'Spread' },
-  { key: 'periodicidadeJuros', label: 'Periodicidade' },
-  { key: 'dataInicioJuros', label: 'Data de Início' },
-  { key: 'dataPagamentoJuros', label: 'Data de Pagamento' },
-  { key: 'baseCalculoJuros', label: 'Base de Cálculo' },
-  { key: 'criterioCalculoJuros', label: 'Critério de Cálculo' },
-  { key: 'tipoTaxaJuros', label: 'Tipo de Taxa' },
+  { key: 'eventRateValue', label: 'Taxa' },
+  { key: 'interestPaymentStartDate', label: 'A partir de' },
+  { key: 'interestPaymentFrequency', label: 'A cada' },
+  { key: 'interestPaymentIndicator', label: 'Incorpora ao Principal' },
 ];
 
 /**
  * Campos da seção "Amortização" para Debêntures
  */
 const DEB_AMORTIZACAO_FIELDS: DetailField[] = [
-  { key: 'tipoAmortizacao', label: 'Tipo de Amortização' },
-  { key: 'dataInicioAmortizacao', label: 'Data de Início' },
-  { key: 'periodicidadeAmortizacao', label: 'Periodicidade' },
-  { key: 'percentualAmortizacao', label: 'Percentual' },
+  { key: 'amortizationPaymentType', label: 'Tipo de Amortização' },
+  { key: 'amortizationStartDate', label: 'A partir de' },
+  { key: 'amortizationFrequency', label: 'A cada' },
 ];
 
 /**
  * Campos da seção "Distribuição" para Debêntures
  */
 const DEB_DISTRIBUICAO_FIELDS: DetailField[] = [
-  { key: 'tipoDistribuicao', label: 'Tipo de Distribuição' },
-  { key: 'dataInicioDistribuicao', label: 'Data de Início' },
+  { key: 'distributionStartDate', label: 'Data Início de Distribuição' },
+  { key: 'distributionEndDate', label: 'Data Fim de Distribuição' },
 ];
 
 /**
  * Campos da seção "Dados do Título Sustentável"
  */
 const DEB_TITULO_SUSTENTAVEL_FIELDS: DetailField[] = [
-  { key: 'tituloSustentavel', label: 'É Título Sustentável?' },
+  { key: 'tickerSustainable', label: 'Título Sustentável' },
 ];
 
 /**
  * Campos da seção "Negociação de Valores Mobiliários"
  */
 const DEB_NEGOCIACAO_FIELDS: DetailField[] = [
-  { key: 'negociacaoSecundaria', label: 'Negociação Secundária' },
-  { key: 'mercadoNegociacao', label: 'Mercado de Negociação' },
-  { key: 'segmentoNegociacao', label: 'Segmento' },
+  { key: 'tradingAdimittedInd', label: 'Admitido à negociação' },
+  { key: 'negociationStatus', label: 'Status Negociação' },
+  { key: 'blockingReason', label: 'Motivos de bloqueio / restrição' },
 ];
 
 /**
@@ -152,35 +146,35 @@ const DEB_NEGOCIACAO_FIELDS: DetailField[] = [
  */
 const CRI_CRA_ATIVO_FIELDS: DetailField[] = [
   // Linha 1
-  { key: 'codigoIF', label: 'Código IF' },
-  { key: 'nomeSimplificadoAgentePagamento', label: 'Nome Simplificado do Agente de Pagamento' },
-  { key: 'coobrigacao', label: 'Coobrigação' },
-  { key: 'ritoOferta', label: 'Rito de Oferta' },
+  { key: 'tickerSymbol', label: 'Código IF' },
+  { key: 'otcAccountBookkeeperShortName', label: 'Nome Simplificado do Agente de Pagamento' },
+  { key: 'collateralTypeName', label: 'Coobrigação' },
+  { key: 'offerRitual', label: 'Rito de Oferta' },
   // Linha 2
-  { key: 'apelido', label: 'Apelido', editable: true },
-  { key: 'dataEmissao', label: 'Data de Emissão' },
-  { key: 'possibilidadeResgateAntecipado', label: 'Possibilidade de Resgate Antecipado' },
-  { key: 'situacao', label: 'Situação' },
+  { key: 'tickerSymbolSurname', label: 'Apelido', editable: true },
+  { key: 'issueDate', label: 'Data de Emissão' },
+  { key: 'earlyRedemptionIndicator', label: 'Possibilidade de Resgate Antecipado' },
+  { key: 'instrumentStatusDescription', label: 'Situação' },
   // Linha 3
-  { key: 'contaEmissorRegistrador', label: 'Conta Emissor/Registrador' },
-  { key: 'dataVencimento', label: 'Data de Vencimento' },
-  { key: 'instrumentoVencidoInadimplido', label: 'Instrumento Vencido e Inadimplido' },
-  { key: 'nomeSimplificadoEmissorRegistrador', label: 'Nome Simplificado Emissor/Registrador' },
+  { key: 'issuerCorporationName', label: 'Conta Emissor/Registrador' },
+  { key: 'maturityDate', label: 'Data de Vencimento' },
+  { key: 'nonPaymentIndicator', label: 'Instrumento Vencido e Inadimplido' },
+  { key: 'issuerDocumentNumber', label: 'Nome Simplificado Emissor/Registrador' },
   // Linha 4
-  { key: 'dataInicioRentabilidade', label: 'Data Início de Rentabilidade' },
-  { key: 'tipoRegime', label: 'Tipo de Regime' },
-  { key: 'ifInadimplente', label: 'IF Inadimplente' },
-  { key: 'contaEscriturador', label: 'Conta Escriturador' },
+  { key: 'profitabilityStartDate', label: 'Data Início de Rentabilidade' },
+  { key: 'regimeTypeName', label: 'Tipo de Regime' },
+  { key: 'nonPaymentIndicator', label: 'IF Inadimplente' },
+  { key: 'fiduciaryAgentName', label: 'Conta Escriturador' },
   // Linha 5
-  { key: 'codigoISIN', label: 'Código ISIN' },
-  { key: 'eventosCursadosB3', label: 'Eventos Cursados na B3?' },
-  { key: 'dataRegistro', label: 'Data de Registro' },
-  { key: 'nomeSimplificadoEscriturador', label: 'Nome Simplificado Escriturador' },
+  { key: 'isinCode', label: 'Código ISIN' },
+  { key: 'b3EventAttendedIndicator', label: 'Eventos Cursados na B3?' },
+  { key: 'updateLastDate', label: 'Data de Registro' },
+  { key: 'otcAccountBookkeeperShortName', label: 'Nome Simplificado Escriturador' },
   // Linha 6
-  { key: 'regimeFiduciario', label: 'Regime Fiduciário' },
-  { key: 'publicoOferta', label: 'Público da Oferta' },
-  { key: 'dataAlteracao', label: 'Data de Alteração' },
-  { key: 'contaAgentePagamento', label: 'Conta do Agente de Pagamento' },
+  { key: 'regimeTypeName', label: 'Regime Fiduciário' },
+  { key: 'issueTypeName', label: 'Público da Oferta' },
+  { key: 'updateLastDate', label: 'Data de Alteração' },
+  { key: 'fiduciaryAgentName', label: 'Conta do Agente de Pagamento' },
 ];
 
 /**
@@ -190,40 +184,40 @@ const CRI_CRA_ATIVO_FIELDS: DetailField[] = [
  */
 const CRI_CRA_EMISSAO_REGISTRO_FIELDS: DetailField[] = [
   // Linha 1
-  { key: 'emissao', label: 'Emissão' },
-  { key: 'quantidadeDepositada', label: 'Quantidade Depositada' },
-  { key: 'valorOriginal', label: 'Valor de (Original)' },
-  { key: 'serie', label: 'Série' },
+  { key: 'issueNumber', label: 'Emissão' },
+  { key: 'depositQuantity', label: 'Quantidade Depositada' },
+  { key: 'nominalUnitValue', label: 'Valor de (Original)' },
+  { key: 'seriesIdentificationCode', label: 'Série' },
   // Linha 2
-  { key: 'valorFinanceiroEmissao', label: 'Valor Financeiro da Emissão (R$)' },
-  { key: 'dataEm', label: 'Data (em)' },
-  { key: 'tipoSerie', label: 'Tipo da Série' },
-  { key: 'quantidadeEmitida', label: 'Quantidade Emitida' },
+  { key: 'issueTotalValue', label: 'Valor Financeiro da Emissão (R$)' },
+  { key: 'nominalValueReferenceDate', label: 'Data (em)' },
+  { key: 'classTypeName', label: 'Tipo da Série' },
+  { key: 'issueQuantity', label: 'Quantidade Emitida' },
   // Linha 3
-  { key: 'quantidadeResgatada', label: 'Quantidade Resgatada' },
-  { key: 'esforcoRestrito', label: 'Esforço Restrito' },
-  { key: 'distribuicaoEncerraEm', label: 'Distribuição encerra em' },
-  { key: 'valorUnitarioEmissao', label: 'Valor Unitário da Emissão' },
+  { key: 'redemptionQuantity', label: 'Quantidade Resgatada' },
+  { key: 'emissionRestrictedWorkIndicator', label: 'Esforço Restrito' },
+  { key: 'distributionEndDate', label: 'Distribuição encerra em' },
+  { key: 'nominalUnitValue', label: 'Valor Unitário da Emissão' },
 ];
 
 /**
  * Campos da seção "Formas de Pagamento" para CRI/CRA
  */
 const CRI_CRA_FORMAS_PAGAMENTO_FIELDS: DetailField[] = [
-  { key: 'formaPagamento', label: 'Forma de Pagamento' },
-  { key: 'indice', label: 'Índice' },
-  { key: 'percentualTaxaFlutuante', label: '% da Taxa Flutuante' },
-  { key: 'taxa', label: 'Taxa' },
+  { key: 'interestPaymentFrequency', label: 'Forma de Pagamento' },
+  { key: 'indexShortName', label: 'Índice' },
+  { key: 'profitabilityPercentage', label: '% da Taxa Flutuante' },
+  { key: 'eventRateValue', label: 'Taxa' },
 ];
 
 /**
  * Campos da seção "Formas de Pagamento e Juros Amortizados" para CRI/CRA
  */
 const CRI_CRA_JUROS_AMORTIZADOS_FIELDS: DetailField[] = [
-  { key: 'tipoAmortizacao', label: 'Tipo de Amortização' },
-  { key: 'valorUnitarioEmissaoAtualizado', label: 'Valor Unitário de Emissão Atualizado' },
-  { key: 'precoUnitarioAtualizado', label: 'Preço Unitário Atualizado' },
-  { key: 'valorBaseCalculo', label: 'Valor de (Base de Cálculo)' },
+  { key: 'amortizationPaymentType', label: 'Tipo de Amortização' },
+  { key: 'updatedNominalValue', label: 'Valor Unitário de Emissão Atualizado' },
+  { key: 'nominalUnitValue', label: 'Preço Unitário Atualizado' },
+  { key: 'nominalValueReferenceDate', label: 'Valor de (Base de Cálculo)' },
 ];
 
 /**
@@ -292,7 +286,7 @@ const CRI_CRA_CLASSIFICACAO_RISCO_FIELDS: DetailField[] = [
  * Campos da seção "Dados do Título Sustentável" para CRI/CRA
  */
 const CRI_CRA_TITULO_SUSTENTAVEL_FIELDS: DetailField[] = [
-  { key: 'tituloSustentavel', label: 'Título Sustentável' },
+  { key: 'tickerSustainable', label: 'Título Sustentável' },
 ];
 
 /**
@@ -302,23 +296,23 @@ const CRI_CRA_TITULO_SUSTENTAVEL_FIELDS: DetailField[] = [
  */
 const CDB_ATIVO_FIELDS: DetailField[] = [
   // Linha 1
-  { key: 'tipo', label: 'Tipo' },
-  { key: 'situacao', label: 'Situação' },
-  { key: 'contaEmissor', label: 'Conta do Emissor' },
-  { key: 'dataVencimento', label: 'Data Vencimento' },
+  { key: 'tickerSymbolTypeCode', label: 'Tipo' },
+  { key: 'instrumentStatusDescription', label: 'Situação' },
+  { key: 'issuerCorporationName', label: 'Conta do Emissor' },
+  { key: 'maturityDate', label: 'Data Vencimento' },
   // Linha 2
-  { key: 'codigoIF', label: 'Código IF' },
-  { key: 'ifInadimplente', label: 'IF Inadimplente' },
-  { key: 'nomeSimplificadoEmissor', label: 'Nome Simplificado Emissor' },
-  { key: 'prazoEmissao', label: 'Prazo emissão' },
+  { key: 'tickerSymbol', label: 'Código IF' },
+  { key: 'nonPaymentIndicator', label: 'IF Inadimplente' },
+  { key: 'otcAccountBookkeeperShortName', label: 'Nome Simplificado Emissor' },
+  { key: 'adjustmentFrequencyDayQuantity', label: 'Prazo emissão' },
   // Linha 3
-  { key: 'apelido', label: 'Apelido', editable: true },
-  { key: 'dataRegistro', label: 'Data de Registro' },
-  { key: 'dataEmissao', label: 'Data Emissão' },
-  { key: 'tipoRegime', label: 'Tipo Regime' },
+  { key: 'tickerSymbolSurname', label: 'Apelido', editable: true },
+  { key: 'updateLastDate', label: 'Data de Registro' },
+  { key: 'issueDate', label: 'Data Emissão' },
+  { key: 'regimeTypeName', label: 'Tipo Regime' },
   // Linha 4
-  { key: 'codigoISIN', label: 'Código ISIN' },
-  { key: 'dataAlteracao', label: 'Data de Alteração' },
+  { key: 'isinCode', label: 'Código ISIN' },
+  { key: 'updateLastDate', label: 'Data de Alteração' },
 ];
 
 /**
@@ -328,22 +322,22 @@ const CDB_ATIVO_FIELDS: DetailField[] = [
  */
 const LF_ATIVO_FIELDS: DetailField[] = [
   // Linha 1
-  { key: 'codigoIF', label: 'Código IF' },
-  { key: 'contaEmissor', label: 'Conta do Emissor' },
-  { key: 'dataEmissao', label: 'Data de Emissão' },
-  { key: 'ifInadimplente', label: 'IF Inadimplente' },
+  { key: 'tickerSymbol', label: 'Código IF' },
+  { key: 'issuerCorporationName', label: 'Conta do Emissor' },
+  { key: 'issueDate', label: 'Data de Emissão' },
+  { key: 'nonPaymentIndicator', label: 'IF Inadimplente' },
   // Linha 2
-  { key: 'apelido', label: 'Apelido', editable: true },
-  { key: 'nomeSimplificadoEmissor', label: 'Nome Simplificado do Emissor' },
-  { key: 'dataVencimento', label: 'Data de Vencimento' },
-  { key: 'dataRegistro', label: 'Data de Registro' },
+  { key: 'tickerSymbolSurname', label: 'Apelido', editable: true },
+  { key: 'otcAccountBookkeeperShortName', label: 'Nome Simplificado do Emissor' },
+  { key: 'maturityDate', label: 'Data de Vencimento' },
+  { key: 'updateLastDate', label: 'Data de Registro' },
   // Linha 3
-  { key: 'codigoISIN', label: 'Código ISIN' },
-  { key: 'razaoSocialEmissor', label: 'Razão Social do Emissor' },
-  { key: 'prazoEmissao', label: 'Prazo de Emissão' },
-  { key: 'dataAlteracao', label: 'Data de Alteração' },
+  { key: 'isinCode', label: 'Código ISIN' },
+  { key: 'issuerCorporationName', label: 'Razão Social do Emissor' },
+  { key: 'adjustmentFrequencyDayQuantity', label: 'Prazo de Emissão' },
+  { key: 'updateLastDate', label: 'Data de Alteração' },
   // Linha 4
-  { key: 'situacao', label: 'Situação' },
+  { key: 'instrumentStatusDescription', label: 'Situação' },
 ];
 
 /**
@@ -353,25 +347,25 @@ const LF_ATIVO_FIELDS: DetailField[] = [
  */
 const LF_EMISSAO_REGISTRO_FIELDS: DetailField[] = [
   // Linha 1
-  { key: 'quantidadeEmitida', label: 'Quantidade Emitida' },
-  { key: 'valorFinanceiroEmissao', label: 'Valor Financeiro de Emissão' },
-  { key: 'modeloDistribuicao', label: 'Modelo da Distribuição' },
-  { key: 'esforcoRestrito', label: 'Esforço Restrito' },
+  { key: 'issueQuantity', label: 'Quantidade Emitida' },
+  { key: 'issueTotalValue', label: 'Valor Financeiro de Emissão' },
+  { key: 'issueTypeName', label: 'Modelo da Distribuição' },
+  { key: 'emissionRestrictedWorkIndicator', label: 'Esforço Restrito' },
   // Linha 2
-  { key: 'quantidadeDepositada', label: 'Quantidade Depositada' },
-  { key: 'valorOriginal', label: 'Valor de (Original)' },
-  { key: 'dataInicioDistribuicao', label: 'Data de Início de Distribuição' },
-  { key: 'tipoRegime', label: 'Tipo de Regime' },
+  { key: 'depositQuantity', label: 'Quantidade Depositada' },
+  { key: 'nominalUnitValue', label: 'Valor de (Original)' },
+  { key: 'distributionStartDate', label: 'Data de Início de Distribuição' },
+  { key: 'regimeTypeName', label: 'Tipo de Regime' },
   // Linha 3
-  { key: 'quantidadeResgatada', label: 'Quantidade Resgatada' },
-  { key: 'descricaoAdicional', label: 'Descrição Adicional' },
-  { key: 'dataFimDistribuicao', label: 'Data Fim de Distribuição' },
-  { key: 'eventosCursadosB3', label: 'Eventos Cursados pela B3?' },
+  { key: 'redemptionQuantity', label: 'Quantidade Resgatada' },
+  { key: 'classTypeName', label: 'Descrição Adicional' },
+  { key: 'distributionEndDate', label: 'Data Fim de Distribuição' },
+  { key: 'b3EventAttendedIndicator', label: 'Eventos Cursados pela B3?' },
   // Linha 4
-  { key: 'valorUnitarioEmissao', label: 'Valor Unitário de Emissão' },
-  { key: 'distribuicaoPublica', label: 'Distribuição Pública' },
-  { key: 'coordenadorLider', label: 'Coodernador Líder' },
-  { key: 'contaEscriturador', label: 'Conta Escriturador/Emissor' },
+  { key: 'nominalUnitValue', label: 'Valor Unitário de Emissão' },
+  { key: 'issueTypeName', label: 'Distribuição Pública' },
+  { key: 'fiduciaryAgentName', label: 'Coodernador Líder' },
+  { key: 'otcAccountBookkeeperShortName', label: 'Conta Escriturador/Emissor' },
 ];
 
 /**
@@ -381,18 +375,18 @@ const LF_EMISSAO_REGISTRO_FIELDS: DetailField[] = [
  */
 const LF_VALORES_ATUALIZADOS_FIELDS: DetailField[] = [
   // Linha 1
-  { key: 'valorBaseCalculo', label: 'Valor de (Base de Cálculo)' },
-  { key: 'precoUnitarioAtualizado', label: 'Preço Unitário Atualizado' },
-  { key: 'dataEmissaoUnitario', label: 'Data Emissão Unitário' },
-  { key: 'dataPrecoUnitario', label: 'Data Preço Unitário' },
+  { key: 'nominalValueReferenceDate', label: 'Valor de (Base de Cálculo)' },
+  { key: 'updatedNominalValue', label: 'Preço Unitário Atualizado' },
+  { key: 'issueDate', label: 'Data Emissão Unitário' },
+  { key: 'nominalValueReferenceDate', label: 'Data Preço Unitário' },
   // Linha 2
-  { key: 'valorUnitarioEmissaoAtualizado', label: 'Valor Unitário de Emissão Atualizado' },
-  { key: 'valorFinanceiroAtualizado', label: 'Valor Financeiro Atualizado' },
-  { key: 'dataUnitarioJuros', label: 'Data Unitário Juros' },
-  { key: 'dataFinanceiro', label: 'Data Financeiro' },
+  { key: 'updatedNominalValue', label: 'Valor Unitário de Emissão Atualizado' },
+  { key: 'issueTotalValue', label: 'Valor Financeiro Atualizado' },
+  { key: 'interestPaymentStartDate', label: 'Data Unitário Juros' },
+  { key: 'nominalValueReferenceDate', label: 'Data Financeiro' },
   // Linha 3
-  { key: 'precoUnitarioJuros', label: 'Preço Unitário de Juros' },
-  { key: 'dataValorBaseCalculo', label: 'Data Valor (Base de Cálculo)' },
+  { key: 'eventRateValue', label: 'Preço Unitário de Juros' },
+  { key: 'nominalValueReferenceDate', label: 'Data Valor (Base de Cálculo)' },
 ];
 
 /**
@@ -440,34 +434,34 @@ const LF_FORMA_PAGAMENTO_FIELDS: DetailField[] = [
  */
 const LCI_LCA_ATIVO_FIELDS: DetailField[] = [
   // Linha 1
-  { key: 'tipo', label: 'Tipo' },
-  { key: 'situacao', label: 'Situação' },
-  { key: 'valorNominalUnitario', label: 'Valor Nominal unitário' },
-  { key: 'manutUnilateralGarantias', label: 'Manut. Unilateral das Garantias pelo Emissor' },
+  { key: 'tickerSymbolTypeCode', label: 'Tipo' },
+  { key: 'instrumentStatusDescription', label: 'Situação' },
+  { key: 'nominalUnitValue', label: 'Valor Nominal unitário' },
+  { key: 'earlyRedemptionIndicator', label: 'Manut. Unilateral das Garantias pelo Emissor' },
   // Linha 2
-  { key: 'apelido', label: 'Apelido', editable: true },
-  { key: 'dataRegistro', label: 'Data de Registro' },
-  { key: 'indice', label: 'Índice' },
-  { key: 'condicaoResgateAntecipado', label: 'Condição de Resgate Antecipado' },
+  { key: 'tickerSymbolSurname', label: 'Apelido', editable: true },
+  { key: 'updateLastDate', label: 'Data de Registro' },
+  { key: 'indexShortName', label: 'Índice' },
+  { key: 'earlyRedemptionIndicator', label: 'Condição de Resgate Antecipado' },
   // Linha 3
-  { key: 'codigoIF', label: 'Código IF' },
-  { key: 'dataEmissao', label: 'Data de Emissão' },
-  { key: 'cestaGarantias', label: 'Cesta de Garantias' },
-  { key: 'clausulaResgateEmissor', label: 'Cláusula de Resgate pelo Emissor' },
+  { key: 'tickerSymbol', label: 'Código IF' },
+  { key: 'issueDate', label: 'Data de Emissão' },
+  { key: 'collateralTypeName', label: 'Cesta de Garantias' },
+  { key: 'earlyRedemptionIndicator', label: 'Cláusula de Resgate pelo Emissor' },
   // Linha 4
-  { key: 'codigoISIN', label: 'Código ISIN' },
-  { key: 'tipoRegime', label: 'Tipo de Regime' },
-  { key: 'obsCesta', label: 'Obs. Cesta' },
-  { key: 'lote', label: 'Lote' },
+  { key: 'isinCode', label: 'Código ISIN' },
+  { key: 'regimeTypeName', label: 'Tipo de Regime' },
+  { key: 'collateralTypeName', label: 'Obs. Cesta' },
+  { key: 'seriesIdentificationCode', label: 'Lote' },
   // Linha 5
-  { key: 'nomeSimplificadoRegistradorEmissor', label: 'Nome Simplificado do Registrador/ Emissor' },
-  { key: 'dataVencimento', label: 'Data de Vencimento' },
-  { key: 'dataUltAlteracao', label: 'Data Últ. Alteração' },
-  { key: 'veiculoGarantidor', label: 'Veículo Garantidor' },
+  { key: 'otcAccountBookkeeperShortName', label: 'Nome Simplificado do Registrador/ Emissor' },
+  { key: 'maturityDate', label: 'Data de Vencimento' },
+  { key: 'updateLastDate', label: 'Data Últ. Alteração' },
+  { key: 'fiduciaryAgentName', label: 'Veículo Garantidor' },
   // Linha 6
-  { key: 'registradorEmissor', label: 'Registrador/ Emissor' },
-  { key: 'tipoGarantia', label: 'Tipo de Garantia' },
-  { key: 'liquidacaoAntecipada', label: 'Liquidação Antecipada' },
+  { key: 'issuerCorporationName', label: 'Registrador/ Emissor' },
+  { key: 'collateralTypeName', label: 'Tipo de Garantia' },
+  { key: 'earlyRedemptionIndicator', label: 'Liquidação Antecipada' },
 ];
 
 /**
@@ -476,17 +470,17 @@ const LCI_LCA_ATIVO_FIELDS: DetailField[] = [
  * Layout: 4 colunas
  */
 const LCI_LCA_EMISSAO_REGISTRO_FIELDS: DetailField[] = [
-  { key: 'quantidadeEmitida', label: 'Quantidade Emitida' },
-  { key: 'quantidadeDepositada', label: 'Quantidade Depositada' },
-  { key: 'quantidadeResgatada', label: 'Quantidade Resgatada' },
+  { key: 'issueQuantity', label: 'Quantidade Emitida' },
+  { key: 'depositQuantity', label: 'Quantidade Depositada' },
+  { key: 'redemptionQuantity', label: 'Quantidade Resgatada' },
 ];
 
 /**
  * Campos da seção "Título Registrado com Prazo Decorrido" para LCI/LCA
  */
 const LCI_LCA_TITULO_PRAZO_DECORRIDO_FIELDS: DetailField[] = [
-  { key: 'valorUnitario', label: 'Valor de (Unitário)' },
-  { key: 'dataPrazoDecorrido', label: 'Data' },
+  { key: 'nominalUnitValue', label: 'Valor de (Unitário)' },
+  { key: 'nominalValueReferenceDate', label: 'Data' },
 ];
 
 /**
@@ -496,28 +490,28 @@ const LCI_LCA_TITULO_PRAZO_DECORRIDO_FIELDS: DetailField[] = [
  */
 const LCI_LCA_FORMA_PAGAMENTO_FIELDS: DetailField[] = [
   // Linha 1
-  { key: 'formaPagamento', label: 'Forma de Pagamento' },
-  { key: 'incorporaJuros', label: 'Incorpora Juros' },
-  { key: 'precoUnitarioJuros', label: 'Preço Unitário de Juros' },
-  { key: 'percentualIndiceTaxaFlutuante', label: '% Índice/ Taxa Flutuante' },
+  { key: 'interestPaymentFrequency', label: 'Forma de Pagamento' },
+  { key: 'interestPaymentIndicator', label: 'Incorpora Juros' },
+  { key: 'eventRateValue', label: 'Preço Unitário de Juros' },
+  { key: 'profitabilityPercentage', label: '% Índice/ Taxa Flutuante' },
   // Linha 2
-  { key: 'dataFormaPagamento', label: 'Data' },
-  { key: 'precoUnitarioAtualizado', label: 'Preço Unitário Atualizado' },
-  { key: 'taxaJurosSpread', label: 'Taxa de Juros/ Spread' },
-  { key: 'valorAposIncorporacaoJuros', label: 'Valor após Incorporação de Juros' },
+  { key: 'interestPaymentStartDate', label: 'Data' },
+  { key: 'updatedNominalValue', label: 'Preço Unitário Atualizado' },
+  { key: 'eventRateValue', label: 'Taxa de Juros/ Spread' },
+  { key: 'interestPaymentIndicator', label: 'Valor após Incorporação de Juros' },
   // Linha 3
-  { key: 'valorFinanceiroAtualizado', label: 'Valor Financeiro Atualizado' },
-  { key: 'criterioCalculoJuros', label: 'Critério de Calculo de Juros' },
-  { key: 'valorUnitarioEmissaoAtualizado', label: 'Valor Unitário de Emissão Atualizado' },
+  { key: 'issueTotalValue', label: 'Valor Financeiro Atualizado' },
+  { key: 'curveCalculationIndicator', label: 'Critério de Calculo de Juros' },
+  { key: 'updatedNominalValue', label: 'Valor Unitário de Emissão Atualizado' },
 ];
 
 /**
  * Campos da seção "Dados do Título Sustentável" para LCI/LCA
  */
 const LCI_LCA_TITULO_SUSTENTAVEL_FIELDS: DetailField[] = [
-  { key: 'tituloSustentavel', label: 'Título Sustentável' },
-  { key: 'certificadoPor', label: 'Certificado por' },
-  { key: 'dataVerificacao', label: 'Data de Verificação' },
+  { key: 'tickerSustainable', label: 'Título Sustentável' },
+  { key: 'fiduciaryAgentName', label: 'Certificado por' },
+  { key: 'updateLastDate', label: 'Data de Verificação' },
 ];
 
 /**
@@ -527,20 +521,20 @@ const LCI_LCA_TITULO_SUSTENTAVEL_FIELDS: DetailField[] = [
  */
 const CDB_EMISSAO_REGISTRO_FIELDS: DetailField[] = [
   // Linha 1
-  { key: 'quantidadeEmitida', label: 'Quantidade Emitida' },
-  { key: 'valorUnitarioEmissao', label: 'Valor Unitário de Emissão' },
-  { key: 'valorFinanceiroResgate', label: 'Valor Financeiro de Resgate' },
-  { key: 'condicaoResgateAntecipado', label: 'Condição de Resgate Antecipado' },
+  { key: 'issueQuantity', label: 'Quantidade Emitida' },
+  { key: 'nominalUnitValue', label: 'Valor Unitário de Emissão' },
+  { key: 'issueTotalValue', label: 'Valor Financeiro de Resgate' },
+  { key: 'earlyRedemptionIndicator', label: 'Condição de Resgate Antecipado' },
   // Linha 2
-  { key: 'quantidadeDepositada', label: 'Quantidade Depositada' },
-  { key: 'valorFinanceiroEmissao', label: 'Valor Financeiro de Emissão' },
-  { key: 'valorOriginal', label: 'Valor de (Original)' },
-  { key: 'descricaoAdicional', label: 'Descrição Adicional' },
+  { key: 'depositQuantity', label: 'Quantidade Depositada' },
+  { key: 'issueTotalValue', label: 'Valor Financeiro de Emissão' },
+  { key: 'nominalUnitValue', label: 'Valor de (Original)' },
+  { key: 'classTypeName', label: 'Descrição Adicional' },
   // Linha 3
-  { key: 'quantidadeResgatada', label: 'Quantidade Resgatada' },
-  { key: 'valorUnitarioResgate', label: 'Valor Unitário do Resgate' },
-  { key: 'dataEmissaoRegistro', label: 'Data' },
-  { key: 'controleInterno', label: 'Controle Interno' },
+  { key: 'redemptionQuantity', label: 'Quantidade Resgatada' },
+  { key: 'updatedNominalValue', label: 'Valor Unitário do Resgate' },
+  { key: 'issueDate', label: 'Data' },
+  { key: 'seriesIdentificationCode', label: 'Controle Interno' },
 ];
 
 /**
@@ -550,18 +544,18 @@ const CDB_EMISSAO_REGISTRO_FIELDS: DetailField[] = [
  */
 const CDB_VALORES_ATUALIZADOS_FIELDS: DetailField[] = [
   // Linha 1
-  { key: 'valorBaseCalculo', label: 'Valor de (Base de Cálculo)' },
-  { key: 'dataEmissaoUnitario', label: 'Data Emissão Unitário' },
-  { key: 'precoUnitarioAtualizado', label: 'Preço Unitário Atualizado' },
-  { key: 'valorFinanceiroAtualizado', label: 'Valor Financeiro Atualizado' },
+  { key: 'nominalValueReferenceDate', label: 'Valor de (Base de Cálculo)' },
+  { key: 'issueDate', label: 'Data Emissão Unitário' },
+  { key: 'updatedNominalValue', label: 'Preço Unitário Atualizado' },
+  { key: 'issueTotalValue', label: 'Valor Financeiro Atualizado' },
   // Linha 2
-  { key: 'dataValor', label: 'Data Valor' },
-  { key: 'precoUnitarioJuros', label: 'Preço Unitário de Juros' },
-  { key: 'dataUnitario', label: 'Data Unitário' },
-  { key: 'dataFinanceiro', label: 'Data Financeiro' },
+  { key: 'nominalValueReferenceDate', label: 'Data Valor' },
+  { key: 'eventRateValue', label: 'Preço Unitário de Juros' },
+  { key: 'nominalValueReferenceDate', label: 'Data Unitário' },
+  { key: 'nominalValueReferenceDate', label: 'Data Financeiro' },
   // Linha 3
-  { key: 'valorUnitarioEmissaoAtualizado', label: 'Valor Unitário de Emissão Atualizado' },
-  { key: 'dataUnitarioJuros', label: 'Data Unitário de Juros' },
+  { key: 'updatedNominalValue', label: 'Valor Unitário de Emissão Atualizado' },
+  { key: 'interestPaymentStartDate', label: 'Data Unitário de Juros' },
 ];
 
 /**
@@ -571,34 +565,34 @@ const CDB_VALORES_ATUALIZADOS_FIELDS: DetailField[] = [
  */
 const CDB_FORMA_PAGAMENTO_FIELDS: DetailField[] = [
   // Linha 1
-  { key: 'formaPagamento', label: 'Forma de Pagamento' },
-  { key: 'proRataCorrecaoIndicesPreco', label: 'Pró-Rata da Correção - Índices de Preço' },
-  { key: 'escalonamentoTipoCorrecaoCurva2', label: 'Escalonamento - Tipo de Correção (Curva2)' },
-  { key: 'escalonamentoProRataCorrecaoCurva3', label: 'Escalonamento - Pró-Rata da Correção (Curva3)' },
+  { key: 'interestPaymentFrequency', label: 'Forma de Pagamento' },
+  { key: 'nominalValueAdjustmentIndicator', label: 'Pró-Rata da Correção - Índices de Preço' },
+  { key: 'projectionTypeCode', label: 'Escalonamento - Tipo de Correção (Curva2)' },
+  { key: 'nominalValueAdjustmentIndicator', label: 'Escalonamento - Pró-Rata da Correção (Curva3)' },
   // Linha 2
-  { key: 'rentabilidadeIndexador', label: 'Rentabilidade/ Indexador/ Taxa Flutuante' },
-  { key: 'escalonamento', label: 'Escalonamento' },
-  { key: 'escalonamentoPercentualTaxaFlutCurva2', label: 'Escalonamento - % da Taxa Flutuante (Curva2)' },
-  { key: 'escalonamentoTipoCorrecaoCurva3', label: 'Escalonamento - Tipo de Correção (Curva3)' },
+  { key: 'indexShortName', label: 'Rentabilidade/ Indexador/ Taxa Flutuante' },
+  { key: 'curveCalculationIndicator', label: 'Escalonamento' },
+  { key: 'profitabilityPercentage', label: 'Escalonamento - % da Taxa Flutuante (Curva2)' },
+  { key: 'projectionTypeCode', label: 'Escalonamento - Tipo de Correção (Curva3)' },
   // Linha 3
-  { key: 'percentualIndiceTaxaFlutuante', label: '% Índice/ Taxa Flutuante' },
-  { key: 'escalonamentoMultiplasCurvas', label: 'Escalonamento - Múltiplas Curvas' },
-  { key: 'escalonamentoTaxaJurosSpreadCurva2', label: 'Escalonamento - Taxa de Juros/Spread (Curva2)' },
-  { key: 'escalonamentoPercentualTaxaFlutCurva3', label: 'Escalonamento - % da Taxa Flutuante (Curva3)' },
+  { key: 'profitabilityPercentage', label: '% Índice/ Taxa Flutuante' },
+  { key: 'curveCalculationIndicator', label: 'Escalonamento - Múltiplas Curvas' },
+  { key: 'eventRateValue', label: 'Escalonamento - Taxa de Juros/Spread (Curva2)' },
+  { key: 'profitabilityPercentage', label: 'Escalonamento - % da Taxa Flutuante (Curva3)' },
   // Linha 4
-  { key: 'taxaJurosSpread', label: 'Taxa de Juros/ Spread' },
-  { key: 'escalonamentoRentabilidadeCurva2', label: 'Escalonamento - Rentabilidade/Indexador/Taxa Flutuante (Curva2)' },
-  { key: 'escalonamentoCriterioCalculoJurosCurva2', label: 'Escalonamento - Critério Cálculo de Juros (Curva2)' },
-  { key: 'escalonamentoTaxaJurosSpreadCurva3', label: 'Escalonamento - Taxa de Juros/Spread (Curva3)' },
+  { key: 'eventRateValue', label: 'Taxa de Juros/ Spread' },
+  { key: 'indexShortName', label: 'Escalonamento - Rentabilidade/Indexador/Taxa Flutuante (Curva2)' },
+  { key: 'curveCalculationIndicator', label: 'Escalonamento - Critério Cálculo de Juros (Curva2)' },
+  { key: 'eventRateValue', label: 'Escalonamento - Taxa de Juros/Spread (Curva3)' },
   // Linha 5
-  { key: 'criterioCalculoJuros', label: 'Critério de Cálculo de Juros' },
-  { key: 'escalonamentoPeriodicidadeCorrecaoCurva2', label: 'Escalonamento - Periodicidade de Correção (Curva2)' },
-  { key: 'escalonamentoRentabilidadeCurva3', label: 'Escalonamento - Rentabilidade/Indexador/Taxa Flutuante (Curva3)' },
-  { key: 'escalonamentoCriterioCalculoJurosCurva3', label: 'Escalonamento - Critério Cálculo de Juros (Curva3)' },
+  { key: 'curveCalculationIndicator', label: 'Critério de Cálculo de Juros' },
+  { key: 'adjustmentFrequencyDayQuantity', label: 'Escalonamento - Periodicidade de Correção (Curva2)' },
+  { key: 'indexShortName', label: 'Escalonamento - Rentabilidade/Indexador/Taxa Flutuante (Curva3)' },
+  { key: 'curveCalculationIndicator', label: 'Escalonamento - Critério Cálculo de Juros (Curva3)' },
   // Linha 6
-  { key: 'periodicidadeCorrecaoIndicesPreco', label: 'Periodicidade de Correção - Índices de Preço' },
-  { key: 'escalonamentoProRataCorrecaoCurva2', label: 'Escalonamento - Pró-Rata da Correção (Curva2)' },
-  { key: 'escalonamentoPeriodicidadeCorrecaoCurva3', label: 'Escalonamento - Periodicidade de Correção (Curva3)' },
+  { key: 'adjustmentFrequencyDayQuantity', label: 'Periodicidade de Correção - Índices de Preço' },
+  { key: 'nominalValueAdjustmentIndicator', label: 'Escalonamento - Pró-Rata da Correção (Curva2)' },
+  { key: 'adjustmentFrequencyDayQuantity', label: 'Escalonamento - Periodicidade de Correção (Curva3)' },
 ];
 
 /**
@@ -608,84 +602,84 @@ const CDB_FORMA_PAGAMENTO_FIELDS: DetailField[] = [
  */
 const CFF_ATIVO_FIELDS: DetailField[] = [
   // Linha 1
-  { key: 'fundoNomeSimplificado', label: 'Fundo (Nome Simplificado)' },
-  { key: 'administradorNomeSimplificado', label: 'Administrador (Nome Simplificado)' },
-  { key: 'nivelSubordinacao', label: 'Nível de Subordinação' },
-  { key: 'tipoRegime', label: 'Tipo de Regime' },
+  { key: 'otcAccountBookkeeperShortName', label: 'Fundo (Nome Simplificado)' },
+  { key: 'fiduciaryAgentName', label: 'Administrador (Nome Simplificado)' },
+  { key: 'classTypeName', label: 'Nível de Subordinação' },
+  { key: 'regimeTypeName', label: 'Tipo de Regime' },
   // Linha 2
-  { key: 'fundoRazaoSocial', label: 'Fundo (Razão Social)' },
-  { key: 'administradorRazaoSocial', label: 'Administrador (Razão Social)' },
-  { key: 'emissao', label: 'Emissão' },
-  { key: 'eventosCursadosB3', label: 'Eventos Cursados pela B3?' },
+  { key: 'issuerCorporationName', label: 'Fundo (Razão Social)' },
+  { key: 'fiduciaryAgentName', label: 'Administrador (Razão Social)' },
+  { key: 'issueNumber', label: 'Emissão' },
+  { key: 'b3EventAttendedIndicator', label: 'Eventos Cursados pela B3?' },
   // Linha 3
-  { key: 'fundoConta', label: 'Fundo (Conta)' },
-  { key: 'administradorConta', label: 'Administrador (Conta)' },
-  { key: 'serie', label: 'Série' },
-  { key: 'respLancamentoDepositoRetirada', label: 'Resp. pelo Lançamento Depósito/Retirada' },
+  { key: 'issuerCorporationName', label: 'Fundo (Conta)' },
+  { key: 'fiduciaryAgentName', label: 'Administrador (Conta)' },
+  { key: 'seriesIdentificationCode', label: 'Série' },
+  { key: 'otcAccountBookkeeperShortName', label: 'Resp. pelo Lançamento Depósito/Retirada' },
   // Linha 4
-  { key: 'cnpjFundo', label: 'CNPJ do Fundo' },
-  { key: 'gestorNomeSimplificado', label: 'Gestor (Nome Simplificado)' },
-  { key: 'codigoISIN', label: 'Código ISIN' },
-  { key: 'situacao', label: 'Situação' },
+  { key: 'issuerDocumentNumber', label: 'CNPJ do Fundo' },
+  { key: 'otcAccountBookkeeperShortName', label: 'Gestor (Nome Simplificado)' },
+  { key: 'isinCode', label: 'Código ISIN' },
+  { key: 'instrumentStatusDescription', label: 'Situação' },
   // Linha 5
-  { key: 'tipoFundo', label: 'Tipo Fundo' },
-  { key: 'gestorNomeRazaoSocial', label: 'Gestor (Nome/Razão Social)' },
-  { key: 'codigoANBIMA', label: 'Código ANBIMA' },
-  { key: 'inadimplente', label: 'Inadimplente' },
+  { key: 'tickerSymbolTypeCode', label: 'Tipo Fundo' },
+  { key: 'fiduciaryAgentName', label: 'Gestor (Nome/Razão Social)' },
+  { key: 'seriesIdentificationCode', label: 'Código ANBIMA' },
+  { key: 'nonPaymentIndicator', label: 'Inadimplente' },
   // Linha 6
-  { key: 'codigoAtivo', label: 'Código do Ativo' },
-  { key: 'gestorConta', label: 'Gestor (Conta)' },
-  { key: 'nomeSubclasse', label: 'Nome da Subclasse' },
-  { key: 'motivoStatus', label: 'Motivo do Status' },
+  { key: 'tickerSymbol', label: 'Código do Ativo' },
+  { key: 'fiduciaryAgentName', label: 'Gestor (Conta)' },
+  { key: 'classTypeName', label: 'Nome da Subclasse' },
+  { key: 'instrumentStatusDescription', label: 'Motivo do Status' },
   // Linha 7
-  { key: 'apelido', label: 'Apelido', editable: true },
-  { key: 'gestorCpfCnpj', label: 'Gestor (CPF/ CNPJ)' },
-  { key: 'codigoCVMSubclasse', label: 'Código CVM da Subclasse' },
-  { key: 'descricaoFundo', label: 'Descrição do Fundo' },
+  { key: 'tickerSymbolSurname', label: 'Apelido', editable: true },
+  { key: 'issuerDocumentNumber', label: 'Gestor (CPF/ CNPJ)' },
+  { key: 'seriesIdentificationCode', label: 'Código CVM da Subclasse' },
+  { key: 'classTypeName', label: 'Descrição do Fundo' },
   // Linha 8
-  { key: 'tipoRegime2', label: 'Tipo de Regime' },
-  { key: 'escrituradorNomeSimplificado', label: 'Escriturador (Nome Simplificado)' },
-  { key: 'destinacaoRecursoLei12431', label: 'Destinação do Recurso (Lei 12.431)' },
-  { key: 'tipoDistribuicao', label: 'Tipo de Distribuição' },
+  { key: 'regimeTypeName', label: 'Tipo de Regime' },
+  { key: 'otcAccountBookkeeperShortName', label: 'Escriturador (Nome Simplificado)' },
+  { key: 'law12431SupportRuleCode', label: 'Destinação do Recurso (Lei 12.431)' },
+  { key: 'issueTypeName', label: 'Tipo de Distribuição' },
   // Linha 9
-  { key: 'tipoInstrumentoFinanceiro', label: 'Tipo de Instrumento Financeiro' },
-  { key: 'escrituradorRazaoSocial', label: 'Escriturador (Razão Social)' },
-  { key: 'artigoLei12431', label: 'Artigo Lei 12.431' },
-  { key: 'ritoOferta', label: 'Rito da Oferta' },
+  { key: 'tickerSymbolTypeCode', label: 'Tipo de Instrumento Financeiro' },
+  { key: 'issuerCorporationName', label: 'Escriturador (Razão Social)' },
+  { key: 'law12431SupportIndicator', label: 'Artigo Lei 12.431' },
+  { key: 'offerRitual', label: 'Rito da Oferta' },
   // Linha 10
-  { key: 'especificacaoAutomaticaCotas', label: 'Especificação Automática de Cotas' },
-  { key: 'escrituradorConta', label: 'Escriturador (Conta)' },
-  { key: 'cotasNegociaveisMercadoSecundario', label: 'Cotas Negociáveis Mercado Secundário' },
-  { key: 'esforcoRestrito', label: 'Esforço Restrito' },
+  { key: 'curveCalculationIndicator', label: 'Especificação Automática de Cotas' },
+  { key: 'issuerCorporationName', label: 'Escriturador (Conta)' },
+  { key: 'tradingAdimittedInd', label: 'Cotas Negociáveis Mercado Secundário' },
+  { key: 'emissionRestrictedWorkIndicator', label: 'Esforço Restrito' },
   // Linha 11
-  { key: 'dataEmissao', label: 'Data de Emissão' },
-  { key: 'custodianteNomeSimplificado', label: 'Custodiante (Nome Simplificado)' },
-  { key: 'fundoExclusivo', label: 'Fundo Exclusivo' },
-  { key: 'publicoOferta', label: 'Público da oferta' },
+  { key: 'issueDate', label: 'Data de Emissão' },
+  { key: 'otcAccountBookkeeperShortName', label: 'Custodiante (Nome Simplificado)' },
+  { key: 'curveCalculationIndicator', label: 'Fundo Exclusivo' },
+  { key: 'issueTypeName', label: 'Público da oferta' },
   // Linha 12
-  { key: 'dataVencimento', label: 'Data de Vencimento' },
-  { key: 'custodianteRazaoSocial', label: 'Custodiante (Razão Social)' },
-  { key: 'custoCustodia', label: 'Custo de Custódia' },
-  { key: 'admiteSubscricaoSemIntegralizacao', label: 'Admite Subscrição Sem a Integralização?' },
+  { key: 'maturityDate', label: 'Data de Vencimento' },
+  { key: 'issuerCorporationName', label: 'Custodiante (Razão Social)' },
+  { key: 'nominalUnitValue', label: 'Custo de Custódia' },
+  { key: 'subscriptionPaymentIndicator', label: 'Admite Subscrição Sem a Integralização?' },
 ];
 
 /**
  * Campos da seção "Dados do Título Sustentável" para CFF
  */
 const CFF_TITULO_SUSTENTAVEL_FIELDS: DetailField[] = [
-  { key: 'tituloSustentavel', label: 'Título Sustentável' },
-  { key: 'certificadoPor', label: 'Certificado por' },
-  { key: 'dataVerificacao', label: 'Data de Verificação' },
-  { key: 'padrao', label: 'Padrão' },
+  { key: 'tickerSustainable', label: 'Título Sustentável' },
+  { key: 'fiduciaryAgentName', label: 'Certificado por' },
+  { key: 'updateLastDate', label: 'Data de Verificação' },
+  { key: 'classTypeName', label: 'Padrão' },
 ];
 
 /**
  * Campos da seção "Negociação de Valores Mobiliários" para CFF
  */
 const CFF_NEGOCIACAO_FIELDS: DetailField[] = [
-  { key: 'admitidoNegociacao', label: 'Admitido à negociação' },
-  { key: 'statusNegociacao', label: 'Status de Negociação' },
-  { key: 'motivoBloqueioRestricao', label: 'Motivo do bloqueio/restrição' },
+  { key: 'tradingAdimittedInd', label: 'Admitido à negociação' },
+  { key: 'negociationStatus', label: 'Status de Negociação' },
+  { key: 'blockingReason', label: 'Motivo do bloqueio/restrição' },
 ];
 
 /**
@@ -695,18 +689,18 @@ const CFF_NEGOCIACAO_FIELDS: DetailField[] = [
  */
 const CBIO_ATIVO_FIELDS: DetailField[] = [
   // Linha 1
-  { key: 'codigoIF', label: 'Código IF' },
-  { key: 'registradorConta', label: 'Registrador (Conta)' },
-  { key: 'dataResgate', label: 'Data de Resgate' },
-  { key: 'codigoNotaANP', label: 'Código Nota ANP' },
+  { key: 'tickerSymbol', label: 'Código IF' },
+  { key: 'issuerCorporationName', label: 'Registrador (Conta)' },
+  { key: 'maturityDate', label: 'Data de Resgate' },
+  { key: 'seriesIdentificationCode', label: 'Código Nota ANP' },
   // Linha 2
-  { key: 'apelido', label: 'Apelido', editable: true },
-  { key: 'quantidadeEmitida', label: 'Quantidade Emitida' },
-  { key: 'dataRegistro', label: 'Data de Registro' },
-  { key: 'descricaoAdicional', label: 'Descrição Adicional' },
+  { key: 'tickerSymbolSurname', label: 'Apelido', editable: true },
+  { key: 'issueQuantity', label: 'Quantidade Emitida' },
+  { key: 'updateLastDate', label: 'Data de Registro' },
+  { key: 'classTypeName', label: 'Descrição Adicional' },
   // Linha 3
-  { key: 'dataEmissao', label: 'Data de Emissão' },
-  { key: 'quantidadeAposentada', label: 'Quantidade Aposentada' },
+  { key: 'issueDate', label: 'Data de Emissão' },
+  { key: 'redemptionQuantity', label: 'Quantidade Aposentada' },
 ];
 
 /**
@@ -815,13 +809,13 @@ export const DEFAULT_ASSET_CONFIG: AssetTypeConfig = {
       id: 'ativo',
       title: 'Ativo',
       fields: [
-        { key: 'codigo', label: 'Código do Ativo' },
-        { key: 'apelido', label: 'Apelido' },
-        { key: 'dataEmissao', label: 'Data de Emissão' },
-        { key: 'dataVencimento', label: 'Data de Vencimento' },
-        { key: 'emissor', label: 'Emissor (Razão Social)' },
-        { key: 'status', label: 'Status' },
-        { key: 'codigoISIN', label: 'ISIN' },
+        { key: 'tickerSymbol', label: 'Código do Ativo' },
+        { key: 'tickerSymbolSurname', label: 'Apelido' },
+        { key: 'issueDate', label: 'Data de Emissão' },
+        { key: 'maturityDate', label: 'Data de Vencimento' },
+        { key: 'issuerCorporationName', label: 'Emissor (Razão Social)' },
+        { key: 'instrumentStatusDescription', label: 'Status' },
+        { key: 'isinCode', label: 'ISIN' },
       ],
     },
   ],

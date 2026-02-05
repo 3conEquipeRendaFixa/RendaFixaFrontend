@@ -2,9 +2,10 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { 
-  PrivateSecurityRecord, 
+  IPrivateSecurityRecord, 
   PrivateSecurityFilters,
-  DebentureCharacteristic 
+  IDebenture,
+  IPrivateFixedIncomeCharact
 } from '../interfaces';
 
 @Injectable({
@@ -12,37 +13,102 @@ import {
 })
 export class PrivateBoundService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = '/api/private-bound';
 
   /**
    * Mock data para desenvolvimento
+   * Baseado em TRM_RF_PRIV_FIX_INC_CHARAC
    */
-  private mockData: PrivateSecurityRecord[] = [
-    { id: 1, tipo: 'DEB', registradora: 'B3', codigo: 'DEB030008AB', apelido: 'DEBÊNTURE', emissor: 'BCO ITAU', dataEmissao: '10/02/2025', dataVencimento: '10/03/2025', situacao: 'Confirmado sem Restrição' },
-    { id: 2, tipo: 'CRI', registradora: 'B3', codigo: 'CRI030008XB', apelido: 'CRI', emissor: 'BCO ITAU', dataEmissao: '10/02/2025', dataVencimento: '10/03/2025', situacao: 'Confirmado sem Restrição' },
-    { id: 3, tipo: 'CRA', registradora: 'B3', codigo: 'CRA020005VD', apelido: 'CRA', emissor: 'BCO BRADESCO', dataEmissao: '10/02/2025', dataVencimento: '20/03/2025', situacao: 'Confirmado sem Restrição' },
-    { id: 4, tipo: 'CBIO', registradora: 'B3', codigo: 'CBIO40007890', apelido: 'CBIO', emissor: 'BCO ITAU', dataEmissao: '10/02/2025', dataVencimento: '25/03/2025', situacao: 'Confirmado sem Restrição' },
-    { id: 5, tipo: 'CFF', registradora: 'B3', codigo: 'CFF030006TR', apelido: 'CFF', emissor: 'BCO SANTANDER', dataEmissao: '10/02/2025', dataVencimento: '01/04/2025', situacao: 'Confirmado sem Restrição' },
-    { id: 6, tipo: 'LF', registradora: 'B3', codigo: 'LF0030009HU', apelido: 'LF', emissor: 'BCO SANTANDER', dataEmissao: '10/02/2025', dataVencimento: '02/05/2025', situacao: 'Confirmado sem Restrição' },
-    { id: 7, tipo: 'LCI', registradora: 'B3', codigo: 'LCI030009HU', apelido: 'LCI', emissor: 'BCO SANTANDER', dataEmissao: '10/02/2025', dataVencimento: '02/05/2025', situacao: 'Confirmado sem Restrição' },
-    { id: 8, tipo: 'LCA', registradora: 'B3', codigo: 'LCA030009HU', apelido: 'LCA', emissor: 'BCO SANTANDER', dataEmissao: '10/02/2025', dataVencimento: '02/05/2025', situacao: 'Confirmado sem Restrição' },
-    { id: 9, tipo: 'CDB', registradora: 'B3', codigo: 'CDB030008AB', apelido: 'CDB', emissor: 'BCO ITAU', dataEmissao: '10/02/2025', dataVencimento: '10/03/2025', situacao: 'Confirmado sem Restrição' },
+  private mockData: IPrivateSecurityRecord[] = [
+    { tickerSymbolTypeCode: 'DEB', tickerSymbol: 'DEB030008AB', tickerSymbolSurname: 'DEBÊNTURE', issuerCorporationName: 'BCO ITAU', registerName: 'B3', issueDate: '10022025', maturityDate: '10032025', instrumentStatusDescription: 'Confirmado sem Restrição', nonPaymentIndicator: false },
+    { tickerSymbolTypeCode: 'CRI', tickerSymbol: 'CRI030008XB', tickerSymbolSurname: 'CRI', issuerCorporationName: 'BCO ITAU', registerName: 'B3', issueDate: '10022025', maturityDate: '10032025', instrumentStatusDescription: 'Confirmado sem Restrição', nonPaymentIndicator: false },
+    { tickerSymbolTypeCode: 'CRA', tickerSymbol: 'CRA020005VD', tickerSymbolSurname: 'CRA', issuerCorporationName: 'BCO BRADESCO', registerName: 'B3', issueDate: '10022025', maturityDate: '20032025', instrumentStatusDescription: 'Confirmado sem Restrição', nonPaymentIndicator: false },
+    { tickerSymbolTypeCode: 'CBIO', tickerSymbol: 'CBIO40007890', tickerSymbolSurname: 'CBIO', issuerCorporationName: 'BCO ITAU', registerName: 'B3', issueDate: '10022025', maturityDate: '25032025', instrumentStatusDescription: 'Confirmado sem Restrição', nonPaymentIndicator: false },
+    { tickerSymbolTypeCode: 'CFF', tickerSymbol: 'CFF030006TR', tickerSymbolSurname: 'CFF', issuerCorporationName: 'BCO SANTANDER', registerName: 'B3', issueDate: '10022025', maturityDate: '01042025', instrumentStatusDescription: 'Confirmado sem Restrição', nonPaymentIndicator: false },
+    { tickerSymbolTypeCode: 'LF', tickerSymbol: 'LF0030009HU', tickerSymbolSurname: 'LF', issuerCorporationName: 'BCO SANTANDER', registerName: 'B3', issueDate: '10022025', maturityDate: '02052025', instrumentStatusDescription: 'Confirmado sem Restrição', nonPaymentIndicator: false },
+    { tickerSymbolTypeCode: 'LCI', tickerSymbol: 'LCI030009HU', tickerSymbolSurname: 'LCI', issuerCorporationName: 'BCO SANTANDER', registerName: 'B3', issueDate: '10022025', maturityDate: '02052025', instrumentStatusDescription: 'Confirmado sem Restrição', nonPaymentIndicator: false },
+    { tickerSymbolTypeCode: 'LCA', tickerSymbol: 'LCA030009HU', tickerSymbolSurname: 'LCA', issuerCorporationName: 'BCO SANTANDER', registerName: 'B3', issueDate: '10022025', maturityDate: '02052025', instrumentStatusDescription: 'Confirmado sem Restrição', nonPaymentIndicator: false },
+    { tickerSymbolTypeCode: 'CDB', tickerSymbol: 'CDB030008AB', tickerSymbolSurname: 'CDB', issuerCorporationName: 'BCO ITAU', registerName: 'B3', issueDate: '10022025', maturityDate: '10032025', instrumentStatusDescription: 'Confirmado sem Restrição', nonPaymentIndicator: false },
   ]
 
-  getAll(filters?: PrivateSecurityFilters): Observable<PrivateSecurityRecord[]> {
+  getAll(filters?: PrivateSecurityFilters): Observable<IPrivateSecurityRecord[]> {
     return of(this.mockData);
   }
 
-  getById(id: number): Observable<PrivateSecurityRecord | undefined> {
-    return of(this.mockData.find(item => item.id === id));
+  getByCodigo(codigo: string): Observable<IPrivateSecurityRecord | undefined> {
+    return of(this.mockData.find(item => item.tickerSymbol === codigo));
   }
 
-  getByCodigo(codigo: string): Observable<PrivateSecurityRecord | undefined> {
-    return of(this.mockData.find(item => item.codigo === codigo));
-  }
-
-  getDebentureDetails(id: number): Observable<DebentureCharacteristic | null> {
-    return of(null);
+  getDebentureDetails(tickerSymbol: string): Observable<IDebenture | null> {
+    // Mock data específico para Debêntures
+    // Em produção, retornaria dados da API específica para DEB
+    const mockDebenture: IDebenture = {
+      tickerSymbol: tickerSymbol,
+      tickerSymbolSurname: 'DEBÊNTURE',
+      issuerCorporationName: 'BCO ITAU',
+      issuerDocumentNumber: '60701190000104',
+      issueNumber: '001',
+      issueTypeName: 'Pública',
+      scripturalEmissionName: 'Escritural',
+      emissionRestrictedWorkIndicator: false,
+      law12431SupportIndicator: true,
+      law12431SupportRuleCode: 'LEI001',
+      instrumentStatusDescription: 'Confirmado sem Restrição',
+      updateLastDate: '10022025',
+      otcAccountBookkeeperShortName: 'ITAU',
+      collateralTypeName: 'Quirografária',
+      issueDate: '10022025',
+      maturityDate: '10032025',
+      classTypeName: 'Simples',
+      nonPaymentIndicator: false,
+      fiduciaryAgentName: 'Agente XYZ',
+      seriesIdentificationCode: 'A',
+      regimeTypeName: 'Depositado',
+      securitizationDebentureInd: false,
+      b3EventAttendedIndicator: true,
+      offerRitual: 'Público',
+      financialStatmentPendingInd: false,
+      earlyRedemptionIndicator: true,
+      isinCode: 'BR0000000001',
+      subscriptionPaymentIndicator: false,
+      // Quantidade
+      issueQuantity: 1000000,
+      depositQuantity: 1000000,
+      redemptionQuantity: 0,
+      // Valores
+      nominalUnitValue: 1000.00,
+      issueTotalValue: 1000000000.00,
+      updatedNominalValue: 1050.00,
+      nominalValueReferenceDate: '05022026',
+      // Remuneração
+      sndIndicator: false,
+      adjustmentFrequencyDayQuantity: 252,
+      profitabilityStartDate: '10022025',
+      adjustmentFrequencyDay: 15,
+      indexShortName: 'CDI',
+      curveCalculationIndicator: true,
+      profitabilityPercentage: 105.5,
+      projectionTypeCode: 'PROJ001',
+      nominalValueAdjustmentIndicator: true,
+      // Juros/Spread
+      eventRateValue: 12.5,
+      interestPaymentStartDate: '10032025',
+      interestPaymentFrequency: 'Semestral',
+      interestPaymentIndicator: false,
+      // Amortização
+      amortizationPaymentType: 'No Vencimento',
+      amortizationStartDate: '10032025',
+      amortizationFrequency: 'Única',
+      // Distribuição
+      distributionStartDate: '01022025',
+      distributionEndDate: '09022025',
+      // Dados do Título Sustentável
+      tickerSustainable: false,
+      // Negociação de Valores Mobiliários
+      tradingAdimittedInd: true,
+      negociationStatus: 'Ativo',
+      blockingReason: ''
+    };
+    return of(mockDebenture);
   }
 
   getAssetTypes(): Observable<string[]> {

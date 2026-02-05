@@ -1,24 +1,8 @@
 /**
- * Interface para características de Renda Fixa Privada
- * Baseado em TRM_RF_PRIV_FIX_INC_CHARAC
- */
-export interface PrivateFixedIncomeCharact {
-  // Ativo
-  tickerSymbolTypeCode: string;              // Tipo de Ativo
-  tickerSymbol: string;                       // Código do Ativo
-  tickerSymbolSurname: string;                // Apelido
-  issuerCorporationName: string;              // Emissor (Razão Social)
-  issueDate: string;                          // Data de Emissão (ddmmaaaa)
-  maturityDate: string;                       // Data de Vencimento (ddmmaaaa)
-  instrumentStatusDescription: string;        // Situação do Ativo
-  nonPaymentIndicator: boolean;               // Instrumento Vencido e Inadimplido
-}
-
-/**
  * Interface para características de Debênture
  * Baseado em TRM_RF_DEB_CARACTERISTICS
  */
-export interface DebentureCharacteristic {
+export interface IDebenture {
   // Ativo
   tickerSymbol: string;                       // Código do Ativo
   tickerSymbolSurname: string;                // Apelido

@@ -1,0 +1,16 @@
+<div class="chip" [class.size-sm]="size() === 'sm'" [class.size-md]="size() === 'md'">
+  @if (label()) {
+    <span class="chip-label">{{ label() }}</span>
+  }
+  <span class="chip-value">
+    {{ value() }}
+    @if (removable()) {
+      <button type="button" class="chip-remove" (click)="onRemove($event)">
+        <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="4" cy="4" r="4" fill="currentColor"/>
+          <path d="M2.5 2.5L5.5 5.5M5.5 2.5L2.5 5.5" stroke="white" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+      </button>
+    }
+  </span>
+</div>

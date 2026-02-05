@@ -1,0 +1,80 @@
+@use 'styles/variables' as v;
+
+$font-family: 'Rubik', sans-serif;
+
+:host {
+  display: contents;
+}
+
+.field-label {
+  font-family: $font-family;
+  font-size: 10px;
+  font-weight: 400;
+  color: v.$color-neutral-500;
+
+  &.required::after {
+    content: ' *';
+    color: v.$color-danger;
+  }
+}
+
+.field-input {
+  height: 35px;
+  padding: 0 12px;
+  border: 1px solid v.$color-border;
+  border-radius: v.$border-radius-sm;
+  font-family: $font-family;
+  font-size: 12px;
+  color: v.$color-neutral-500;
+  background: v.$color-white;
+
+  &::placeholder {
+    color: v.$color-neutral-400;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: v.$color-primary;
+  }
+}
+
+.select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.field-select {
+  width: 100%;
+  height: 35px;
+  padding: 0 32px 0 12px;
+  border: 1px solid v.$color-border;
+  border-radius: v.$border-radius-sm;
+  font-family: $font-family;
+  font-size: 12px;
+  color: v.$color-neutral-400;
+  background: v.$color-white;
+  appearance: none;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: v.$color-primary;
+  }
+}
+
+.select-arrow {
+  position: absolute;
+  right: 12px;
+  pointer-events: none;
+  color: v.$color-neutral-500;
+}
+
+// Toggle field wrapper
+.toggle-field {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-top: 14px;
+  justify-content: flex-start;
+}

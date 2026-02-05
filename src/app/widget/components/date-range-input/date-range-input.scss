@@ -1,0 +1,29 @@
+@use 'styles/variables' as v;
+
+$font-family: 'Rubik', sans-serif;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.date-range-inputs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+
+  srf-b3-date-input {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+.date-separator {
+  font-family: $font-family;
+  font-size: 12px;
+  font-weight: 400;
+  color: v.$color-neutral-500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}

@@ -1,11 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Grid, GridColumn, GridAction } from '@widget/components/grid/grid';
 import { Breadcrumb, BreadcrumbItem } from '@widget/components/breadcrumb/breadcrumb';
+import { FilterPanel, FilterField, FilterValues, DateRange } from '@widget/components/filter-panel';
 import { PrivateBoundService } from '../../services';
 import { 
-  PrivateSecurityRecord, 
+  IPrivateSecurityRecord, 
   PrivateSecurityFilterKey, 
   PrivateSecurityAppliedFilter,
   PrivateSecurityFilters,
@@ -14,7 +15,7 @@ import {
 
 @Component({
   selector: 'app-private-bound-list',
-  imports: [CommonModule, FormsModule, Grid, Breadcrumb],
+  imports: [CommonModule, FormsModule, Grid, Breadcrumb, FilterPanel],
   templateUrl: './private-bound-list.html',
   styleUrl: './private-bound-list.scss',
 })
@@ -27,30 +28,57 @@ export class PrivateBoundList implements OnInit {
     { label: 'TÍTULOS PRIVADOS', current: true }
   ];
 
-  filters: PrivateSecurityFilters = {
-    tipoAtivo: '',
-    codigoAtivo: '',
-    apelidoAtivo: '',
-    emissor: '',
-    dataEmissao: '',
-    dataVencimento: '',
-    situacaoAtivo: '',
-    inadimplente: ''
-  };
+  // Configuração dos campos de filtro para o FilterPanel
+  filterFields: FilterField[] = [
+    { 
+      key: 'tipoAtivo', 
+      label: 'Tipo do Ativo', 
+      type: 'select', 
+      required: true,
+      placeholder: 'Selecione...',
+      options: [
+        { value: 'DEB', label: 'DEB' },
+        { value: 'CRI', label: 'CRI' },
+        { value: 'CRA', label: 'CRA' },
+        { value: 'CBIO', label: 'CBIO' },
+        { value: 'CFF', label: 'CFF' },
+        { value: 'LF', label: 'LF' },
+        { value: 'LCI', label: 'LCI' },
+        { value: 'LCA', label: 'LCA' },
+        { value: 'CDB', label: 'CDB' }
+      ]
+    },
+    { key: 'codigoAtivo', label: 'Código do Ativo', type: 'text', placeholder: 'Digite...' },
+    { key: 'apelidoAtivo', label: 'Apelido do Ativo', type: 'text', placeholder: 'Digite...' },
+    { key: 'emissor', label: 'Emissor (Razão Social)', type: 'text', placeholder: 'Digite...' },
+    { key: 'dataEmissao', label: 'Data Emissão', type: 'date-range' },
+    { key: 'dataVencimento', label: 'Data Vencimento', type: 'date-range' },
+    { 
+      key: 'situacaoAtivo', 
+      label: 'Situação do Ativo', 
+      type: 'select',
+      placeholder: 'Selecione...',
+      options: [
+        { value: 'Confirmado sem Restrição', label: 'Confirmado sem Restrição' },
+        { value: 'Pendente', label: 'Pendente' },
+        { value: 'Cancelado', label: 'Cancelado' }
+      ]
+    },
+    { key: 'inadimplente', label: 'Inadimplente', type: 'toggle' }
+  ];
 
-  inadimplenteSwitch = false;
-  appliedFilters: PrivateSecurityAppliedFilter[] = [];
-  securities: PrivateSecurityRecord[] = [];
+  filterValues = signal<FilterValues>({});
+  securities: IPrivateSecurityRecord[] = [];
 
   gridColumns: GridColumn[] = [
-    { key: 'registradora', label: 'Registradora', width: '10%', sortable: true },
-    { key: 'tipo', label: 'Tipo do Ativo', width: '10%', sortable: true },
-    { key: 'codigo', label: 'Código do Ativo', width: '12%', sortable: true },
-    { key: 'apelido', label: 'Apelido do Ativo', width: '12%', sortable: true },
-    { key: 'emissor', label: 'Emissor (Razão Social)', width: '14%', sortable: true },
-    { key: 'dataEmissao', label: 'Data Emissão', width: '10%', sortable: true },
-    { key: 'dataVencimento', label: 'Data Vencimento', width: '14%', sortable: true },
-    { key: 'situacao', label: 'Situação do Ativo', width: '16%', sortable: true },
+    { key: 'registerName', label: 'Registradora', width: '10%', sortable: true },
+    { key: 'tickerSymbolTypeCode', label: 'Tipo do Ativo', width: '10%', sortable: true },
+    { key: 'tickerSymbol', label: 'Código do Ativo', width: '12%', sortable: true },
+    { key: 'tickerSymbolSurname', label: 'Apelido', width: '10%', sortable: true },
+    { key: 'issuerCorporationName', label: 'Emissor (Razão Social)', width: '14%', sortable: true },
+    { key: 'issueDate', label: 'Data Emissão', width: '10%', sortable: true },
+    { key: 'maturityDate', label: 'Data Vencimento', width: '12%', sortable: true },
+    { key: 'instrumentStatusDescription', label: 'Situação do Ativo', width: '16%', sortable: true },
   ];
 
   gridActions: GridAction[] = [
@@ -58,7 +86,7 @@ export class PrivateBoundList implements OnInit {
       icon: 'icons/options.svg', 
       label: 'Mais opções',
       route: '/asset-registration/private-bound',
-      routeIdKey: 'codigo'
+      routeIdKey: 'tickerSymbol'
     }
   ];
 
@@ -67,46 +95,49 @@ export class PrivateBoundList implements OnInit {
   }
 
   private loadSecurities(): void {
-    this.service.getAll(this.filters).subscribe(data => {
+    const filters = this.convertToServiceFilters(this.filterValues());
+    this.service.getAll(filters).subscribe(data => {
       this.securities = data;
     });
   }
 
-  searchFilter(): void {
-    this.appliedFilters = [];
-    
-    Object.entries(this.filters).forEach(([key, value]) => {
-      if (value) {
-        this.appliedFilters.push({
-          label: PRIVATE_SECURITY_FILTER_LABELS[key as PrivateSecurityFilterKey],
-          value: value,
-          key: key as PrivateSecurityFilterKey
-        });
-      }
-    });
+  private convertToServiceFilters(values: FilterValues): PrivateSecurityFilters {
+    return {
+      tipoAtivo: (values['tipoAtivo'] as string) || '',
+      codigoAtivo: (values['codigoAtivo'] as string) || '',
+      apelidoAtivo: (values['apelidoAtivo'] as string) || '',
+      emissor: (values['emissor'] as string) || '',
+      dataEmissao: (values['dataEmissao'] as DateRange)?.start || '',
+      dataVencimento: (values['dataVencimento'] as DateRange)?.start || '',
+      situacaoAtivo: (values['situacaoAtivo'] as string) || '',
+      inadimplente: values['inadimplente'] ? 'true' : ''
+    };
+  }
 
+  onFilterSearch(values: FilterValues): void {
+    this.filterValues.set(values);
     this.loadSecurities();
   }
 
-  removeFilter(filterKey: PrivateSecurityFilterKey): void {
-    this.filters[filterKey] = '';
-    this.appliedFilters = this.appliedFilters.filter(f => f.key !== filterKey);
+  onFiltersChanged(values: FilterValues): void {
+    this.filterValues.set(values);
     this.loadSecurities();
   }
 
-  hasFilters(): boolean {
-    return Object.values(this.filters).some(value => value !== '');
+  onFilterClear(): void {
+    this.filterValues.set({});
+    this.loadSecurities();
   }
 
   get filteredResults(): number {
     return this.securities.length;
   }
 
-  onRowClick(item: PrivateSecurityRecord): void {
+  onRowClick(item: IPrivateSecurityRecord): void {
     console.log('Row clicked:', item);
   }
 
-  onActionClick(event: { action: GridAction; item: PrivateSecurityRecord }): void {
+  onActionClick(event: { action: GridAction; item: IPrivateSecurityRecord }): void {
     console.log('Action clicked:', event.action.label, event.item);
   }
 }

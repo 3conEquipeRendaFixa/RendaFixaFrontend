@@ -1,0 +1,14 @@
+<div class="toggle-container" [class.disabled]="disabled()">
+  @if (label()) {
+    <span class="toggle-label">{{ label() }}</span>
+  }
+  <label class="toggle-switch" [class.size-sm]="size() === 'sm'" [class.size-lg]="size() === 'lg'">
+    <input 
+      type="checkbox" 
+      [checked]="checked"
+      [disabled]="disabled()"
+      (change)="onInputChange($event)"
+    />
+    <span class="toggle-slider"></span>
+  </label>
+</div>

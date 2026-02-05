@@ -45,7 +45,7 @@
       text-align: left;
       font-weight: 500;
       font-size: v.$font-size-sm;
-      color: c.$color-neutral-600;
+      color: #575757;
       user-select: none;
       border-right: 1px solid c.$color-border;
       height: 35px;
@@ -91,7 +91,6 @@
       .sort-icon {
         width: 15px;
         height: 18px;
-        opacity: 0.5;
         flex-shrink: 0;
         transition: opacity 0.2s ease, transform 0.2s ease;
 
@@ -105,7 +104,7 @@
       }
 
       &:hover .sort-icon {
-        opacity: 0.8;
+        opacity: 1;
       }
     }
 

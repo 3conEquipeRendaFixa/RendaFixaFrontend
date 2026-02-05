@@ -1,0 +1,224 @@
+@use 'styles/variables' as v;
+
+$font-family: 'Rubik', sans-serif;
+
+.filter-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: v.$color-white;
+  border: 1px solid v.$color-border;
+  border-radius: 5px;
+  position: relative;
+  z-index: 100;
+}
+
+// Filter Header
+.filter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 35px;
+  padding: 0;
+  border-bottom: 1px solid transparent;
+
+  &:has(+ .filter-form) {
+    border-bottom-color: v.$color-border;
+  }
+}
+
+.filter-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-height: 35px;
+  padding: 0 8px;
+  border-right: 1px solid v.$color-border;
+  cursor: pointer;
+
+  &:hover {
+    background: v.$color-neutral-50;
+  }
+}
+
+.filter-label {
+  font-family: $font-family;
+  font-size: 12px;
+  font-weight: 400;
+  color: v.$color-neutral-400;
+}
+
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  flex: 1;
+}
+
+// Filter Actions
+.filter-actions {
+  display: flex;
+  align-items: stretch;
+  height: 35px;
+}
+
+.toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  background: v.$color-neutral-50;
+  border: none;
+  border-left: 1px solid v.$color-border;
+  cursor: pointer;
+  color: v.$color-neutral-400;
+
+  &:hover {
+    background: v.$color-neutral-100;
+    color: v.$color-neutral-600;
+  }
+
+  svg {
+    &.rotated {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.search-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  background: v.$color-primary;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  color: v.$color-white;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: v.$color-primary-dark;
+  }
+}
+
+// Filter Form
+.filter-form {
+  position: absolute;
+  top: 100%;
+  left: -1px;
+  right: -1px;
+  padding: 24px 16px 32px;
+  background: v.$color-white;
+  border: 1px solid v.$color-border;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.form-actions-top {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 6px;
+  z-index: 1;
+}
+
+.filter-form-content {
+  display: flex;
+  gap: 16px;
+  padding-right: 60px;
+}
+
+.form-grid {
+  display: grid;
+  gap: 16px;
+  flex: 1;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  &.col-span-2 {
+    grid-column: span 2;
+  }
+
+  &.col-span-3 {
+    grid-column: span 3;
+  }
+
+  &.col-span-4 {
+    grid-column: span 4;
+  }
+}
+
+// Form Actions (top right)
+.btn-clear,
+.btn-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  border-radius: v.$border-radius-sm;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-clear {
+  background: v.$color-white;
+  border: 1px solid v.$color-border;
+  color: v.$color-primary;
+
+  &:hover {
+    background: v.$color-neutral-50;
+    border-color: v.$color-primary;
+  }
+}
+
+.btn-remove {
+  background: v.$color-danger;
+  color: v.$color-white;
+
+  &:hover {
+    background: v.$color-danger-dark;
+  }
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  .filter-form-content {
+    padding-right: 60px;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .form-field.col-span-2,
+  .form-field.col-span-3,
+  .form-field.col-span-4 {
+    grid-column: span 1;
+  }
+
+  .filter-form-content {
+    flex-direction: column;
+    padding-right: 90px;
+  }
+}

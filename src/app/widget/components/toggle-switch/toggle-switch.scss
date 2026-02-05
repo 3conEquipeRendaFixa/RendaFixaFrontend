@@ -1,0 +1,104 @@
+@use 'styles/variables' as v;
+
+$font-family: 'Rubik', sans-serif;
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.toggle-label {
+  font-family: $font-family;
+  font-size: 12px;
+  color: v.$color-neutral-700;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  flex-shrink: 0;
+
+  // Size variants
+  &.size-sm {
+    width: 32px;
+    height: 16px;
+
+    .toggle-slider::before {
+      height: 12px;
+      width: 12px;
+    }
+
+    input:checked + .toggle-slider::before {
+      transform: translateX(16px);
+    }
+  }
+
+  &.size-lg {
+    width: 48px;
+    height: 24px;
+
+    .toggle-slider::before {
+      height: 20px;
+      width: 20px;
+    }
+
+    input:checked + .toggle-slider::before {
+      transform: translateX(24px);
+    }
+  }
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .toggle-slider {
+      background-color: v.$color-primary;
+    }
+
+    &:checked + .toggle-slider::before {
+      transform: translateX(20px);
+    }
+
+    &:focus + .toggle-slider {
+      box-shadow: 0 0 0 2px rgba(v.$color-primary, 0.2);
+    }
+
+    &:disabled + .toggle-slider {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: v.$color-neutral-300;
+  border-radius: 20px;
+  transition: background-color 0.2s ease;
+
+  &::before {
+    position: absolute;
+    content: '';
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+}
