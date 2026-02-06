@@ -20,6 +20,7 @@
           (filtersChanged)="onFilterChanged($event)"
           (search)="onSearch($event)"
           (clear)="onClear()"
+          (tagRemoved)="onChipRemoved($event)"
         />
         <button class="btn-export" (click)="onExport()" aria-label="Exportar">
           <svg class="export-icon" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -34,14 +35,14 @@
     <div class="grid-section">
       <srf-b3-grid
         [columns]="calendarColumns"
-        [data]="calendarItems()"
+        [data]="filteredItems()"
         [actions]="calendarActions"
         [trackByKey]="'exchange'"
         [showColumnDividers]="true"
         (rowClick)="onRowClick($event)"
         (actionClick)="onActionClick($event)"
       />
-      <p class="results-info">{{ calendarItems().length }} resultados disponíveis.</p>
+      <p class="results-info">{{ filteredItems().length }} resultados disponíveis.</p>
     </div>
   </div>
 

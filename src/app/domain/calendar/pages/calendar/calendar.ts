@@ -25,13 +25,30 @@ export default class Calendar {
   readonly selectedItem = signal<CalendarItem | null>(null);
 
   readonly calendarItems = signal<CalendarItem[]>([
-    { exchange: 'B3', location: 'São Paulo', segment: 'Cetip UTVM', process: 'Registro', description: 'Calendário B3 Cetip UTVM', order: '1', saturdayWorkDay: 'true', sundayWorkDay: 'false', startDate: '2026-01-01', creation: '2025-12-01', lastUpdate: '2025-12-15', status: 1 },
-    { exchange: 'B3', location: 'São Paulo', segment: 'Listados', process: 'Liquidação', description: 'Calendário B3 Listados', order: '2', saturdayWorkDay: 'true', sundayWorkDay: 'true', startDate: '2026-01-01', creation: '2025-12-01', lastUpdate: '2025-12-15', status: 1 },
-    { exchange: 'BCB', location: 'São Paulo', segment: 'Selic', process: 'Registro', description: 'Calendário BCB Selic', order: '1', saturdayWorkDay: 'false', sundayWorkDay: 'false', startDate: '2026-01-01', creation: '2025-12-01', lastUpdate: '2025-12-15', status: 1 },
-    { exchange: 'BCB', location: 'São Paulo', segment: 'Cetip UTVM', process: 'Liquidação', description: 'Calendário BCB Cetip UTVM', order: '2', saturdayWorkDay: 'false', sundayWorkDay: 'false', startDate: '2026-01-01', creation: '2025-12-01', lastUpdate: '2025-12-15', status: 1 },
+    { exchange: 'B3', location: 'São Paulo', segment: 'Cetip UTVM', process: 'Registro', description: 'Calendário B3 Cetip UTVM', order: '1', saturdayWorkDay: 'Sim', sundayWorkDay: 'Não', startDate: '2026-01-01', creation: '2025-12-01', lastUpdate: '2025-12-15', status: 1 },
+    { exchange: 'B3', location: 'São Paulo', segment: 'Listados', process: 'Liquidação', description: 'Calendário B3 Listados', order: '2', saturdayWorkDay: 'Sim', sundayWorkDay: 'Sim', startDate: '2026-01-01', creation: '2025-12-01', lastUpdate: '2025-12-15', status: 1 },
+    { exchange: 'BCB', location: 'São Paulo', segment: 'Selic', process: 'Registro', description: 'Calendário BCB Selic', order: '1', saturdayWorkDay: 'Não', sundayWorkDay: 'Não', startDate: '2026-01-01', creation: '2025-12-01', lastUpdate: '2025-12-15', status: 1 },
+    { exchange: 'BCB', location: 'São Paulo', segment: 'Cetip UTVM', process: 'Liquidação', description: 'Calendário BCB Cetip UTVM', order: '2', saturdayWorkDay: 'Não', sundayWorkDay: 'Não', startDate: '2026-01-01', creation: '2025-12-01', lastUpdate: '2025-12-15', status: 1 },
   ]);
 
   readonly filterValues = signal<FilterValues>({});
+  readonly searchValues = signal<FilterValues>({});
+
+  readonly filteredItems = computed(() => {
+    const search = this.searchValues();
+    const items = this.calendarItems();
+
+    const hasAnyFilter = Object.values(search).some(v => v !== null && v !== undefined && v !== '');
+    if (!hasAnyFilter) return items;
+
+    return items.filter(item => {
+      if (search['exchange'] && item.exchange !== search['exchange']) return false;
+      if (search['location'] && item.location !== search['location']) return false;
+      if (search['segment'] && item.segment !== search['segment']) return false;
+      if (search['process'] && item.process !== search['process']) return false;
+      return true;
+    });
+  });
 
   readonly calendarColumns: GridColumn[] = [
     { key: 'exchange', label: 'Instituição', sortable: true },
@@ -93,12 +110,30 @@ export default class Calendar {
 
   onSearch(values: FilterValues): void {
     this.filterValues.set(values);
-    console.log('Pesquisar', values);
+    this.searchValues.set({ ...values });
   }
 
   onClear(): void {
     this.filterValues.set({});
-    console.log('Limpar filtros');
+    this.searchValues.set({});
+  }
+
+  onChipRemoved(values: FilterValues): void {
+    const hierarchy = ['exchange', 'location', 'segment', 'process'];
+    const newValues = { ...values };
+
+    // Find first missing key and clear all dependents
+    let clearing = false;
+    for (const key of hierarchy) {
+      if (clearing) {
+        newValues[key] = '';
+      } else if (!newValues[key]) {
+        clearing = true;
+      }
+    }
+
+    this.filterValues.set(newValues);
+    this.searchValues.set({ ...newValues });
   }
 
   onRowClick(item: CalendarItem): void {

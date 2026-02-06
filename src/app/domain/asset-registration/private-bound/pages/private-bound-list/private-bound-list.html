@@ -22,6 +22,7 @@
         [data]="securities"
         [actions]="gridActions"
         [trackByKey]="'codigo'"
+        [showColumnDividers]="true"
         (rowClick)="onRowClick($event)"
         (actionClick)="onActionClick($event)"
       />

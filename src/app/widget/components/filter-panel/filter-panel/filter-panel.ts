@@ -32,6 +32,7 @@ export class FilterPanel {
   readonly filtersChanged = output<FilterValues>();
   readonly search = output<FilterValues>();
   readonly clear = output<void>();
+  readonly tagRemoved = output<FilterValues>();
 
   readonly isExpanded = signal(false);
   readonly internalValues = signal<FilterValues>({});
@@ -138,6 +139,7 @@ export class FilterPanel {
     const newValues = { ...this.filterValues() };
     delete newValues[tag.key];
     this.filtersChanged.emit(newValues);
+    this.tagRemoved.emit(newValues);
   }
 
   onFieldValueChange(event: { key: string; value: string | number | boolean | DateRange | null }): void {
