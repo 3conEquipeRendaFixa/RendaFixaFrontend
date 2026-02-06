@@ -61,25 +61,25 @@
         </tr>
       </thead>
       <tbody>
-        @for (item of items(); track item.instituicao + item.segmento + item.processo) {
+        @for (item of items(); track item.exchange + item.segment + item.process) {
           <tr class="grid-row" (click)="onRowClick(item)" tabindex="0" role="button">
             <td class="col-institution">
-              <span class="cell-content">{{ item.instituicao }}</span>
+              <span class="cell-content">{{ item.exchange }}</span>
             </td>
             <td class="col-location">
-              <span class="cell-content">{{ item.praca }}</span>
+              <span class="cell-content">{{ item.location }}</span>
             </td>
             <td class="col-segment">
-              <span class="cell-content">{{ item.segmento }}</span>
+              <span class="cell-content">{{ item.segment }}</span>
             </td>
             <td class="col-process">
-              <span class="cell-content">{{ item.processo }}</span>
+              <span class="cell-content">{{ item.process }}</span>
             </td>
             <td class="col-saturday">
-              <span class="cell-content">{{ formatBoolean(item.sabadoUtil) }}</span>
+              <span class="cell-content">{{ formatBoolean(item.saturdayWorkDay) }}</span>
             </td>
             <td class="col-sunday">
-              <span class="cell-content">{{ formatBoolean(item.domingoUtil) }}</span>
+              <span class="cell-content">{{ formatBoolean(item.sundayWorkDay) }}</span>
             </td>
             <td class="col-action">
               <button class="action-button" type="button" aria-label="Ver calendário" (click)="onRowClick(item); $event.stopPropagation()">

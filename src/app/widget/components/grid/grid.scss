@@ -47,7 +47,7 @@
       font-size: v.$font-size-sm;
       color: #575757;
       user-select: none;
-      border-right: 1px solid c.$color-border;
+      border-right: none;
       height: 35px;
       line-height: 35px;
       background-color: c.$color-data-table-header;
@@ -153,7 +153,7 @@
         font-size: v.$font-size-sm;
         font-weight: 400;
         color: c.$color-neutral-500;
-        border-right: 1px solid c.$color-border;
+        border-right: none;
         height: 35px;
         vertical-align: middle;
         line-height: 35px;
@@ -195,6 +195,25 @@
 
   &:focus-within .action-button {
     opacity: 1;
+  }
+}
+
+// Column Dividers (optional)
+.grid-table.column-dividers {
+  thead th {
+    border-right: 1px solid c.$color-border;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  tbody td {
+    border-right: 1px solid c.$color-border;
+
+    &:last-child {
+      border-right: none;
+    }
   }
 }
 

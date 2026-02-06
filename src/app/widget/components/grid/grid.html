@@ -1,6 +1,6 @@
 <section class="grid-container">
   <div class="grid-wrapper">
-    <table class="grid-table">
+    <table class="grid-table" [class.column-dividers]="showColumnDividers()">
       <thead>
         <tr class="grid-header">
           @for (column of columns(); track column.key) {

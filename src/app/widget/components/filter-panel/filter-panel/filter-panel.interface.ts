@@ -11,6 +11,7 @@ export interface FilterFieldBase {
   placeholder?: string;
   required?: boolean;
   colSpan?: number;
+  disabled?: boolean;
 }
 
 export interface FilterFieldInput extends FilterFieldBase {

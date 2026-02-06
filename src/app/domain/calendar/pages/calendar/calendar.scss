@@ -200,6 +200,42 @@ $border-radius-md: 5px;
   flex-shrink: 0;
 }
 
+.filter-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  srf-b3-filter-panel {
+    flex: 1;
+  }
+
+  .btn-export {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    background-color: v.$color-white;
+    border: 1px solid v.$color-border;
+    border-radius: 5px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: border-color 0.2s ease, opacity 0.2s ease;
+
+    &:hover {
+      border-color: v.$color-primary;
+      opacity: 0.8;
+    }
+
+    .export-icon {
+      width: 35px;
+      height: 35px;
+      flex-shrink: 0;
+    }
+  }
+}
+
 // Grid Section
 .grid-section {
   flex: 1;

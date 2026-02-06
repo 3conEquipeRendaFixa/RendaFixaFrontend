@@ -22,7 +22,7 @@ export class CalendarGrid {
     this.export.emit();
   }
 
-  formatBoolean(value: boolean): string {
-    return value ? 'Sim' : 'Não';
+  formatBoolean(value: string): string {
+    return value === 'true' ? 'Sim' : 'Não';
   }
 }

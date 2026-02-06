@@ -1,11 +1,12 @@
 import { Component, input, output, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CalendarItem, CalendarHoliday } from '@domain/calendar/types/interfaces/calendar.interface';
+import { Grid, GridColumn } from '@widget/components/grid/grid';
 
 @Component({
   selector: 'srf-b3-calendar-view-modal',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, Grid],
   templateUrl: './calendar-view-modal.html',
   styleUrl: './calendar-view-modal.scss',
 })
@@ -16,6 +17,11 @@ export class CalendarViewModal {
   readonly closeModal = output<void>();
 
   selectedYear = new Date().getFullYear();
+
+  readonly holidayColumns: GridColumn[] = [
+    { key: 'data', label: 'Data', width: '94px', sortable: true },
+    { key: 'descricao', label: 'Descrição', sortable: true },
+  ];
 
   readonly holidays = computed<CalendarHoliday[]>(() => {
     return [

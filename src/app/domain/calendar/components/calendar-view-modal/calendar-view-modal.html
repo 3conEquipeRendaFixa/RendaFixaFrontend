@@ -28,31 +28,31 @@
         <div class="characteristics-grid">
           <div class="field">
             <label for="instituicao-field">Instituição</label>
-            <input id="instituicao-field" class="input-field" type="text" [value]="calendarItem()?.instituicao ?? 'B3'" readonly />
+            <input id="instituicao-field" class="input-field" type="text" [value]="calendarItem()?.exchange ?? 'B3'" readonly />
           </div>
 
           <div class="field">
             <label for="praca-field">Praça</label>
-            <input id="praca-field" class="input-field" type="text" [value]="calendarItem()?.praca ?? 'São Paulo'" readonly />
+            <input id="praca-field" class="input-field" type="text" [value]="calendarItem()?.location ?? 'São Paulo'" readonly />
           </div>
 
           <div class="field">
             <label for="segmento-field">Segmento</label>
-            <input id="segmento-field" class="input-field" type="text" [value]="calendarItem()?.segmento ?? 'Cetip UTVM'" readonly />
+            <input id="segmento-field" class="input-field" type="text" [value]="calendarItem()?.segment ?? 'Cetip UTVM'" readonly />
           </div>
 
           <div class="field">
             <label for="processo-field">Processo</label>
-            <input id="processo-field" class="input-field" type="text" [value]="calendarItem()?.processo ?? 'Registro'" readonly />
+            <input id="processo-field" class="input-field" type="text" [value]="calendarItem()?.process ?? 'Registro'" readonly />
           </div>
 
           <div class="field-checkboxes">
             <label class="checkbox-label">
-              <input type="checkbox" [checked]="calendarItem()?.sabadoUtil ?? true" disabled />
+              <input type="checkbox" [checked]="calendarItem()?.saturdayWorkDay === 'true'" disabled />
               <span>Sábado Útil?</span>
             </label>
             <label class="checkbox-label">
-              <input type="checkbox" [checked]="calendarItem()?.domingoUtil ?? false" disabled />
+              <input type="checkbox" [checked]="calendarItem()?.sundayWorkDay === 'true'" disabled />
               <span>Domingo Útil?</span>
             </label>
           </div>
@@ -81,30 +81,13 @@
 
         <!-- Tabela de Feriados -->
         <div class="table-section">
-          <div class="table-wrapper">
-          <table class="holidays-table">
-            <thead>
-              <tr>
-                <th class="th-data">
-                  <span>Data</span>
-                  <span class="sort-icon">↕</span>
-                </th>
-                <th class="th-descricao">
-                  <span>Descrição</span>
-                  <span class="sort-icon">↕</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (holiday of holidays(); track holiday.data) {
-                <tr>
-                  <td class="td-data">{{ holiday.data }}</td>
-                  <td class="td-descricao">{{ holiday.descricao }}</td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
+          <srf-b3-grid
+            [columns]="holidayColumns"
+            [data]="holidays()"
+            [trackByKey]="'data'"
+            [showColumnDividers]="true"
+            [showSortIcon]="true"
+          />
         </div>
       </main>
 

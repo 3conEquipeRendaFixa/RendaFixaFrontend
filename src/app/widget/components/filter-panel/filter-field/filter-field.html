@@ -6,6 +6,7 @@
       class="field-input"
       [placeholder]="field().placeholder || 'Digite...'"
       [value]="value()"
+      [disabled]="field().disabled === true"
       (input)="onInputChange($any($event.target).value)"
     />
   }
@@ -16,6 +17,7 @@
       class="field-input"
       [placeholder]="field().placeholder || 'Digite...'"
       [value]="value()"
+      [disabled]="field().disabled === true"
       (input)="onInputChange($any($event.target).valueAsNumber)"
     />
   }
@@ -25,6 +27,7 @@
       <select 
         class="field-select"
         [value]="value()"
+        [disabled]="field().disabled === true"
         (change)="onInputChange($any($event.target).value)"
       >
         <option value="">{{ field().placeholder || 'Selecione...' }}</option>

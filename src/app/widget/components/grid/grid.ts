@@ -32,6 +32,7 @@ export class Grid<T extends object = Record<string, unknown>> {
   readonly actions = input<GridAction[]>([]);
   readonly trackByKey = input<string>('id');
   readonly showSortIcon = input<boolean>(true);
+  readonly showColumnDividers = input<boolean>(false);
   readonly resultsLabel = input<string>('');
 
   readonly rowClick = output<T>();

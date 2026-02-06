@@ -1,17 +1,5 @@
 <main class="calendar-page">
-  <nav class="breadcrumb">
-    <div class="breadcrumb-content">
-      <span class="breadcrumb-item">PÁGINA INICIAL</span>
-      <svg class="breadcrumb-separator" viewBox="0 0 5 9" width="5" height="9">
-        <path d="M0.5 0.5L4 4.5L0.5 8.5" stroke="currentColor" stroke-width="1" fill="none"/>
-      </svg>
-      <span class="breadcrumb-item">ADMINISTRATIVO</span>
-      <svg class="breadcrumb-separator" viewBox="0 0 5 9" width="5" height="9">
-        <path d="M0.5 0.5L4 4.5L0.5 8.5" stroke="currentColor" stroke-width="1" fill="none"/>
-      </svg>
-      <span class="breadcrumb-item current">CALENDÁRIO POR PRAÇA</span>
-    </div>
-  </nav>
+  <srf-b3-breadcrumb [items]="breadcrumbItems" />
 
   <!-- Header da Tela -->
   <div class="screen-header">
@@ -22,13 +10,38 @@
   <div class="main-content">
     <!-- Filtro -->
     <div class="filter-section">
-      <srf-b3-calendar-filter (searchFilters)="onSearch()" (clearFilters)="onClear()" />
+      <div class="filter-row">
+        <srf-b3-filter-panel
+          [fields]="filterFields()"
+          [filterValues]="filterValues()"
+          [columns]="4"
+          [showSearchButton]="true"
+          [showClearButton]="true"
+          (filtersChanged)="onFilterChanged($event)"
+          (search)="onSearch($event)"
+          (clear)="onClear()"
+        />
+        <button class="btn-export" (click)="onExport()" aria-label="Exportar">
+          <svg class="export-icon" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 0.5H30C32.4853 0.5 34.5 2.51472 34.5 5V30C34.5 32.4853 32.4853 34.5 30 34.5H5C2.51472 34.5 0.5 32.4853 0.5 30V5C0.5 2.51472 2.51472 0.5 5 0.5Z" stroke="#2660F0"/>
+            <path d="M10.6572 10H18.783L22.4394 13.6564V17.2002H21.1303V15.2365H17.2029V11.3091H11.9664V23.0913H15.8937V24.4004H10.6572V10ZM18.512 11.5801V13.9274H20.8593L18.512 11.5801ZM21.163 18.5669L24.3429 21.7835L21.163 25L20.2322 24.0797L21.8555 22.438H17.2016V21.1289H21.8555L20.2322 19.4873L21.163 18.5669Z" fill="#2660F0"/>
+          </svg>
+        </button>
+      </div>
     </div>
 
     <!-- Grid -->
     <div class="grid-section">
-      <srf-b3-calendar-grid [items]="calendarItems()" (rowClick)="onRowClick($event)" (export)="onExport()" />
-      <p class="results-info">4 resultados disponíveis.</p>
+      <srf-b3-grid
+        [columns]="calendarColumns"
+        [data]="calendarItems()"
+        [actions]="calendarActions"
+        [trackByKey]="'exchange'"
+        [showColumnDividers]="true"
+        (rowClick)="onRowClick($event)"
+        (actionClick)="onActionClick($event)"
+      />
+      <p class="results-info">{{ calendarItems().length }} resultados disponíveis.</p>
     </div>
   </div>
 

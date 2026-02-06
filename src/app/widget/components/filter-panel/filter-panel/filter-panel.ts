@@ -1,4 +1,4 @@
-import { Component, input, output, signal, computed } from '@angular/core';
+import { Component, input, output, signal, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FilterField,
@@ -35,6 +35,15 @@ export class FilterPanel {
 
   readonly isExpanded = signal(false);
   readonly internalValues = signal<FilterValues>({});
+
+  constructor() {
+    effect(() => {
+      const externalValues = this.filterValues();
+      if (this.isExpanded()) {
+        this.internalValues.set({ ...externalValues });
+      }
+    });
+  }
 
   readonly activeTags = computed<FilterTag[]>(() => {
     const values = this.filterValues();
@@ -132,10 +141,12 @@ export class FilterPanel {
   }
 
   onFieldValueChange(event: { key: string; value: string | number | boolean | DateRange | null }): void {
-    this.internalValues.update(v => ({
-      ...v,
+    const newValues = {
+      ...this.internalValues(),
       [event.key]: event.value
-    }));
+    };
+    this.internalValues.set(newValues);
+    this.filtersChanged.emit(newValues);
   }
 
   getFieldValue(key: string): string | number | boolean | DateRange | null {
