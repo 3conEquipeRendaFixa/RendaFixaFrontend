@@ -122,7 +122,6 @@ export default class Calendar {
     const hierarchy = ['exchange', 'location', 'segment', 'process'];
     const newValues = { ...values };
 
-    // Find first missing key and clear all dependents
     let clearing = false;
     for (const key of hierarchy) {
       if (clearing) {

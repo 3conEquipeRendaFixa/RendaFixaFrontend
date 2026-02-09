@@ -1,9 +1,5 @@
-/**
- * Interface base para características comuns de todos os ativos de renda fixa privada
- * Baseado em TRM_RF_PRIV_FIX_INC_CHARAC
- */
+
 export interface IBaseAsset {
-  // Campos básicos obrigatórios para todos os ativos
   tickerSymbolTypeCode: string;               // Tipo de Ativo (DEB, CRI, CRA, etc.)
   tickerSymbol: string;                       // Código do Ativo
   tickerSymbolSurname: string;                // Apelido
@@ -15,10 +11,6 @@ export interface IBaseAsset {
   nonPaymentIndicator: boolean;               // Instrumento Vencido e Inadimplido
 }
 
-/**
- * Interface para registro simplificado na listagem/grid
- * Usa apenas os campos essenciais para exibição
- */
+
 export interface IAssetListRecord extends IBaseAsset {
-  // Campos adicionais comuns para listagem podem ser adicionados aqui se necessário
 }

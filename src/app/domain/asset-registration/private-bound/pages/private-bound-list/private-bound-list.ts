@@ -4,13 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { Grid, GridColumn, GridAction } from '@widget/components/grid/grid';
 import { Breadcrumb, BreadcrumbItem } from '@widget/components/breadcrumb/breadcrumb';
 import { FilterPanel, FilterField, FilterValues, DateRange } from '@widget/components/filter-panel';
-import { PrivateBoundService } from '../../services';
-import { 
-  IPrivateSecurityRecord, 
-  PrivateSecurityFilterKey, 
+import { PrivateBoundService, PrivateBoundStateService } from '../../services';
+import {
+  IPrivateSecurityRecord,
+  PrivateSecurityFilterKey,
   PrivateSecurityAppliedFilter,
   PrivateSecurityFilters,
-  PRIVATE_SECURITY_FILTER_LABELS 
+  PRIVATE_SECURITY_FILTER_LABELS
 } from '../../interfaces';
 
 @Component({
@@ -21,6 +21,7 @@ import {
 })
 export class PrivateBoundList implements OnInit {
   private readonly service = inject(PrivateBoundService);
+  private readonly stateService = inject(PrivateBoundStateService);
 
   breadcrumbItems: BreadcrumbItem[] = [
     { label: 'PÁGINA INICIAL', route: '/' },
@@ -31,7 +32,7 @@ export class PrivateBoundList implements OnInit {
   // Configuração dos campos de filtro para o FilterPanel
   filterFields: FilterField[] = [
     { 
-      key: 'tipoAtivo', 
+      key: 'tickerSymbolTypeCode', 
       label: 'Tipo do Ativo', 
       type: 'select', 
       required: true,
@@ -48,13 +49,13 @@ export class PrivateBoundList implements OnInit {
         { value: 'CDB', label: 'CDB' }
       ]
     },
-    { key: 'codigoAtivo', label: 'Código do Ativo', type: 'text', placeholder: 'Digite...' },
-    { key: 'apelidoAtivo', label: 'Apelido do Ativo', type: 'text', placeholder: 'Digite...' },
-    { key: 'emissor', label: 'Emissor (Razão Social)', type: 'text', placeholder: 'Digite...' },
-    { key: 'dataEmissao', label: 'Data Emissão', type: 'date-range' },
-    { key: 'dataVencimento', label: 'Data Vencimento', type: 'date-range' },
+    { key: 'tickerSymbol', label: 'Código do Ativo', type: 'text', placeholder: 'Digite...' },
+    { key: 'tickerSymbolSurname', label: 'Apelido do Ativo', type: 'text', placeholder: 'Digite...' },
+    { key: 'issuerCorporationName', label: 'Emissor (Razão Social)', type: 'text', placeholder: 'Digite...' },
+    { key: 'issueDate', label: 'Data Emissão', type: 'date-range' },
+    { key: 'maturityDate', label: 'Data Vencimento', type: 'date-range' },
     { 
-      key: 'situacaoAtivo', 
+      key: 'instrumentStatusDescription', 
       label: 'Situação do Ativo', 
       type: 'select',
       placeholder: 'Selecione...',
@@ -64,7 +65,7 @@ export class PrivateBoundList implements OnInit {
         { value: 'Cancelado', label: 'Cancelado' }
       ]
     },
-    { key: 'inadimplente', label: 'Inadimplente', type: 'toggle' }
+    { key: 'nonPaymentIndicator', label: 'Inadimplente', type: 'toggle' }
   ];
 
   filterValues = signal<FilterValues>({});
@@ -91,41 +92,59 @@ export class PrivateBoundList implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.loadSecurities();
+    // Restaura os filtros salvos anteriormente
+    const savedFilters = this.stateService.getFilterValues();
+    if (savedFilters && Object.keys(savedFilters).length > 0) {
+      this.filterValues.set(savedFilters);
+    }
+
+    // Restaura os dados salvos anteriormente (evita nova requisição)
+    const savedSecurities = this.stateService.getSecurities();
+    if (savedSecurities && savedSecurities.length > 0) {
+      this.securities = savedSecurities;
+      console.log('Dados restaurados do cache:', savedSecurities.length, 'ativos');
+    } else {
+      // Só faz a requisição se não houver dados em cache
+      this.loadSecurities();
+    }
   }
 
   private loadSecurities(): void {
     const filters = this.convertToServiceFilters(this.filterValues());
     this.service.getAll(filters).subscribe(data => {
       this.securities = data;
+      this.stateService.setSecurities(data); // Salva os dados no cache
     });
   }
 
   private convertToServiceFilters(values: FilterValues): PrivateSecurityFilters {
     return {
-      tipoAtivo: (values['tipoAtivo'] as string) || '',
-      codigoAtivo: (values['codigoAtivo'] as string) || '',
-      apelidoAtivo: (values['apelidoAtivo'] as string) || '',
-      emissor: (values['emissor'] as string) || '',
-      dataEmissao: (values['dataEmissao'] as DateRange)?.start || '',
-      dataVencimento: (values['dataVencimento'] as DateRange)?.start || '',
-      situacaoAtivo: (values['situacaoAtivo'] as string) || '',
-      inadimplente: values['inadimplente'] ? 'true' : ''
+      tickerSymbolTypeCode: (values['tickerSymbolTypeCode'] as string) || '',
+      tickerSymbol: (values['tickerSymbol'] as string) || '',
+      tickerSymbolSurname: (values['tickerSymbolSurname'] as string) || '',
+      issuerCorporationName: (values['issuerCorporationName'] as string) || '',
+      issueDate: (values['issueDate'] as DateRange)?.start || '',
+      maturityDate: (values['maturityDate'] as DateRange)?.start || '',
+      instrumentStatusDescription: (values['instrumentStatusDescription'] as string) || '',
+      nonPaymentIndicator: values['nonPaymentIndicator'] ? 'true' : ''
     };
   }
 
   onFilterSearch(values: FilterValues): void {
     this.filterValues.set(values);
+    this.stateService.setFilterValues(values); // Salva os filtros no serviço
     this.loadSecurities();
   }
 
   onFiltersChanged(values: FilterValues): void {
     this.filterValues.set(values);
+    this.stateService.setFilterValues(values); // Salva os filtros no serviço
     this.loadSecurities();
   }
 
   onFilterClear(): void {
     this.filterValues.set({});
+    this.stateService.clearAll(); // Limpa filtros e dados do serviço
     this.loadSecurities();
   }
 

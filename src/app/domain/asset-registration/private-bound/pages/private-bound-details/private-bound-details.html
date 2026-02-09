@@ -20,7 +20,16 @@
   </div>
 
   <div class="main-content">
-    @if (security) {
+    @if (isLoading) {
+      <div class="loading">
+        <p>Carregando detalhes...</p>
+      </div>
+    } @else if (errorMessage) {
+      <div class="error-message">
+        <p>{{ errorMessage }}</p>
+        <button class="retry-button" (click)="loadSecurityDetails()">Tentar novamente</button>
+      </div>
+    } @else if (security) {
       <div class="scrollable-content">
         @for (section of assetConfig.sections; track section.id) {
           <div class="details-section">
@@ -28,16 +37,16 @@
               <h2 class="section-title">{{ section.title }}</h2>
               <div class="section-divider"></div>
             </div>
-            
+
             <div class="details-grid">
               @for (field of section.fields; track field.key) {
                 <div class="detail-item">
                   <span class="detail-label">{{ field.label }}</span>
                   <div class="detail-value-container">
                     @if (field.editable && isEditing(field.key)) {
-                      <input 
-                        type="text" 
-                        class="edit-input" 
+                      <input
+                        type="text"
+                        class="edit-input"
                         [(ngModel)]="editingValue"
                         (keyup.enter)="onConfirmEdit()"
                         (keyup.escape)="onCancelEdit()"
@@ -70,10 +79,6 @@
             </div>
           </div>
         }
-      </div>
-    } @else {
-      <div class="loading">
-        <p>Carregando detalhes...</p>
       </div>
     }
   </div>
