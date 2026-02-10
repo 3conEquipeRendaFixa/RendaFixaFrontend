@@ -1,9 +1,8 @@
 {
-  // For more information, visit: https://angular.dev/ai/mcp
   "servers": {
-    "angular-cli": {
-      "command": "npx",
-      "args": ["-y", "@angular/cli", "mcp"]
+    "Figma MCP": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "figma-developer-mcp", "--figma-api-key=figd_1Jh_1POm80y3c2dCsbmcRvNjT2A8WRBQcfamRUsC", "--stdio"]
     }
   }
 }
