@@ -11,6 +11,5 @@ export interface IBaseAsset {
   nonPaymentIndicator: boolean;               // Instrumento Vencido e Inadimplido
 }
 
-
 export interface IAssetListRecord extends IBaseAsset {
 }
