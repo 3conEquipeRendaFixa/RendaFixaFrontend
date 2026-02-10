@@ -16,6 +16,10 @@ export const routes: Routes = [
             {
                 path: 'asset-registration',
                 loadChildren: () => import('@domain/asset-registration/asset-registration.routes').then(m => m.ASSET_REGISTRATION_ROUTES)
+            },
+            {
+                path: 'customer',
+                loadChildren: () => import('@domain/Customer/customer.route').then(m => m.CUSTOMER_ROUTES)
             }
         ]
     },
