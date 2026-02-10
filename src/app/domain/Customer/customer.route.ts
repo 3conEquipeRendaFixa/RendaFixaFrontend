@@ -2,6 +2,13 @@ import { Routes } from '@angular/router';
 
 export const CUSTOMER_ROUTES: Routes = [
   {
+    path: '',
+    loadComponent: () =>
+      import('@domain/Customer/pages/customer-list/customer-list').then(
+        (m) => m.CustomerList
+      ),
+  },
+  {
     path: 'pessoa-fisica-nao-residente',
     loadComponent: () =>
       import('@domain/Customer/pages/pessoa-fisica-nao-residente/pessoa-fisica-nao-residente').then(
