@@ -138,8 +138,9 @@ $font-family: 'Rubik', sans-serif;
 
 .form-grid {
   display: grid;
-  gap: 16px;
+  gap: 12px;
   flex: 1;
+  align-items: start;
 }
 
 .form-field {

@@ -1,1 +1,45 @@
-<p>customer-list works!</p>
+<main class="customer-list-page">
+  <srf-b3-breadcrumb [items]="breadcrumbItems" />
+
+  <div class="screen-header">
+    <h1 class="screen-title">Cadastro de Clientes</h1>
+    <span class="screen-subtitle">Consulta</span>
+  </div>
+
+  <div class="main-content">
+    <section class="filter-section">
+      <srf-b3-filter-panel
+        [fields]="filterFields"
+        [filterValues]="filterValues()"
+        [gridTemplate]="'1.1fr 0.8fr 1fr 1.6fr 3.5fr 1fr'"
+        (search)="onFilterSearch($event)"
+        (filtersChanged)="onFiltersChanged($event)"
+        (clear)="onFilterClear()"
+      />
+    </section>
+
+    <div class="grid-section">
+      <srf-b3-grid
+        [columns]="gridColumns"
+        [data]="paginatedCustomers()"
+        [actions]="gridActions"
+        [trackByKey]="'numeroDocumento'"
+        [showColumnDividers]="true"
+        (rowClick)="onRowClick($event)"
+        (actionClick)="onActionClick($event)"
+      >
+        <ng-template gridCellDef="statusInvestidor" let-item>
+          <srf-b3-status-badge [status]="item.statusInvestidor" />
+        </ng-template>
+      </srf-b3-grid>
+
+      <srf-b3-pagination
+        [totalItems]="allCustomers().length"
+        [pageSize]="pageSize()"
+        [currentPage]="currentPage()"
+        (pageChange)="onPageChange($event)"
+        (pageSizeChange)="onPageSizeChange($event)"
+      />
+    </div>
+  </div>
+</main>

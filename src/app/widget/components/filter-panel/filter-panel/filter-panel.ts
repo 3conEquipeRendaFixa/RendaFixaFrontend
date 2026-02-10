@@ -23,6 +23,7 @@ export class FilterPanel {
   
   // Configurações de layout
   readonly columns = input<number>(4);
+  readonly gridTemplate = input<string>('');
   readonly showSearchButton = input<boolean>(true);
   readonly showClearButton = input<boolean>(true);
   readonly searchLabel = input<string>('Pesquisar');
@@ -72,6 +73,20 @@ export class FilterPanel {
             label: field.label,
             value: JSON.stringify(dateValue),
             displayValue
+          });
+        }
+      } else if (field.type === 'checkbox-group') {
+        const arrValue = value as string[];
+        if (Array.isArray(arrValue) && arrValue.length > 0) {
+          const labels = arrValue.map(v => {
+            const opt = field.options.find(o => String(o.value) === v);
+            return opt ? opt.label : v;
+          });
+          tags.push({
+            key: field.key,
+            label: field.label,
+            value: JSON.stringify(arrValue),
+            displayValue: labels.join(', ')
           });
         }
       } else if (field.type === 'select') {
@@ -126,6 +141,8 @@ export class FilterPanel {
         emptyValues[field.key] = { start: '', end: '' };
       } else if (field.type === 'toggle') {
         emptyValues[field.key] = false;
+      } else if (field.type === 'checkbox-group') {
+        emptyValues[field.key] = [];
       } else {
         emptyValues[field.key] = '';
       }
@@ -138,11 +155,13 @@ export class FilterPanel {
   removeTag(tag: FilterTag): void {
     const newValues = { ...this.filterValues() };
     delete newValues[tag.key];
+    this.internalValues.set(newValues);
     this.filtersChanged.emit(newValues);
+    this.search.emit(newValues);
     this.tagRemoved.emit(newValues);
   }
 
-  onFieldValueChange(event: { key: string; value: string | number | boolean | DateRange | null }): void {
+  onFieldValueChange(event: { key: string; value: string | number | boolean | DateRange | string[] | null }): void {
     const newValues = {
       ...this.internalValues(),
       [event.key]: event.value
@@ -151,7 +170,7 @@ export class FilterPanel {
     this.filtersChanged.emit(newValues);
   }
 
-  getFieldValue(key: string): string | number | boolean | DateRange | null {
+  getFieldValue(key: string): string | number | boolean | DateRange | string[] | null {
     const value = this.internalValues()[key];
     if (value === undefined) return null;
     return value;

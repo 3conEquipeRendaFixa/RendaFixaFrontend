@@ -26,7 +26,7 @@
           @for (item of modulesRow1; track item.label; let i = $index) {
             @if (item.submenu) {
               <div class="module-dropdown" [class.active]="activeDropdown() === i">
-                <a href="#" class="module-btn" (click)="toggleDropdown(i, $event)">
+                <a [href]="item.link || '#'" class="module-btn" (click)="toggleDropdown(i, $event)">
                   <span class="icon">
                     <img [src]="item.icon" [alt]="item.label">
                   </span>
@@ -39,7 +39,7 @@
                         <a href="#">{{ subItem.label }}</a>
                         <div class="submenu">
                           @for (subSubItem of subItem.submenu; track subSubItem.label) {
-                            <a [href]="subSubItem.link || '#'">{{ subSubItem.label }}</a>
+                            <a [href]="subSubItem.link ||'#'">{{ subSubItem.label }}</a>
                           }
                         </div>
                       </div>
@@ -50,7 +50,7 @@
                 </div>
               </div>
             } @else {
-              <a href="#" class="module-btn" 
+              <a [href]="item.link || '#'" class="module-btn" 
                  [attr.data-module]="item.dataModule"
                  [class.highlight]="isHighlighted(item.dataModule)">
                 <span class="icon">
@@ -67,7 +67,7 @@
           @for (item of modulesRow2; track item.label; let i = $index) {
             @if (item.submenu) {
               <div class="module-dropdown" [class.active]="activeDropdown() === (i + 100)">
-                <a href="#" class="module-btn" (click)="toggleDropdown(i + 100, $event)">
+                <a [href]="item.link || '#'" class="module-btn" (click)="toggleDropdown(i + 100, $event)">
                   <span class="icon">
                     <img [src]="item.icon" [alt]="item.label">
                   </span>

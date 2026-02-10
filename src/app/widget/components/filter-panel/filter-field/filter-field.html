@@ -57,4 +57,27 @@
       />
     </div>
   }
+  @case ('date') {
+    <label class="field-label" [class.required]="field().required">{{ field().label }}</label>
+    <srf-b3-date-input
+      [placeholder]="field().placeholder || ''"
+      (valueChange)="onDateChange($event)"
+    />
+  }
+  @case ('checkbox-group') {
+    <label class="field-label" [class.required]="field().required">{{ field().label }}</label>
+    <div class="checkbox-group">
+      @for (option of getSelectOptions(); track option.value) {
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            [checked]="isChecked(option.value)"
+            (change)="onCheckboxChange(option.value, $any($event.target).checked)"
+          />
+          <span class="checkbox-custom"></span>
+          <span class="checkbox-label">{{ option.label }}</span>
+        </label>
+      }
+    </div>
+  }
 }

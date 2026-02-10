@@ -33,12 +33,21 @@ export interface FilterFieldToggle extends FilterFieldBase {
   type: 'toggle';
 }
 
+export interface FilterFieldDate extends FilterFieldBase {
+  type: 'date';
+}
+
+export interface FilterFieldCheckboxGroup extends FilterFieldBase {
+  type: 'checkbox-group';
+  options: FilterSelectOption[];
+}
+
 export interface FilterSelectOption {
   value: string | number;
   label: string;
 }
 
-export type FilterField = FilterFieldInput | FilterFieldSelect | FilterFieldDateRange | FilterFieldToggle;
+export type FilterField = FilterFieldInput | FilterFieldSelect | FilterFieldDateRange | FilterFieldToggle | FilterFieldDate | FilterFieldCheckboxGroup;
 
 export interface FilterPanelConfig {
   fields: FilterField[];
@@ -50,7 +59,7 @@ export interface FilterPanelConfig {
 }
 
 export interface FilterValues {
-  [key: string]: string | number | boolean | DateRange | null;
+  [key: string]: string | number | boolean | DateRange | string[] | null;
 }
 
 export interface DateRange {

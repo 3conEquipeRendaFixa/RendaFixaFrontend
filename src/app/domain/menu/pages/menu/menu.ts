@@ -5,6 +5,7 @@ interface MenuItem {
   label: string;
   icon: string;
   dataModule?: string;
+  link?: string;
   submenu?: SubMenuItem[];
 }
 
@@ -29,7 +30,8 @@ export class MenuComponent {
     {
       label: 'Cadastro de Clientes',
       icon: 'icons/Vector.svg',
-      dataModule: 'cadastro-clientes'
+      dataModule: 'cadastro-clientes',
+      link: '/customer'
     },
     {
       label: 'Cadastro de Ativos',

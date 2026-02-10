@@ -31,11 +31,17 @@
         @for (item of data(); track getTrackId($index, item); let idx = $index) {
           <tr class="grid-row" (click)="onRowClick(item)" tabindex="0" role="button">
             @for (column of columns(); track column.key) {
-              <td 
+              <td
                 [class]="'col-' + column.key"
                 [style.width]="column.width"
                 [style.text-align]="column.align || 'left'">
-                <span class="cell-content">{{ getCellValue(item, column.key) }}</span>
+                @if (getCellTemplate(column.key); as tpl) {
+                  <span class="cell-content">
+                    <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: item, column: column }"></ng-container>
+                  </span>
+                } @else {
+                  <span class="cell-content">{{ getCellValue(item, column.key) }}</span>
+                }
               </td>
             }
             @if (actions().length > 0) {

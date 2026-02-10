@@ -94,3 +94,66 @@ $font-family: 'Rubik', sans-serif;
   padding-top: 14px;
   justify-content: flex-start;
 }
+
+// Checkbox group
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-family: $font-family;
+  font-size: 11px;
+  color: v.$color-neutral-600;
+  white-space: nowrap;
+
+  input[type='checkbox'] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .checkbox-custom {
+      background-color: v.$color-primary;
+      border-color: v.$color-primary;
+
+      &::after {
+        display: block;
+      }
+    }
+  }
+}
+
+.checkbox-custom {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  border: 1px solid v.$color-border;
+  border-radius: 3px;
+  background: v.$color-white;
+  position: relative;
+  transition: all 0.15s ease;
+
+  &::after {
+    content: '';
+    display: none;
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid v.$color-white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+}
+
+.checkbox-label {
+  user-select: none;
+}
