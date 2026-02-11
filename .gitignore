@@ -48,3 +48,4 @@ environments/
 
 #Claude
 .claude/
+.agents/
