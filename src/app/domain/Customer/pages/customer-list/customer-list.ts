@@ -89,8 +89,8 @@ export class CustomerList implements OnInit {
 
   gridColumns: GridColumn[] = [
     { key: 'nome', label: 'Nome do Cliente', width: '45%', sortable: true },
-    { key: 'residente', label: 'Residente', width: '7%', sortable: true },
-    { key: 'tipoDocumento', label: 'Tipo Doc.', width: '7%', sortable: true },
+    { key: 'residente', label: 'Residente', width: '10%', sortable: true },
+    { key: 'tipoDocumento', label: 'Tipo Doc.', width: '8%', sortable: true },
     { key: 'numeroDocumento', label: 'Número Doc.', width: '12%', sortable: true },
     { key: 'statusInvestidor', label: 'Status Investidor', width: '10%', sortable: true },
     { key: 'dataHoraInclusao', label: 'Data/Hora Inclusão', width: '12%', sortable: true },

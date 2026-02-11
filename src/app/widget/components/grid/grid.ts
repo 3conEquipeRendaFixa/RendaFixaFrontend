@@ -2,6 +2,7 @@ import { Component, input, output, TemplateRef, ContentChild, ContentChildren, Q
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { GridCellDef } from './grid-cell-def.directive';
+import { Tooltip } from '../tooltip/tooltip';
 
 export interface GridColumn {
   key: string;
@@ -21,7 +22,7 @@ export interface GridAction {
 
 @Component({
   selector: 'srf-b3-grid',
-  imports: [CommonModule],
+  imports: [CommonModule, Tooltip],
   templateUrl: './grid.html',
   styleUrl: './grid.scss',
 })
