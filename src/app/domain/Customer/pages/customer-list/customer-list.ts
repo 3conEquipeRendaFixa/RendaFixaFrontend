@@ -101,7 +101,7 @@ export class CustomerList implements OnInit {
       icon: 'icons/options.svg',
       label: 'Mais opções',
       route: '/customer',
-      routeIdKey: 'numeroDocumento'
+      routeIdKey: 'custCode'
     }
   ];
 
@@ -120,11 +120,11 @@ export class CustomerList implements OnInit {
   }
 
   private loadCustomers(): void {
-    const filters = this.convertToServiceFilters(this.filterValues());
-    this.service.getAll(filters).subscribe(data => {
+    this.service.loadCustomers().subscribe(data => {
       this.allCustomers.set(data);
       this.stateService.setCustomers(data);
       this.currentPage.set(1);
+      console.log('Customers loaded:', data);
     });
   }
 
