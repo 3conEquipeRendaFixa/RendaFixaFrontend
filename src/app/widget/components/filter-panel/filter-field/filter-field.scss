@@ -1,0 +1,159 @@
+@use 'styles/variables' as v;
+
+$font-family: 'Rubik', sans-serif;
+
+:host {
+  display: contents;
+}
+
+.field-label {
+  font-family: $font-family;
+  font-size: 10px;
+  font-weight: 400;
+  color: v.$color-neutral-500;
+
+  &.required::after {
+    content: ' *';
+    color: v.$color-danger;
+  }
+}
+
+.field-input {
+  height: 35px;
+  padding: 0 12px;
+  border: 1px solid v.$color-border;
+  border-radius: v.$border-radius-sm;
+  font-family: $font-family;
+  font-size: 12px;
+  color: v.$color-neutral-500;
+  background: v.$color-white;
+
+  &::placeholder {
+    color: v.$color-neutral-400;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: v.$color-primary;
+  }
+}
+
+.select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.field-select {
+  width: 100%;
+  height: 35px;
+  padding: 0 32px 0 12px;
+  border: 1px solid v.$color-border;
+  border-radius: v.$border-radius-sm;
+  font-family: $font-family;
+  font-size: 12px;
+  color: v.$color-neutral-400;
+  background: v.$color-white;
+  appearance: none;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: v.$color-primary;
+  }
+
+  &:disabled {
+    background-color: v.$color-neutral-50;
+    color: v.$color-neutral-200;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}
+
+.field-input {
+  &:disabled {
+    background-color: v.$color-neutral-50;
+    color: v.$color-neutral-200;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}
+
+.select-arrow {
+  position: absolute;
+  right: 12px;
+  pointer-events: none;
+  color: v.$color-neutral-500;
+}
+
+// Toggle field wrapper
+.toggle-field {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-top: 14px;
+  justify-content: flex-start;
+}
+
+// Checkbox group
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-family: $font-family;
+  font-size: 11px;
+  color: v.$color-neutral-600;
+  white-space: nowrap;
+
+  input[type='checkbox'] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .checkbox-custom {
+      background-color: v.$color-primary;
+      border-color: v.$color-primary;
+
+      &::after {
+        display: block;
+      }
+    }
+  }
+}
+
+.checkbox-custom {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  border: 1px solid v.$color-border;
+  border-radius: 3px;
+  background: v.$color-white;
+  position: relative;
+  transition: all 0.15s ease;
+
+  &::after {
+    content: '';
+    display: none;
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid v.$color-white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+}
+
+.checkbox-label {
+  user-select: none;
+}

@@ -1,0 +1,396 @@
+@use 'styles/variables' as *;
+
+:host {
+  display: block;
+  font-family: 'Rubik', sans-serif;
+  background-color: #f8fafb;
+  min-height: 100vh;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Header */
+.header {
+  background-color: #003475;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 9px;
+}
+
+.logo-b3 {
+  width: $logo-header-width;
+  height: $logo-header-height;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.header-title {
+  color: white;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.header-right {
+  background-color: rgba(12, 76, 155, 0.7);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #4a90c2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+  }
+}
+
+.company-name {
+  color: white;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.main-content {
+  min-height: calc(100vh - 25px);
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.bg-lateral {
+  position: absolute;
+  right: 0;
+  top: 38px;
+  width: 449px;
+  height: 430px;
+  pointer-events: none;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: right top;
+  }
+}
+
+.content-area {
+  padding: 64px 16px 70px; 
+  position: relative;
+  z-index: 1;
+}
+
+.welcome-text {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+
+  .greeting {
+    color: $color-neutral-300;
+  }
+
+  .username {
+    color: $color-neutral-600;
+  }
+}
+
+.main-title {
+  margin-top: 5px;
+  margin-bottom: 60px;
+
+  .sinacor {
+    font-size: 40px;
+    font-weight: 500;
+    color: $color-neutral-500;
+    line-height: 1.2;
+  }
+
+  .renda-fixa {
+    font-size: 65px;
+    font-weight: 700;
+    color: $color-secondary;
+    line-height: 1.1;
+  }
+}
+
+.modules-section {
+  margin-top: 40px;
+}
+
+.modules-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: $color-neutral-500;
+  margin-bottom: 20px;
+}
+
+.modules-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 800px;
+}
+
+.modules-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.module-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  height: 35px;
+  border: 1px solid $color-neutral-600;
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s, border-color 0.2s;
+
+  &:hover {
+    background-color: #003475;
+    border-color: #003475;
+
+    .label {
+      color: white;
+    }
+
+    .icon img {
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  .icon {
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg,
+    img {
+      width: 100%;
+      height: 100%;
+      fill: $color-neutral-600;
+      object-fit: contain;
+    }
+  }
+
+  .label {
+    font-family: 'Rubik', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: $color-neutral-600;
+    white-space: nowrap;
+  }
+}
+
+.module-dropdown {
+  position: relative;
+  display: inline-block;
+
+  &.active .module-btn {
+    background-color: #003475;
+    border-color: #003475;
+    border-radius: 5px 5px 0 0;
+
+    .label {
+      color: white;
+    }
+
+    .icon img {
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  &.active .dropdown-menu {
+    display: block;
+  }
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: $color-secondary;
+  border-radius: 0 5px 5px 5px;
+  min-width: 100%;
+  z-index: 10;
+
+  a {
+    display: block;
+    padding: 10px 12px;
+    color: white;
+    text-decoration: none;
+    font-family: 'Rubik', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #07499B;
+    }
+  }
+}
+
+.dropdown-submenu {
+  position: relative;
+
+  > a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &::after {
+      content: "→";
+      margin-left: 10px;
+      font-size: 10px;
+    }
+  }
+
+  &:hover .submenu {
+    display: block;
+  }
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  background-color: $color-secondary;
+  border-radius: 0 5px 5px 5px;
+  min-width: 180px;
+  z-index: 11;
+  overflow: hidden;
+
+  a {
+    display: block;
+    padding: 10px 12px;
+    color: white;
+    text-decoration: none;
+    font-family: 'Rubik', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #07499B;
+    }
+  }
+}
+
+.module-btn.highlight {
+  animation: highlightPulse 0.5s ease-in-out 3;
+}
+
+@keyframes highlightPulse {
+  0%, 100% {
+    background-color: transparent;
+    border-color: $color-neutral-600;
+  }
+  50% {
+    background-color: rgba(0, 52, 117, 0.3);
+    border-color: #003475;
+  }
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25px;
+  background-color: #f8fafb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.footer-text {
+  font-family: 'Mulish', sans-serif;
+  font-size: 10px;
+  color: $color-text-footer;
+}
+
+.footer-logo {
+  width: $logo-footer-width;
+  height: $logo-footer-height;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(73%) sepia(6%) saturate(415%) hue-rotate(169deg) brightness(91%) contrast(89%);
+  }
+}
+
+@media (max-width: 1024px) {
+  .bg-lateral {
+    display: none;
+  }
+
+  .main-title .renda-fixa {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 600px) {
+  .main-title {
+    .sinacor {
+      font-size: 28px;
+    }
+
+    .renda-fixa {
+      font-size: 36px;
+    }
+  }
+
+  .header-right {
+    padding: 0 10px;
+  }
+
+  .company-name {
+    font-size: 8px;
+  }
+}

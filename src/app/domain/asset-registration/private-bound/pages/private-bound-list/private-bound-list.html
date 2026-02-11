@@ -1,0 +1,32 @@
+<main class="private-bound-page">
+  <srf-b3-breadcrumb [items]="breadcrumbItems" />
+
+  <div class="screen-header">
+    <h1 class="screen-title">Títulos Privados</h1>
+  </div>
+
+  <div class="main-content">
+    <section class="filter-section">
+      <srf-b3-filter-panel
+        [fields]="filterFields"
+        [filterValues]="filterValues()"
+        (search)="onFilterSearch($event)"
+        (filtersChanged)="onFiltersChanged($event)"
+        (clear)="onFilterClear()"
+      />
+    </section>
+
+    <div class="grid-section">
+      <srf-b3-grid 
+        [columns]="gridColumns"
+        [data]="securities"
+        [actions]="gridActions"
+        [trackByKey]="'codigo'"
+        [showColumnDividers]="true"
+        (rowClick)="onRowClick($event)"
+        (actionClick)="onActionClick($event)"
+      />
+      <p class="results-info">{{ filteredResults }} resultados disponíveis</p>
+    </div>
+  </div>
+</main>

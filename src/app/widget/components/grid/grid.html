@@ -1,0 +1,72 @@
+<section class="grid-container">
+  <div class="grid-wrapper">
+    <table class="grid-table" [class.column-dividers]="showColumnDividers()">
+      <thead>
+        <tr class="grid-header">
+          @for (column of columns(); track column.key) {
+            <th 
+              [class]="'col-' + column.key"
+              [style.width]="column.width"
+              [style.text-align]="column.align || 'left'"
+              [class.sortable]="column.sortable"
+              (click)="onSortClick(column)">
+              <div class="header-content">
+                <srf-b3-tooltip [text]="column.label" position="top">
+                  <span class="header-text">{{ column.label }}</span>
+                </srf-b3-tooltip>
+                @if (showSortIcon() && column.sortable !== false) {
+                  <img src="icons/arrow-filter.svg" alt="" class="sort-icon"
+                       [class.active]="sortColumn === column.key"
+                       [class.desc]="sortColumn === column.key && sortDirection === 'desc'" />
+                }
+              </div>
+            </th>
+          }
+          @if (actions().length > 0) {
+            <th class="col-actions">
+              <div class="header-content"></div>
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of data(); track getTrackId($index, item); let idx = $index) {
+          <tr class="grid-row" (click)="onRowClick(item)" tabindex="0" role="button">
+            @for (column of columns(); track column.key) {
+              <td
+                [class]="'col-' + column.key"
+                [style.width]="column.width"
+                [style.text-align]="column.align || 'left'">
+                @if (getCellTemplate(column.key); as tpl) {
+                  <span class="cell-content">
+                    <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: item, column: column }"></ng-container>
+                  </span>
+                } @else {
+                  <span class="cell-content">{{ getCellValue(item, column.key) }}</span>
+                }
+              </td>
+            }
+            @if (actions().length > 0) {
+              <td class="col-actions">
+                <div class="actions-wrapper">
+                  @for (action of actions(); track action.label) {
+                    <button 
+                      class="action-button" 
+                      type="button" 
+                      [attr.aria-label]="action.label"
+                      (click)="onActionClick(action, item, $event)">
+                      <img [src]="action.icon" alt="" class="action-icon" />
+                    </button>
+                  }
+                </div>
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  @if (resultsLabel()) {
+    <p class="results-info">{{ resultsLabel() }}</p>
+  }
+</section>

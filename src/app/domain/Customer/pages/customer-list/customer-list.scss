@@ -1,0 +1,70 @@
+@use 'styles/variables' as v;
+
+$font-family: 'Rubik', sans-serif;
+$font-family-secondary: 'Mulish', sans-serif;
+$font-size-xs: 10px;
+$font-size-sm: 12px;
+$font-size-base: 16px;
+
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 12px;
+$spacing-lg: 16px;
+
+.customer-list-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #F8FAFB;
+  font-family: $font-family;
+  color: v.$color-neutral-700;
+}
+
+.screen-header {
+  padding: $spacing-lg;
+  flex-shrink: 0;
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-sm;
+}
+
+.screen-title {
+  font-family: $font-family;
+  font-weight: 500;
+  font-size: $font-size-base;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  color: v.$color-secondary;
+  margin: 0;
+}
+
+.screen-subtitle {
+  font-family: $font-family;
+  font-weight: 400;
+  font-size: $font-size-sm;
+  color: v.$color-neutral-400;
+}
+
+.main-content {
+  flex: 1;
+  padding: 0 $spacing-lg $spacing-lg;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-section {
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.grid-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+}

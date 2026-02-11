@@ -1,0 +1,61 @@
+@use 'styles/variables' as v;
+
+$font-family: 'Rubik', sans-serif;
+
+.chip {
+  display: inline-flex;
+  align-items: stretch;
+  font-family: $font-family;
+  line-height: 1.185;
+
+  &.size-sm {
+    font-size: 10px;
+  }
+
+  &.size-md {
+    font-size: 12px;
+  }
+}
+
+.chip-label {
+  display: flex;
+  align-items: center;
+  color: v.$color-white;
+  background: v.$color-primary;
+  padding: 4px 8px;
+  border-radius: 5px 0 0 5px;
+  font-weight: 400;
+}
+
+.chip-value {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: v.$color-neutral-600;
+  background: v.$color-neutral-100;
+  padding: 4px 8px;
+  border-radius: 0 5px 5px 0;
+  font-weight: 400;
+
+  // Quando não tem label, arredondar todos os cantos
+  .chip:not(:has(.chip-label)) & {
+    border-radius: 5px;
+  }
+}
+
+.chip-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: v.$color-neutral-400;
+  transition: color 0.2s ease;
+  margin-left: 2px;
+
+  &:hover {
+    color: v.$color-danger;
+  }
+}

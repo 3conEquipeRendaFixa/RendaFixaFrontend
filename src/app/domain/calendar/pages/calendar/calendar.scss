@@ -1,0 +1,329 @@
+@use 'styles/variables' as v;
+
+// Typography
+$font-family: 'Rubik', sans-serif;
+$font-family-secondary: 'Mulish', sans-serif;
+$font-size-xs: 10px;
+$font-size-sm: 12px;
+$font-size-base: 16px;
+$font-size-lg: 17px;
+
+// Spacing
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 12px;
+$spacing-lg: 16px;
+$spacing-xl: 24px;
+
+// Border Radius
+$border-radius-sm: 4px;
+$border-radius-md: 5px;
+
+.calendar-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  background-color: #F8FAFB;
+  font-family: $font-family;
+  color: v.$color-neutral-700;
+}
+
+// Topo Sinacor Header
+.topo-sinacor {
+  background-color: #003475;
+  padding: 0;
+  height: 50px;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  .topo-sinacor-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 0 0 9px;
+  }
+
+  .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 9px;
+
+    .menu-icon {
+      width: 13px;
+      height: 11px;
+      flex-shrink: 0;
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.6;
+      }
+    }
+
+    .logo-b3 {
+      width: v.$logo-header-width;
+      height: v.$logo-header-height;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      font-family: $font-family;
+      font-weight: 500;
+      font-size: $font-size-lg;
+      line-height: 1.185;
+      color: v.$color-white;
+    }
+  }
+
+  .user-section {
+    display: flex;
+    align-items: center;
+    gap: #{$spacing-md};
+    padding-right: 15px;
+    background-color: rgba(12, 76, 155, 0.7);
+    height: 100%;
+    padding-left: 15px;
+
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: #4a90c2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        width: 20px;
+        height: 20px;
+        fill: white;
+      }
+    }
+
+    .user-company {
+      font-family: $font-family;
+      font-weight: 500;
+      font-size: $font-size-xs;
+      text-transform: uppercase;
+      color: v.$color-white;
+      white-space: nowrap;
+      line-height: 1.185;
+    }
+  }
+}
+
+// Breadcrumb
+.breadcrumb {
+  background-color: #F2F3F6;
+  padding: 0 6px 0 16px;
+  height: 38px;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  flex-shrink: 0;
+
+  .breadcrumb-content {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    .breadcrumb-item {
+      font-family: $font-family;
+      font-size: $font-size-xs;
+      line-height: 1.185;
+      text-transform: uppercase;
+      text-align: center;
+      color: #979797;
+      margin: 0;
+
+      &.current {
+        color: v.$color-primary;
+        font-weight: 500;
+      }
+    }
+
+
+    .breadcrumb-separator {
+      width: 4.38px;
+      height: 8.94px;
+      color: #979797;
+      flex-shrink: 0;
+    }
+  }
+}
+
+// Screen Header - Título H1
+.screen-header {
+  background-color: v.$color-white;
+  padding: 16px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border: none;
+  box-sizing: border-box;
+
+  .screen-title {
+    margin: 0;
+    padding: 0;
+    font-family: $font-family;
+    font-weight: 500;
+    font-size: $font-size-base;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: v.$color-secondary;
+  }
+}
+
+// Main Content Area
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 #{$spacing-lg};
+  background-color: #F8FAFB;
+  overflow: hidden;
+}
+
+// Filter Section
+.filter-section {
+  padding: 0;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.filter-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  srf-b3-filter-panel {
+    flex: 1;
+  }
+
+  .btn-export {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    background-color: v.$color-white;
+    border: 1px solid v.$color-border;
+    border-radius: 5px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: border-color 0.2s ease, opacity 0.2s ease;
+
+    &:hover {
+      border-color: v.$color-primary;
+      opacity: 0.8;
+    }
+
+    .export-icon {
+      width: 35px;
+      height: 35px;
+      flex-shrink: 0;
+    }
+  }
+}
+
+// Grid Section
+.grid-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin-top: 16px;
+  overflow: hidden;
+
+  .results-info {
+    margin-top: #{$spacing-md};
+    font-family: $font-family-secondary;
+    font-weight: 400;
+    font-size: $font-size-sm;
+    line-height: 1.255;
+    color: #A2A8AE;
+    flex-shrink: 0;
+  }
+}
+
+// Footer
+.page-footer {
+  background-color: #F8FAFB;
+  padding: 16px;
+  flex-shrink: 0;
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+
+    .footer-text,
+    .footer-version {
+      font-family: $font-family-secondary;
+      font-weight: 400;
+      font-size: $font-size-xs;
+      line-height: 1.255;
+      text-align: center;
+      color: v.$color-text-footer;
+      margin: 0;
+    }
+
+    .footer-logo {
+      width: v.$logo-footer-width;
+      height: v.$logo-footer-height;
+      color: v.$color-text-footer;
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .breadcrumb {
+    .breadcrumb-content {
+      gap: #{$spacing-xs};
+      padding: 0 #{$spacing-md};
+
+      .breadcrumb-item {
+        font-size: 9px;
+      }
+    }
+  }
+
+  .screen-header {
+    padding: #{$spacing-md};
+
+    .screen-title {
+      font-size: 14px;
+    }
+  }
+
+  .main-content {
+    padding: 0 #{$spacing-md};
+  }
+
+  .page-footer {
+    padding: #{$spacing-md};
+
+    .footer-content {
+      flex-direction: column;
+      gap: #{$spacing-sm};
+      text-align: center;
+
+      .footer-text,
+      .footer-version {
+        font-size: 9px;
+      }
+    }
+  }
+}

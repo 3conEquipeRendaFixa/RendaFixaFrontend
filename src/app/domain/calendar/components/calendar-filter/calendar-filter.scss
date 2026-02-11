@@ -1,0 +1,234 @@
+@use 'styles/variables' as v;
+
+// Typography
+$font-family: 'Rubik', sans-serif;
+$font-size-sm: 12px;
+
+// Spacing
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 12px;
+$spacing-lg: 16px;
+
+// Border Radius
+$border-radius-md: 5px;
+
+.filter-container {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.filter-wrapper {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  width: 100%;
+  background-color: transparent;
+  border-radius: 0;
+  overflow: visible;
+  border: none;
+}
+
+.filter-input-group {
+  display: flex;
+  align-items: stretch;
+  flex: 1;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.filter-fields-box {
+  display: flex;
+  align-items: flex-end;
+  flex: 1;
+  gap: 12px;
+}
+
+.filter-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  border-right: none;
+
+  &:last-child {
+    border-right: none;
+  }
+
+  .filter-label {
+    font-family: $font-family;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 1.185em;
+    color: v.$color-neutral-500;
+  }
+
+  .filter-select {
+    width: 100%;
+    padding: 0 12px;
+    height: 35px;
+    border: 1px solid v.$color-border;
+    border-radius: 5px;
+    background-color: v.$color-white;
+    color: v.$color-neutral-300;
+    font-family: $font-family;
+    font-size: $font-size-sm;
+    font-weight: 400;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 20px;
+    padding-right: 32px;
+
+    &:focus {
+      outline: none;
+      background-color: v.$color-bg;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: v.$color-bg;
+    }
+
+    &:disabled {
+      background-color: v.$color-neutral-50;
+      color: v.$color-neutral-200;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    option {
+      padding: 12px;
+      background-color: v.$color-white;
+      color: v.$color-neutral-300;
+    }
+  }
+}
+
+.filter-actions {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+
+  .btn-filter-dropdown {
+    display: none;
+  }
+
+  .btn-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 24px;
+    height: 35px;
+    background-color: v.$color-neutral-50;
+    border: 1px solid v.$color-border;
+    border-radius: 5px;
+    cursor: pointer;
+    color: v.$color-neutral-300;
+    font-family: $font-family;
+    font-weight: 400;
+    font-size: $font-size-sm;
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background-color: v.$color-neutral-100;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    &:not(:disabled) {
+      background-color: v.$color-primary;
+      color: v.$color-white;
+      border-color: v.$color-primary;
+    }
+
+    .btn-search-icon {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+  }
+
+  .btn-export {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    background-color: v.$color-white;
+    border: 1px solid v.$color-border;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, opacity 0.2s ease;
+
+    &:hover {
+      border-color: v.$color-primary;
+      opacity: 0.8;
+    }
+
+    .export-icon {
+      width: 35px;
+      height: 35px;
+      flex-shrink: 0;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .filter-wrapper {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .filter-input-group {
+    flex-wrap: wrap;
+    border-radius: 0;
+  }
+
+  .filter-fields-box {
+    flex-wrap: wrap;
+  }
+
+  .filter-field {
+    flex: 0 0 calc(50% - 6px);
+  }
+
+  .filter-actions {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 768px) {
+  .filter-label-box {
+    min-width: 60px;
+    padding: 0 #{$spacing-sm};
+
+    .filter-label {
+      font-size: 11px;
+    }
+  }
+
+  .filter-fields-box {
+    flex-wrap: wrap;
+  }
+
+  .filter-field {
+    flex: 0 0 100%;
+    border-right: none;
+    border-bottom: 1px solid v.$color-border;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .filter-select {
+      padding: #{$spacing-sm};
+    }
+  }
+}

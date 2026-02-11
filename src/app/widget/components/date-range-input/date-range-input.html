@@ -1,0 +1,13 @@
+<div class="date-range-inputs">
+  <srf-b3-date-input
+    [placeholder]="startPlaceholder()"
+    [disabled]="disabled()"
+    (valueChange)="onStartDateChange($event)"
+  />
+  <span class="date-separator">{{ separator() }}</span>
+  <srf-b3-date-input
+    [placeholder]="endPlaceholder()"
+    [disabled]="disabled()"
+    (valueChange)="onEndDateChange($event)"
+  />
+</div>

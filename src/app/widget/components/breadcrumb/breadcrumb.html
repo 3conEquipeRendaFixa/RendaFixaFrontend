@@ -1,0 +1,16 @@
+<nav class="breadcrumb">
+  <div class="breadcrumb-content">
+    @for (item of items(); track item.label; let last = $last) {
+      @if (item.route && !item.current) {
+        <a class="breadcrumb-item" [routerLink]="item.route">{{ item.label }}</a>
+      } @else {
+        <span class="breadcrumb-item" [class.current]="item.current">{{ item.label }}</span>
+      }
+      @if (!last) {
+        <svg class="breadcrumb-separator" viewBox="0 0 5 9" width="5" height="9" aria-hidden="true">
+          <path d="M0.5 0.5L4 4.5L0.5 8.5" stroke="currentColor" stroke-width="1" fill="none"/>
+        </svg>
+      }
+    }
+  </div>
+</nav>

@@ -1,0 +1,83 @@
+@switch (field().type) {
+  @case ('text') {
+    <label class="field-label" [class.required]="field().required">{{ field().label }}</label>
+    <input 
+      type="text" 
+      class="field-input"
+      [placeholder]="field().placeholder || 'Digite...'"
+      [value]="value()"
+      [disabled]="field().disabled === true"
+      (input)="onInputChange($any($event.target).value)"
+    />
+  }
+  @case ('number') {
+    <label class="field-label" [class.required]="field().required">{{ field().label }}</label>
+    <input 
+      type="number" 
+      class="field-input"
+      [placeholder]="field().placeholder || 'Digite...'"
+      [value]="value()"
+      [disabled]="field().disabled === true"
+      (input)="onInputChange($any($event.target).valueAsNumber)"
+    />
+  }
+  @case ('select') {
+    <label class="field-label" [class.required]="field().required">{{ field().label }}</label>
+    <div class="select-wrapper">
+      <select 
+        class="field-select"
+        [value]="value()"
+        [disabled]="field().disabled === true"
+        (change)="onInputChange($any($event.target).value)"
+      >
+        <option value="">{{ field().placeholder || 'Selecione...' }}</option>
+        @for (option of getSelectOptions(); track option.value) {
+          <option [value]="option.value">{{ option.label }}</option>
+        }
+      </select>
+      <svg class="select-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  }
+  @case ('date-range') {
+    <label class="field-label" [class.required]="field().required">{{ field().label }}</label>
+    <srf-b3-date-range-input
+      [startPlaceholder]="'De'"
+      [endPlaceholder]="'Até'"
+      [separator]="'Até'"
+      (valueChange)="onDateRangeChange($event)"
+    />
+  }
+  @case ('toggle') {
+    <div class="toggle-field">
+      <srf-b3-toggle-switch
+        [label]="field().label"
+        (valueChange)="onToggleChange($event)"
+      />
+    </div>
+  }
+  @case ('date') {
+    <label class="field-label" [class.required]="field().required">{{ field().label }}</label>
+    <srf-b3-date-input
+      [placeholder]="field().placeholder || ''"
+      (valueChange)="onDateChange($event)"
+    />
+  }
+  @case ('checkbox-group') {
+    <label class="field-label" [class.required]="field().required">{{ field().label }}</label>
+    <div class="checkbox-group">
+      @for (option of getSelectOptions(); track option.value) {
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            [checked]="isChecked(option.value)"
+            (change)="onCheckboxChange(option.value, $any($event.target).checked)"
+          />
+          <span class="checkbox-custom"></span>
+          <span class="checkbox-label">{{ option.label }}</span>
+        </label>
+      }
+    </div>
+  }
+}
