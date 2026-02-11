@@ -40,29 +40,30 @@
   <!-- Form Content -->
   <div class="form-content">
     <div class="form-grid">
-      <!-- Row 1: Moeda (full-width dropdown) -->
+
+      <!-- Row 1: Moeda -->
       <div class="form-field field-moeda">
         <span class="field-label">Moeda</span>
         <div class="field-input disabled has-icon">
-          <span class="placeholder-text">Seleção</span>
+          <span class="placeholder-text">{{ formData().moeda }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
         </div>
       </div>
 
-      <!-- Row 2: Valor da Renda Atual + Data da Renda Anual -->
+      <!-- Row 2 -->
       <div class="form-field field-valor-renda">
         <span class="field-label">Valor da Renda Atual</span>
         <div class="field-input disabled">
-          <span class="placeholder-text">Texto</span>
+          <span class="placeholder-text">{{ formData().valorRendaAtual }}</span>
         </div>
       </div>
 
       <div class="form-field field-data-renda">
         <span class="field-label">Data da Renda Anual</span>
         <div class="field-input disabled has-icon">
-          <span class="placeholder-text">00/00/0000</span>
+          <span class="placeholder-text">{{ formData().dataRendaAnual }}</span>
           <svg class="calendar-icon" width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="0.5" y="2.5" width="14" height="13" rx="2" stroke="#AFAFAF"/>
             <line x1="0.5" y1="6.5" x2="14.5" y2="6.5" stroke="#AFAFAF"/>
@@ -72,18 +73,18 @@
         </div>
       </div>
 
-      <!-- Row 3: Valor da Situação Patrimonial + Data Sit. Patrimonial -->
+      <!-- Row 3 -->
       <div class="form-field field-valor-patrimonio">
         <span class="field-label">Valor da Situação Patrimonial</span>
         <div class="field-input disabled">
-          <span class="placeholder-text">Texto</span>
+          <span class="placeholder-text">{{ formData().valorSituacaoPatrimonial }}</span>
         </div>
       </div>
 
       <div class="form-field field-data-patrimonio">
         <span class="field-label">Data Sit. Patrimonial</span>
         <div class="field-input disabled has-icon">
-          <span class="placeholder-text">00/00/0000</span>
+          <span class="placeholder-text">{{ formData().dataSituacaoPatrimonial }}</span>
           <svg class="calendar-icon" width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="0.5" y="2.5" width="14" height="13" rx="2" stroke="#AFAFAF"/>
             <line x1="0.5" y1="6.5" x2="14.5" y2="6.5" stroke="#AFAFAF"/>
@@ -93,18 +94,18 @@
         </div>
       </div>
 
-      <!-- Row 4: Valor da Capacidade Finan. + Data Capacidade Finan. -->
+      <!-- Row 4 -->
       <div class="form-field field-valor-capacidade">
         <span class="field-label">Valor da Capacidade Finan.</span>
         <div class="field-input disabled">
-          <span class="placeholder-text">Texto</span>
+          <span class="placeholder-text">{{ formData().valorCapacidadeFinanceira }}</span>
         </div>
       </div>
 
       <div class="form-field field-data-capacidade">
         <span class="field-label">Data Capacidade Finan.</span>
         <div class="field-input disabled has-icon">
-          <span class="placeholder-text">00/00/0000</span>
+          <span class="placeholder-text">{{ formData().dataCapacidadeFinanceira }}</span>
           <svg class="calendar-icon" width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="0.5" y="2.5" width="14" height="13" rx="2" stroke="#AFAFAF"/>
             <line x1="0.5" y1="6.5" x2="14.5" y2="6.5" stroke="#AFAFAF"/>
@@ -113,6 +114,7 @@
           </svg>
         </div>
       </div>
+
     </div>
   </div>
 </main>

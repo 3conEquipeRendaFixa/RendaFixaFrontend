@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Breadcrumb, BreadcrumbItem } from '@widget/components/breadcrumb/breadcrumb';
+import { CustomerService } from '@domain/Customer/services/customer.service';
+import { ICustomerInformationApiResponse } from '@domain/Customer/interfaces/ICustomerData';
 
 export interface ClientTab {
   label: string;
@@ -27,7 +29,6 @@ export interface PjInvestidorNaoResidenteData {
 }
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-pj-nao-residente',
   imports: [CommonModule, FormsModule, Breadcrumb],
   templateUrl: './pessoa-juridica-nao-residente.html',
@@ -36,13 +37,14 @@ export interface PjInvestidorNaoResidenteData {
 export class PessoaJuridicaNaoResidente implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly service = inject(CustomerService);
 
   codigo: string | null = null;
   isLoading = true;
 
-  readonly clientName = signal('Maria Silva');
-  readonly clientStatus = signal<'ativo' | 'inativo'>('inativo');
-  readonly clientModules = signal('Equities  |  Derivativos');
+  readonly clientName = signal<string>('');
+  readonly clientStatus = signal<'ativo' | 'inativo'>('ativo');
+  readonly clientModules = signal<string>('');
 
   readonly formData = signal<PjInvestidorNaoResidenteData>({
     cnpjInvestidorNr: '',
@@ -82,7 +84,48 @@ export class PessoaJuridicaNaoResidente implements OnInit {
 
   ngOnInit(): void {
     this.codigo = this.route.snapshot.paramMap.get('codigo');
-    this.isLoading = false;
+    
+    if (this.codigo) {
+      this.service.loadCustomerInformation(this.codigo).subscribe({
+        next: (data: unknown) => {
+          const customerData = data as ICustomerInformationApiResponse;
+          console.log('Customer information loaded:', customerData);
+          
+          // Set client header info
+          this.clientName.set(customerData.customer?.custCustName || '');
+          this.clientStatus.set(
+            customerData.customer?.custStatRegCode === 1 ? 'ativo' : 'inativo'
+          );
+          
+          // Map legalEntityAbroad data to form
+          const abroadData = customerData.legalEntityAbroad;
+          
+          this.formData.set({
+            cnpjInvestidorNr: customerData.customer?.custDepOwnAccNumber || 'tentando setar',
+            paisRegistro: abroadData?.legEntAbroadInternationalJurisdictionName || 'tentando setar',
+            jurisdicao: abroadData?.legEntAbroadInternationalJurisdictionCode || 'tentando setar',
+            qualificacaoIcvm: '', // Não há campo correspondente no JSON para PJ
+            tipoTitularidade: abroadData?.legEntAbroadAccOwnershipType || '',
+            nif: abroadData?.legEntAbroadTaxpayerIdNumber || '',
+            contaPrivateBank: customerData.customer?.custDepOwnAccNumber || '',
+            periodoResidenteExterior: '',
+            dataInclusao: '',
+            dataExclusao: '',
+            tipoPessoaRepresentante: 'juridica',
+            cpfRepresentante: '',
+            nomeRepresentante: '',
+          });
+          
+          this.isLoading = false;
+        },
+        error: (error: Error) => {
+          console.error('Error loading customer information:', error);
+          this.isLoading = false;
+        }
+      });
+    } else {
+      this.isLoading = false;
+    }
   }
 
   goBack(): void {
@@ -100,5 +143,14 @@ export class PessoaJuridicaNaoResidente implements OnInit {
 
   onTipoPessoaChange(tipo: 'fisica' | 'juridica'): void {
     this.formData.update(data => ({ ...data, tipoPessoaRepresentante: tipo }));
+  }
+
+  private formatDate(dateString: string): string {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   }
 }

@@ -27,11 +27,7 @@
   <!-- Tabs -->
   <div class="tabs-wrapper">
     @for (tab of tabs; track tab.key) {
-      <button
-        class="tab"
-        [class.active]="tab.active"
-        (click)="onTabClick(tab)"
-      >
+      <button class="tab" [class.active]="tab.active" (click)="onTabClick(tab)">
         {{ tab.label }}
       </button>
     }
@@ -44,8 +40,8 @@
       <div class="form-field" style="width: 240px;">
         <span class="field-label">País de Registro (Residência Fiscal)*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Brasil</span>
-          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <span class="placeholder-text">{{ formData().paisRegistro }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
         </div>
@@ -54,8 +50,8 @@
       <div class="form-field" style="width: 178px;">
         <span class="field-label">Atividade Econômica*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">SP</span>
-          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <span class="placeholder-text">{{ formData().atividadeEconomica }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
         </div>
@@ -64,8 +60,8 @@
       <div class="form-field" style="width: 301px;">
         <span class="field-label">Grupo Econômico</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Texto</span>
-          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <span class="placeholder-text">{{ formData().grupoEconomico }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
         </div>
@@ -74,8 +70,8 @@
       <div class="form-field" style="width: 178px;">
         <span class="field-label">Natureza Jurídica*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
-          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <span class="placeholder-text">{{ formData().naturezaJuridica }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
         </div>
@@ -84,8 +80,8 @@
       <div class="form-field" style="width: 178px;">
         <span class="field-label">Indicador CVM 286*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
-          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <span class="placeholder-text">{{ formData().indicadorCvm286 }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
         </div>
@@ -94,8 +90,8 @@
       <div class="form-field" style="width: 178px;">
         <span class="field-label">Autoriza Transm. de Ordens Terceiros?</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
-          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <span class="placeholder-text">{{ formData().autorizaTransmOrdens }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
         </div>
@@ -107,18 +103,18 @@
       <div class="form-field" style="width: 178px;">
         <span class="field-label">Admin. de Carteiras Administradas?</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
-          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <span class="placeholder-text">{{ formData().adminCarteirasAdministradas }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
         </div>
       </div>
 
       <div class="form-field" style="width: 178px;">
-        <span class="field-label">Admin.de Fundos de Investimento?</span>
+        <span class="field-label">Admin. de Fundos de Investimento?</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
-          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <span class="placeholder-text">{{ formData().adminFundosInvestimento }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
         </div>
@@ -127,8 +123,8 @@
       <div class="form-field" style="width: 178px;">
         <span class="field-label">Classificação de Risco do Comitente</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
-          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <span class="placeholder-text">{{ formData().classificacaoRiscoComitente }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
         </div>
@@ -137,8 +133,8 @@
       <div class="form-field" style="width: 363px;">
         <span class="field-label">Descrição da Classificação de Risco do Comitente</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Texto</span>
-          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <span class="placeholder-text">{{ formData().descricaoClassificacaoRisco }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
         </div>
@@ -147,8 +143,8 @@
       <div class="form-field" style="width: 178px;">
         <span class="field-label">Empresa sem Fins Lucrativos*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
-          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <span class="placeholder-text">{{ formData().empresaSemFinsLucrativos }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
         </div>
@@ -157,8 +153,8 @@
       <div class="form-field" style="width: 178px;">
         <span class="field-label">Data da Última Atualização</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">00/00/0000</span>
-          <svg class="calendar-icon" width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <span class="placeholder-text">{{ formData().dataUltimaAtualizacao }}</span>
+          <svg class="calendar-icon" width="15" height="17" viewBox="0 0 15 17" fill="none">
             <rect x="0.5" y="2.5" width="14" height="13" rx="2" stroke="#AFAFAF"/>
             <line x1="0.5" y1="6.5" x2="14.5" y2="6.5" stroke="#AFAFAF"/>
             <line x1="4" y1="0.5" x2="4" y2="3.5" stroke="#AFAFAF"/>
