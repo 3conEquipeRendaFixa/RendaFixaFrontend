@@ -10,41 +10,38 @@ export interface ClientTab {
   active?: boolean;
 }
 
-export interface PessoaFisicaSfpData {
-  moeda: string;
-  valorRendaAtual: string;
-  valorSituacaoPatrimonial: string;
-  valorCapacidadeFinanceira: string;
-  dataRendaAnual: string;
-  dataCapacidadeFinanceira: string;
-  dataSituacaoPatrimonial: string;
+export interface FatcaIrsData {
+  usPerson: string;
+  perfilFatcaIrs: string;
+  perfilCrs: string;
+  giin: string;
+  codigoLei: string;
+  paisRelacionado: string;
 }
 
 @Component({
-  selector: 'app-pf-spp',
+  selector: 'app-customer-fatca',
   imports: [CommonModule, FormsModule, Breadcrumb],
-  templateUrl: './pessoa-fisica-spp.html',
-  styleUrl: './pessoa-fisica-spp.scss',
+  templateUrl: './customer-fatca.html',
+  styleUrl: './customer-fatca.scss',
 })
-export class PessoaFisicaSPP implements OnInit {
+export class CustomerFatca implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
   codigo: string | null = null;
-  isLoading = true;
 
   readonly clientName = signal('Maria Silva');
   readonly clientStatus = signal<'ativo' | 'inativo'>('inativo');
   readonly clientModules = signal('Equities  |  Derivativos');
 
-  readonly formData = signal<PessoaFisicaSfpData>({
-    moeda: '',
-    valorRendaAtual: '',
-    valorSituacaoPatrimonial: '',
-    valorCapacidadeFinanceira: '',
-    dataRendaAnual: '',
-    dataCapacidadeFinanceira: '',
-    dataSituacaoPatrimonial: '',
+  readonly formData = signal<FatcaIrsData>({
+    usPerson: '',
+    perfilFatcaIrs: '',
+    perfilCrs: '',
+    giin: '',
+    codigoLei: '',
+    paisRelacionado: '',
   });
 
   breadcrumbItems: BreadcrumbItem[] = [
@@ -55,11 +52,11 @@ export class PessoaFisicaSPP implements OnInit {
 
   readonly tabs: ClientTab[] = [
     { label: 'Dados Básicos', key: 'dados-basicos' },
-    { label: 'FATCA IRS', key: 'fatca-irs' },
+    { label: 'FATCA IRS', key: 'fatca-irs', active: true },
     { label: 'Pessoa Física', key: 'pessoa-fisica' },
     { label: 'Contas', key: 'contas' },
     { label: 'Investidor Não Residente', key: 'investidor-nao-residente' },
-    { label: 'Pessoa Física SFP', key: 'pessoa-fisica-sfp', active: true },
+    { label: 'Pessoa Física SFP', key: 'pessoa-fisica-sfp' },
     { label: 'Documentos', key: 'documentos' },
     { label: 'Endereços', key: 'enderecos' },
     { label: 'Telefones', key: 'telefones' },
@@ -77,7 +74,6 @@ export class PessoaFisicaSPP implements OnInit {
 
   ngOnInit(): void {
     this.codigo = this.route.snapshot.paramMap.get('codigo');
-    this.isLoading = false;
   }
 
   goBack(): void {

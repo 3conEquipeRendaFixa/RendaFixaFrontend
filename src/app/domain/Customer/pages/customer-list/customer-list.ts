@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Grid, GridColumn, GridAction } from '@widget/components/grid/grid';
 import { GridCellDef } from '@widget/components/grid/grid-cell-def.directive';
 import { Breadcrumb, BreadcrumbItem } from '@widget/components/breadcrumb/breadcrumb';
@@ -19,6 +20,7 @@ import { ICustomerRecord, CustomerFilters } from '../../interfaces';
 export class CustomerList implements OnInit {
   private readonly service = inject(CustomerService);
   private readonly stateService = inject(CustomerStateService);
+  private readonly router = inject(Router);
 
   breadcrumbItems: BreadcrumbItem[] = [
     { label: 'PÁGINA INICIAL', route: '/' },
@@ -157,7 +159,7 @@ export class CustomerList implements OnInit {
   }
 
   onRowClick(item: ICustomerRecord): void {
-    console.log('Row clicked:', item);
+    this.router.navigate(['/customer/dados-basicos', item.numeroDocumento]);
   }
 
   onActionClick(event: { action: GridAction; item: ICustomerRecord }): void {

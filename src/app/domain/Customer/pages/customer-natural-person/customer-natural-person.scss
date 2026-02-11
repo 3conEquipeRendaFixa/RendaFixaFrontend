@@ -1,0 +1,337 @@
+@use 'styles/variables' as v;
+
+$font-family: 'Rubik', sans-serif;
+$font-size-xs: 10px;
+$font-size-sm: 12px;
+$font-size-base: 14px;
+$font-size-lg: 16px;
+
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 12px;
+$spacing-lg: 16px;
+
+$border-radius-sm: 5px;
+$border-radius-full: 50px;
+
+// --- Page Layout
+// main-content: min-height calc(100vh - 25px), padding-top 50px, padding-bottom 50px
+// content area = 100vh - 125px
+.pessoa-fisica-page {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 60px);
+  overflow: hidden;
+  background-color: #F8FAFB;
+  font-family: $font-family;
+  color: v.$color-neutral-700;
+}
+
+// --- Client Header
+.client-header {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-lg;
+  padding: $spacing-md $spacing-lg;
+  flex-shrink: 0;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid v.$color-secondary;
+  border-radius: $border-radius-full;
+  cursor: pointer;
+  padding: 10px;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(v.$color-secondary, 0.05);
+  }
+
+  .back-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.client-info {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.client-name-row {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.client-name {
+  font-family: $font-family;
+  font-weight: 500;
+  font-size: $font-size-lg;
+  line-height: 1.185;
+  color: v.$color-secondary;
+  margin: 0;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: $border-radius-full;
+  font-family: $font-family;
+  font-weight: 400;
+  font-size: $font-size-sm;
+  line-height: 1.185;
+
+  &.active {
+    background: rgba(66, 175, 82, 0.1);
+    color: v.$color-success-dark;
+  }
+
+  &.inactive {
+    background: rgba(255, 36, 36, 0.1);
+    color: v.$color-danger-dark;
+  }
+}
+
+.client-modules-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px $spacing-sm;
+  border: 1px solid v.$color-neutral-400;
+  border-radius: $border-radius-full;
+  width: fit-content;
+
+  .badge-text {
+    font-family: $font-family;
+    font-weight: 400;
+    font-size: $font-size-sm;
+    line-height: 1em;
+    color: v.$color-neutral-400;
+  }
+}
+
+// --- Tabs
+.tabs-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  padding: 0 $spacing-lg;
+  flex-shrink: 0;
+}
+
+.tab {
+  padding: 10px 12px;
+  background: #F2F3F6;
+  border: 1px solid #E9E9EC;
+  border-bottom: none;
+  border-radius: $border-radius-sm $border-radius-sm 0 0;
+  cursor: pointer;
+  font-family: $font-family;
+  font-size: $font-size-sm;
+  font-weight: 400;
+  line-height: 1em;
+  color: #757E93;
+  height: 35px;
+  transition: all 0.2s ease;
+
+  &:hover:not(.active) {
+    background-color: rgba(v.$color-primary, 0.05);
+  }
+
+  &.active {
+    background: #F8F9FB;
+    color: v.$color-secondary;
+    font-weight: 500;
+    border-color: #E9E9EC;
+    border-left: 1px solid #E9E9EC;
+    border-right: 1px solid #E9E9EC;
+    border-top: 2px solid v.$color-secondary;
+    border-bottom: none;
+  }
+}
+
+// --- Form Content
+.form-content {
+  margin: 0 $spacing-lg $spacing-lg;
+  background: #F8F9FB;
+  border: 1px solid v.$color-border;
+  border-radius: 0 $border-radius-sm $border-radius-sm $border-radius-sm;
+  padding: 20px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+// --- Form Rows
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-lg;
+  margin-bottom: $spacing-lg;
+}
+
+// --- Form Fields
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.field-label {
+  font-family: $font-family;
+  font-weight: 400;
+  font-size: $font-size-xs;
+  line-height: 1.185;
+  color: v.$color-neutral-500;
+}
+
+.field-input {
+  display: flex;
+  align-items: center;
+  height: 35px;
+  padding: 0 8px;
+  background: #FFFFFF;
+  border: 1px solid v.$color-border;
+  border-radius: $border-radius-sm;
+  font-family: $font-family;
+  font-size: $font-size-sm;
+  line-height: 1.185;
+  color: v.$color-neutral-700;
+
+  &.disabled {
+    background: #EFEFEF;
+    cursor: not-allowed;
+  }
+
+  &.has-icon {
+    justify-content: space-between;
+  }
+}
+
+.placeholder-text {
+  color: #AFAFAF;
+  font-family: $font-family;
+  font-size: $font-size-sm;
+  line-height: 1.185;
+}
+
+.dropdown-icon {
+  flex-shrink: 0;
+}
+
+// --- Section Header
+.section-header {
+  margin-top: 24px;
+  margin-bottom: $spacing-lg;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.section-title {
+  font-family: $font-family;
+  font-weight: 500;
+  font-size: $font-size-base;
+  line-height: 1.185;
+  color: v.$color-secondary;
+  margin: 0 0 $spacing-md 0;
+}
+
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background-color: v.$color-border;
+}
+
+// --- Checkboxes
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+  margin-top: $spacing-sm;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  cursor: pointer;
+  font-family: $font-family;
+  font-size: $font-size-sm;
+  color: v.$color-neutral-700;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  .checkbox-custom {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border: 2px solid v.$color-neutral-400;
+    border-radius: 3px;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  input[type="checkbox"]:checked + .checkbox-custom {
+    border-color: v.$color-primary;
+    background-color: v.$color-primary;
+
+    &::after {
+      content: '';
+      width: 4px;
+      height: 8px;
+      border: solid #FFFFFF;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      margin-bottom: 2px;
+    }
+  }
+
+  .checkbox-text {
+    font-family: $font-family;
+    font-size: $font-size-sm;
+    line-height: 1.185;
+  }
+}
+
+// --- Responsive
+@media (max-width: 1200px) {
+  .form-row {
+    gap: $spacing-md;
+  }
+
+  .form-field {
+    flex-shrink: 1;
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-field {
+    width: 100% !important;
+    min-width: 100%;
+  }
+
+  .tabs-wrapper {
+    flex-direction: column;
+  }
+}

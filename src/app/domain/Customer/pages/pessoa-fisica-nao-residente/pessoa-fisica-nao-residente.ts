@@ -62,7 +62,7 @@ export class PessoaFisicaNaoResidente implements OnInit {
 
   breadcrumbItems: BreadcrumbItem[] = [
     { label: 'PÁGINA INICIAL', route: '/' },
-    { label: 'CADASTRO DE CLIENTES' },
+    { label: 'CADASTRO DE CLIENTES', route: '/customer' },
     { label: 'MARIA SILVA', current: true },
   ];
 
@@ -70,15 +70,23 @@ export class PessoaFisicaNaoResidente implements OnInit {
     { label: 'Dados Básicos', key: 'dados-basicos' },
     { label: 'FATCA IRS', key: 'fatca-irs' },
     { label: 'Pessoa Física', key: 'pessoa-fisica' },
+    { label: 'Contas', key: 'contas' },
     { label: 'Investidor Não Residente', key: 'investidor-nao-residente', active: true },
+    { label: 'Pessoa Física SFP', key: 'pessoa-fisica-sfp' },
     { label: 'Documentos', key: 'documentos' },
+    { label: 'Endereços', key: 'enderecos' },
     { label: 'Telefones', key: 'telefones' },
     { label: 'E-mails', key: 'emails' },
     { label: 'Relacionamentos', key: 'relacionamentos' },
-    { label: 'Endereços', key: 'enderecos' },
-    { label: 'Contas', key: 'contas' },
-    { label: 'Pessoa Física SFP', key: 'pessoa-fisica-sfp' },
   ];
+
+  private readonly tabRouteMap: Record<string, string> = {
+    'dados-basicos': 'dados-basicos',
+    'fatca-irs': 'fatca-irs',
+    'pessoa-fisica': 'pessoa-fisica',
+    'investidor-nao-residente': 'pessoa-fisica-nao-residente',
+    'pessoa-fisica-sfp': 'pessoa-fisica-spp',
+  };
 
   ngOnInit(): void {
     this.codigo = this.route.snapshot.paramMap.get('codigo');
@@ -86,12 +94,14 @@ export class PessoaFisicaNaoResidente implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/asset-registration/private-bound', this.codigo]);
+    this.router.navigate(['/customer']);
   }
 
   onTabClick(tab: ClientTab): void {
-    if (tab.key === 'pessoa-fisica-sfp' && this.codigo) {
-      this.router.navigate(['/asset-registration/private-bound', this.codigo, 'pessoa-fisica-spp']);
+    if (tab.active) return;
+    const route = this.tabRouteMap[tab.key];
+    if (route && this.codigo) {
+      this.router.navigate(['/customer', route, this.codigo]);
     }
   }
 

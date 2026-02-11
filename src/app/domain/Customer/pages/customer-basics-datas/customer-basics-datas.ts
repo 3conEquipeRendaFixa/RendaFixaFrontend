@@ -10,41 +10,48 @@ export interface ClientTab {
   active?: boolean;
 }
 
-export interface PessoaFisicaSfpData {
-  moeda: string;
-  valorRendaAtual: string;
-  valorSituacaoPatrimonial: string;
-  valorCapacidadeFinanceira: string;
-  dataRendaAnual: string;
-  dataCapacidadeFinanceira: string;
-  dataSituacaoPatrimonial: string;
+export interface DadosBasicosData {
+  tipoPessoa: 'PF' | 'PJ';
+  tipoInvestidor: string;
+  documentoPrincipal: string;
+  codigoCvm: string;
+  statusInvestidor: string;
+  naturezaFiscal: string;
+  nomeCompleto: string;
+  nomeResumido: string;
+  dataNascimento: string;
+  perfilBalcao: boolean;
+  perfilListados: boolean;
 }
 
 @Component({
-  selector: 'app-pf-spp',
+  selector: 'app-customer-basics-datas',
   imports: [CommonModule, FormsModule, Breadcrumb],
-  templateUrl: './pessoa-fisica-spp.html',
-  styleUrl: './pessoa-fisica-spp.scss',
+  templateUrl: './customer-basics-datas.html',
+  styleUrl: './customer-basics-datas.scss',
 })
-export class PessoaFisicaSPP implements OnInit {
+export class CustomerBasicsDatas implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
   codigo: string | null = null;
-  isLoading = true;
 
   readonly clientName = signal('Maria Silva');
   readonly clientStatus = signal<'ativo' | 'inativo'>('inativo');
   readonly clientModules = signal('Equities  |  Derivativos');
 
-  readonly formData = signal<PessoaFisicaSfpData>({
-    moeda: '',
-    valorRendaAtual: '',
-    valorSituacaoPatrimonial: '',
-    valorCapacidadeFinanceira: '',
-    dataRendaAnual: '',
-    dataCapacidadeFinanceira: '',
-    dataSituacaoPatrimonial: '',
+  readonly formData = signal<DadosBasicosData>({
+    tipoPessoa: 'PF',
+    tipoInvestidor: '',
+    documentoPrincipal: '',
+    codigoCvm: '',
+    statusInvestidor: '',
+    naturezaFiscal: '',
+    nomeCompleto: '',
+    nomeResumido: '',
+    dataNascimento: '',
+    perfilBalcao: false,
+    perfilListados: false,
   });
 
   breadcrumbItems: BreadcrumbItem[] = [
@@ -54,12 +61,12 @@ export class PessoaFisicaSPP implements OnInit {
   ];
 
   readonly tabs: ClientTab[] = [
-    { label: 'Dados Básicos', key: 'dados-basicos' },
+    { label: 'Dados Básicos', key: 'dados-basicos', active: true },
     { label: 'FATCA IRS', key: 'fatca-irs' },
     { label: 'Pessoa Física', key: 'pessoa-fisica' },
     { label: 'Contas', key: 'contas' },
     { label: 'Investidor Não Residente', key: 'investidor-nao-residente' },
-    { label: 'Pessoa Física SFP', key: 'pessoa-fisica-sfp', active: true },
+    { label: 'Pessoa Física SFP', key: 'pessoa-fisica-sfp' },
     { label: 'Documentos', key: 'documentos' },
     { label: 'Endereços', key: 'enderecos' },
     { label: 'Telefones', key: 'telefones' },
@@ -77,7 +84,6 @@ export class PessoaFisicaSPP implements OnInit {
 
   ngOnInit(): void {
     this.codigo = this.route.snapshot.paramMap.get('codigo');
-    this.isLoading = false;
   }
 
   goBack(): void {
@@ -90,5 +96,13 @@ export class PessoaFisicaSPP implements OnInit {
     if (route && this.codigo) {
       this.router.navigate(['/customer', route, this.codigo]);
     }
+  }
+
+  onTipoPessoaChange(tipo: 'PF' | 'PJ'): void {
+    this.formData.update(data => ({ ...data, tipoPessoa: tipo }));
+  }
+
+  onPerfilChange(field: 'perfilBalcao' | 'perfilListados', checked: boolean): void {
+    this.formData.update(data => ({ ...data, [field]: checked }));
   }
 }
