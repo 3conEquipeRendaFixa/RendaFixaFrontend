@@ -1,0 +1,61 @@
+<main class="client-detail-page">
+  <srf-b3-breadcrumb [items]="breadcrumbItems" />
+
+  <!-- Client Header -->
+  <div class="client-header">
+    <button class="back-button" (click)="goBack()" aria-label="Voltar">
+      <img src="icons/voltar.svg" alt="Voltar" class="back-icon" />
+    </button>
+
+    <div class="client-info">
+      <div class="client-name-row">
+        <h1 class="client-name">{{ clientName() }}</h1>
+        <div
+          class="status-chip"
+          [class.inactive]="clientStatus() === 'inativo'"
+          [class.active]="clientStatus() === 'ativo'"
+        >
+          {{ clientStatus() === 'ativo' ? 'Ativo' : 'Inativo' }}
+        </div>
+      </div>
+      <div class="client-modules">
+        @for (mod of clientModules(); track mod) {
+          <span class="module-badge">{{ mod }}</span>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-wrapper">
+    @for (tab of tabs; track tab.key) {
+      <button
+        class="tab"
+        [class.active]="isTabActive(tab.key)"
+        (click)="onTabClick(tab)"
+      >
+        {{ tab.label }}
+      </button>
+    }
+  </div>
+
+  <!-- Tab Content -->
+  <div class="form-content">
+    @switch (activeTab()) {
+      @case ('telefones') {
+        <app-client-phones-tab />
+      }
+      @case ('emails') {
+        <app-client-emails-tab />
+      }
+      @case ('relacionamentos') {
+        <app-client-relationships-tab />
+      }
+      @default {
+        <div class="tab-placeholder">
+          <p>Conteúdo da aba em desenvolvimento.</p>
+        </div>
+      }
+    }
+  </div>
+</main>

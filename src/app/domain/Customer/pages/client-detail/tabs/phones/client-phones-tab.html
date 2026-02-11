@@ -1,0 +1,64 @@
+<div class="phones-tab">
+  @for (phone of phones(); track $index) {
+    <div class="phone-card">
+      <div class="card-border"></div>
+      <div class="card-content">
+        <div class="form-row">
+          <!-- DDI -->
+          <div class="form-field" style="width: 80px;">
+            <span class="field-label">DDI</span>
+            <div class="field-input disabled">
+              <span class="field-value">{{ phone.ddi }}</span>
+            </div>
+          </div>
+
+          <!-- DDD -->
+          <div class="form-field" style="width: 80px;">
+            <span class="field-label">DDD</span>
+            <div class="field-input disabled">
+              <span class="field-value">{{ phone.ddd }}</span>
+            </div>
+          </div>
+
+          <!-- Número -->
+          <div class="form-field" style="width: 160px;">
+            <span class="field-label">Número</span>
+            <div class="field-input disabled">
+              <span class="field-value">{{ phone.numero }}</span>
+            </div>
+          </div>
+
+          <!-- Ramal -->
+          <div class="form-field" style="width: 120px;">
+            <span class="field-label">Ramal</span>
+            <div class="field-input disabled">
+              <span class="placeholder-text">{{ phone.ramal || 'Ramal' }}</span>
+            </div>
+          </div>
+
+          <!-- Tipo do Telefone -->
+          <div class="form-field" style="width: 200px;">
+            <span class="field-label">Tipo do Telefone</span>
+            <div class="field-input has-icon disabled">
+              <span class="field-value">{{ phone.tipoTelefone }}</span>
+              <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Finalidade -->
+          <div class="form-field" style="flex: 1; min-width: 200px;">
+            <span class="field-label">Finalidade</span>
+            <div class="field-input has-icon disabled">
+              <span class="placeholder-text">{{ phone.finalidade || 'Finalidade 1, Finalidade 2, Finalidade 3' }}</span>
+              <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

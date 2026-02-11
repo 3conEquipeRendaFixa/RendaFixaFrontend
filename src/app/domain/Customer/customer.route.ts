@@ -36,4 +36,11 @@ export const CUSTOMER_ROUTES: Routes = [
         (m) => m.PessoaFisicaSPP
       ),
   },
+  {
+    path: 'detail/:codigo',
+    loadComponent: () =>
+      import('@domain/Customer/pages/client-detail/client-detail').then(
+        (m) => m.ClientDetail
+      ),
+  },
 ];

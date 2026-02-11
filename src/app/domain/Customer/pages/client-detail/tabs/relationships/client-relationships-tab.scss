@@ -1,0 +1,198 @@
+@use 'styles/variables' as v;
+
+$font-family: 'Rubik', sans-serif;
+$font-size-xs: 10px;
+$font-size-sm: 12px;
+$font-size-base: 14px;
+
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 12px;
+$spacing-lg: 16px;
+
+$border-radius-sm: 5px;
+
+.relationships-tab {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+// ─── Relationship Card ──────────────────────────────────────
+.relationship-card {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+}
+
+.cadastrar-b3-row {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.cadastrar-label {
+  font-family: $font-family;
+  font-weight: 500;
+  font-size: $font-size-sm;
+  line-height: 1.185;
+  color: v.$color-secondary;
+}
+
+// ─── Checkbox Custom ────────────────────────────────────────
+.checkbox-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.checkbox-input {
+  display: none;
+}
+
+.checkbox-custom {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: 2px solid v.$color-neutral-400;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #FFFFFF;
+
+  &:hover {
+    border-color: v.$color-primary;
+  }
+}
+
+.checkbox-input:checked + .checkbox-custom {
+  background-color: v.$color-primary;
+  border-color: v.$color-primary;
+
+  &::after {
+    content: '';
+    width: 5px;
+    height: 9px;
+    border: solid #FFFFFF;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-bottom: 2px;
+  }
+}
+
+// ─── Card Border + Content ──────────────────────────────────
+.card-border-wrapper {
+  display: flex;
+  border: 1px solid v.$color-border;
+  border-radius: $border-radius-sm;
+  overflow: hidden;
+  background: #FFFFFF;
+}
+
+.card-border {
+  width: 4px;
+  background-color: v.$color-secondary;
+  border-radius: $border-radius-sm 0 0 $border-radius-sm;
+  flex-shrink: 0;
+}
+
+.card-content {
+  flex: 1;
+  padding: $spacing-md $spacing-lg;
+}
+
+// ─── Form Row ───────────────────────────────────────────────
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-lg;
+  align-items: flex-end;
+}
+
+// ─── Form Fields ────────────────────────────────────────────
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.field-label {
+  font-family: $font-family;
+  font-weight: 400;
+  font-size: $font-size-xs;
+  line-height: 1.185;
+  color: v.$color-neutral-500;
+}
+
+.field-input {
+  display: flex;
+  align-items: center;
+  height: 35px;
+  padding: 0 8px;
+  background: #FFFFFF;
+  border: 1px solid v.$color-border;
+  border-radius: $border-radius-sm;
+  font-family: $font-family;
+  font-size: $font-size-sm;
+  line-height: 1.185;
+  color: v.$color-neutral-700;
+
+  &.disabled {
+    background: #EFEFEF;
+    cursor: not-allowed;
+  }
+
+  &.has-icon {
+    justify-content: space-between;
+  }
+}
+
+.field-value {
+  font-family: $font-family;
+  font-size: $font-size-sm;
+  line-height: 1.185;
+  color: v.$color-neutral-700;
+}
+
+.placeholder-text {
+  color: #AFAFAF;
+  font-family: $font-family;
+  font-size: $font-size-sm;
+  line-height: 1.185;
+}
+
+.dropdown-icon,
+.calendar-icon {
+  flex-shrink: 0;
+}
+
+// ─── Responsive ─────────────────────────────────────────────
+@media (max-width: 1200px) {
+  .form-row {
+    gap: $spacing-md;
+  }
+
+  .form-field {
+    flex-shrink: 1;
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-field {
+    width: 100% !important;
+    min-width: 100%;
+  }
+}
