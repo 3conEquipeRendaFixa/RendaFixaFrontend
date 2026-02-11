@@ -1,0 +1,199 @@
+<main class="pj-nr-page">
+  <srf-b3-breadcrumb [items]="breadcrumbItems" />
+
+  <!-- Client Header -->
+  <div class="client-header">
+    <button class="back-button" (click)="goBack()" aria-label="Voltar">
+      <img src="icons/voltar.svg" alt="Voltar" class="back-icon" />
+    </button>
+
+    <div class="client-info">
+      <div class="client-name-row">
+        <h1 class="client-name">{{ clientName() }}</h1>
+        <div
+          class="status-chip"
+          [class.inactive]="clientStatus() === 'inativo'"
+          [class.active]="clientStatus() === 'ativo'"
+        >
+          {{ clientStatus() === 'ativo' ? 'Ativo' : 'Inativo' }}
+        </div>
+      </div>
+      <div class="client-modules-badge">
+        <span class="badge-text">{{ clientModules() }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-wrapper">
+    @for (tab of tabs; track tab.key) {
+      <button
+        class="tab"
+        [class.active]="tab.active"
+        (click)="onTabClick(tab)"
+      >
+        {{ tab.label }}
+      </button>
+    }
+  </div>
+
+  <!-- Form Content -->
+  <div class="form-content">
+    <!-- Row 1: Main fields -->
+    <div class="form-row row-1">
+      <div class="form-field" style="width: 251px;">
+        <span class="field-label">CNPJ Investidor Não Residente*</span>
+        <div class="field-input">
+          <span class="placeholder-text">00.000.000/0000-00</span>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 230px;">
+        <span class="field-label">País de Registro*</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">Seleção</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 227px;">
+        <span class="field-label">Jurisdição*</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">Seleção</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 189px;">
+        <span class="field-label">Qualificação conforme ICVM 560*</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">Seleção</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Tipo de Titularidade de Conta*</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">Seleção</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Número de Identificação Fiscal (NIF)*</span>
+        <div class="field-input">
+          <span class="placeholder-text">Digite</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Cotista -->
+    <div class="section-header">
+      <h2 class="section-title">Cotista</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <!-- Row 2: Cotista fields -->
+    <div class="form-row row-2">
+      <div class="form-field" style="width: 251px;">
+        <span class="field-label">Conta Ordinária de Private Bank*</span>
+        <div class="field-input">
+          <span class="placeholder-text">000.000.000-00</span>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 670px;">
+        <span class="field-label">Período da Situação de Residente no Exterior</span>
+        <div class="field-input">
+          <span class="placeholder-text">Período</span>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Data de Inclusão</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">00/00/0000</span>
+          <svg class="calendar-icon" width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="2.5" width="14" height="13" rx="2" stroke="#AFAFAF"/>
+            <line x1="0.5" y1="6.5" x2="14.5" y2="6.5" stroke="#AFAFAF"/>
+            <line x1="4" y1="0.5" x2="4" y2="3.5" stroke="#AFAFAF"/>
+            <line x1="11" y1="0.5" x2="11" y2="3.5" stroke="#AFAFAF"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Data de Exclusão</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">00/00/0000</span>
+          <svg class="calendar-icon" width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="2.5" width="14" height="13" rx="2" stroke="#AFAFAF"/>
+            <line x1="0.5" y1="6.5" x2="14.5" y2="6.5" stroke="#AFAFAF"/>
+            <line x1="4" y1="0.5" x2="4" y2="3.5" stroke="#AFAFAF"/>
+            <line x1="11" y1="0.5" x2="11" y2="3.5" stroke="#AFAFAF"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Representante Legal -->
+    <div class="section-header">
+      <h2 class="section-title">Representante Legal</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="form-row row-representante">
+      <div class="form-field" style="width: 242px;">
+        <span class="field-label">Tipo de Pessoa do Representante Legal*</span>
+        <div class="field-input disabled">
+          <span class="placeholder-text">Seleção</span>
+        </div>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input
+              type="radio"
+              name="tipoPessoa"
+              [checked]="formData().tipoPessoaRepresentante === 'fisica'"
+              (change)="onTipoPessoaChange('fisica')"
+            />
+            <span class="radio-custom"></span>
+            <span class="radio-text">Pessoa Física</span>
+          </label>
+          <label class="radio-label">
+            <input
+              type="radio"
+              name="tipoPessoa"
+              [checked]="formData().tipoPessoaRepresentante === 'juridica'"
+              (change)="onTipoPessoaChange('juridica')"
+            />
+            <span class="radio-custom"></span>
+            <span class="radio-text">Pessoa Jurídica</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 170px;">
+        <span class="field-label">CPF do Co-Representante Legal*</span>
+        <div class="field-input">
+          <span class="placeholder-text">000.000.000-00</span>
+        </div>
+      </div>
+
+      <div class="form-field" style="flex: 1; min-width: 300px;">
+        <span class="field-label">Nome do Representante Legal*</span>
+        <div class="field-input">
+          <span class="placeholder-text">Texto</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

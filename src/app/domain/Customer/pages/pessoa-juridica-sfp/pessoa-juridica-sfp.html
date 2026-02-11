@@ -1,0 +1,118 @@
+<main class="pj-sfp-page">
+  <srf-b3-breadcrumb [items]="breadcrumbItems" />
+
+  <!-- Client Header -->
+  <div class="client-header">
+    <button class="back-button" (click)="goBack()" aria-label="Voltar">
+      <img src="icons/voltar.svg" alt="Voltar" class="back-icon" />
+    </button>
+
+    <div class="client-info">
+      <div class="client-name-row">
+        <h1 class="client-name">{{ clientName() }}</h1>
+        <div
+          class="status-chip"
+          [class.inactive]="clientStatus() === 'inativo'"
+          [class.active]="clientStatus() === 'ativo'"
+        >
+          {{ clientStatus() === 'ativo' ? 'Ativo' : 'Inativo' }}
+        </div>
+      </div>
+      <div class="client-modules-badge">
+        <span class="badge-text">{{ clientModules() }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-wrapper">
+    @for (tab of tabs; track tab.key) {
+      <button
+        class="tab"
+        [class.active]="tab.active"
+        (click)="onTabClick(tab)"
+      >
+        {{ tab.label }}
+      </button>
+    }
+  </div>
+
+  <!-- Form Content -->
+  <div class="form-content">
+    <div class="form-grid">
+      <!-- Row 1: Moeda (dropdown) -->
+      <div class="form-field field-moeda">
+        <span class="field-label">Moeda</span>
+        <div class="field-input disabled has-icon">
+          <span class="placeholder-text">Seleção</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Row 2: Valor Patrimônio Líquido + Dt. Patrimônio Líquido -->
+      <div class="form-field field-valor-patrimonio">
+        <span class="field-label">Valor Patrimônio Líquido</span>
+        <div class="field-input disabled">
+          <span class="placeholder-text">Texto</span>
+        </div>
+      </div>
+
+      <div class="form-field field-data-patrimonio">
+        <span class="field-label">Dt. Patrimônio Líquido</span>
+        <div class="field-input disabled has-icon">
+          <span class="placeholder-text">00/00/0000</span>
+          <svg class="calendar-icon" width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="2.5" width="14" height="13" rx="2" stroke="#AFAFAF"/>
+            <line x1="0.5" y1="6.5" x2="14.5" y2="6.5" stroke="#AFAFAF"/>
+            <line x1="4" y1="0.5" x2="4" y2="3.5" stroke="#AFAFAF"/>
+            <line x1="11" y1="0.5" x2="11" y2="3.5" stroke="#AFAFAF"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Row 3: Valor Capacidade Fin. + Dt. Capacidade Fin. -->
+      <div class="form-field field-valor-capacidade">
+        <span class="field-label">Valor Capacidade Fin.</span>
+        <div class="field-input disabled">
+          <span class="placeholder-text">Texto</span>
+        </div>
+      </div>
+
+      <div class="form-field field-data-capacidade">
+        <span class="field-label">Dt. Capacidade Fin.</span>
+        <div class="field-input disabled has-icon">
+          <span class="placeholder-text">00/00/0000</span>
+          <svg class="calendar-icon" width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="2.5" width="14" height="13" rx="2" stroke="#AFAFAF"/>
+            <line x1="0.5" y1="6.5" x2="14.5" y2="6.5" stroke="#AFAFAF"/>
+            <line x1="4" y1="0.5" x2="4" y2="3.5" stroke="#AFAFAF"/>
+            <line x1="11" y1="0.5" x2="11" y2="3.5" stroke="#AFAFAF"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Row 4: Fat. Médio Mensal Últ. 12 Meses + Dt. Ref. Fat. Méd. Mensal -->
+      <div class="form-field field-valor-faturamento">
+        <span class="field-label">Fat. Médio Mensal Últ. 12 Meses</span>
+        <div class="field-input disabled">
+          <span class="placeholder-text">Texto</span>
+        </div>
+      </div>
+
+      <div class="form-field field-data-faturamento">
+        <span class="field-label">Dt. Ref. Fat. Méd. Mensal</span>
+        <div class="field-input disabled has-icon">
+          <span class="placeholder-text">00/00/0000</span>
+          <svg class="calendar-icon" width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="2.5" width="14" height="13" rx="2" stroke="#AFAFAF"/>
+            <line x1="0.5" y1="6.5" x2="14.5" y2="6.5" stroke="#AFAFAF"/>
+            <line x1="4" y1="0.5" x2="4" y2="3.5" stroke="#AFAFAF"/>
+            <line x1="11" y1="0.5" x2="11" y2="3.5" stroke="#AFAFAF"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
