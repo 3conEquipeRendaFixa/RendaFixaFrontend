@@ -1,6 +1,8 @@
-import { Component, input, output, TemplateRef, ContentChild, inject } from '@angular/core';
+import { Component, input, output, TemplateRef, ContentChild, ContentChildren, QueryList, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { GridCellDef } from './grid-cell-def.directive';
+import { Tooltip } from '../tooltip/tooltip';
 
 export interface GridColumn {
   key: string;
@@ -20,7 +22,7 @@ export interface GridAction {
 
 @Component({
   selector: 'srf-b3-grid',
-  imports: [CommonModule],
+  imports: [CommonModule, Tooltip],
   templateUrl: './grid.html',
   styleUrl: './grid.scss',
 })
@@ -40,6 +42,7 @@ export class Grid<T extends object = Record<string, unknown>> {
   readonly sortClick = output<{ column: GridColumn; direction: 'asc' | 'desc' }>();
 
   @ContentChild('actionTemplate') actionTemplate?: TemplateRef<unknown>;
+  @ContentChildren(GridCellDef) cellDefs!: QueryList<GridCellDef>;
 
   sortColumn: string | null = null;
   sortDirection: 'asc' | 'desc' = 'asc';
@@ -88,5 +91,11 @@ export class Grid<T extends object = Record<string, unknown>> {
 
   getTrackId(index: number, item: T): unknown {
     return (item as Record<string, unknown>)[this.trackByKey()] ?? index;
+  }
+
+  getCellTemplate(columnKey: string): TemplateRef<unknown> | null {
+    if (!this.cellDefs) return null;
+    const def = this.cellDefs.find(d => d.columnKey() === columnKey);
+    return def ? def.template : null;
   }
 }

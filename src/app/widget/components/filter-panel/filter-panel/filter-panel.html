@@ -63,7 +63,7 @@
         </button>
       </div>
       <div class="filter-form-content">
-        <div class="form-grid" [style.grid-template-columns]="'repeat(' + columns() + ', 1fr)'">
+        <div class="form-grid" [style.grid-template-columns]="gridTemplate() || 'repeat(' + columns() + ', 1fr)'">
           @for (field of fields(); track field.key) {
             <div class="form-field" [class.col-span-2]="field.colSpan === 2" [class.col-span-3]="field.colSpan === 3" [class.col-span-4]="field.colSpan === 4">
               <srf-b3-filter-field

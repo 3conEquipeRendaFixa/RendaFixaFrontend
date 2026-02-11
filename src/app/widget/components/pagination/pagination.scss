@@ -1,0 +1,104 @@
+@use 'styles/variables' as v;
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-family: v.$font-family;
+}
+
+.pagination-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.page-size-selector {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  .page-size-select {
+    appearance: none;
+    background-color: v.$color-white;
+    border: 1px solid v.$color-border;
+    border-radius: v.$border-radius-sm;
+    padding: 4px 28px 4px 10px;
+    font-family: v.$font-family;
+    font-size: v.$font-size-sm;
+    font-weight: 400;
+    color: #A2A8AE;
+    cursor: pointer;
+    height: 28px;
+    line-height: 28px;
+
+    &:focus {
+      outline: none;
+      border-color: v.$color-primary;
+    }
+  }
+
+  .select-arrow {
+    position: absolute;
+    right: 10px;
+    pointer-events: none;
+  }
+}
+
+.results-text {
+  font-family: v.$font-family;
+  font-size: v.$font-size-sm;
+  font-weight: 400;
+  color: #A2A8AE;
+}
+
+.pagination-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.page-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 4px;
+  border: none;
+  border-radius: v.$border-radius-sm;
+  background-color: transparent;
+  font-family: v.$font-family;
+  font-size: v.$font-size-sm;
+  font-weight: 400;
+  color: v.$color-neutral-300;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background-color: v.$color-neutral-50;
+    color: v.$color-neutral-600;
+  }
+
+  &.active {
+    background-color: v.$color-primary;
+    color: v.$color-white;
+    font-weight: 500;
+    border-radius: 50%;
+    min-width: 24px;
+    height: 24px;
+  }
+
+  &.page-number {
+    border-radius: 50%;
+    min-width: 24px;
+    height: 24px;
+  }
+
+  &.text-button {
+    padding: 0 8px;
+    border-radius: v.$border-radius-sm;
+    color: v.$color-neutral-400;
+  }
+}

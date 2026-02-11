@@ -1,0 +1,42 @@
+<div class="pagination-container">
+  <div class="pagination-info">
+    <div class="page-size-selector">
+      <select
+        class="page-size-select"
+        [value]="pageSize()"
+        (change)="onPageSizeChange($event)">
+        @for (option of pageSizeOptions(); track option) {
+          <option [value]="option">Mostrar {{ option }} resultados</option>
+        }
+      </select>
+      <svg class="select-arrow" width="7" height="4" viewBox="0 0 7 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.5 4L0 0H7L3.5 4Z" fill="#A2A8AE"/>
+      </svg>
+    </div>
+    <span class="results-text">{{ displayedItems() }} resultados de {{ totalItems() }} disponíveis</span>
+  </div>
+
+  @if (totalPages() > 1) {
+    <nav class="pagination-nav" aria-label="Paginação">
+      @for (page of visiblePages(); track page) {
+        <button
+          class="page-button page-number"
+          [class.active]="page === currentPage()"
+          (click)="goToPage(page)"
+          [attr.aria-current]="page === currentPage() ? 'page' : null">
+          {{ page }}
+        </button>
+      }
+      @if (hasNextPage()) {
+        <button class="page-button text-button" (click)="nextPage()">
+          Próxima
+        </button>
+      }
+      @if (currentPage() < totalPages()) {
+        <button class="page-button text-button" (click)="goToPage(totalPages())">
+          Último
+        </button>
+      }
+    </nav>
+  }
+</div>

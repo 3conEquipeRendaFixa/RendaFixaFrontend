@@ -32,7 +32,7 @@
     table-layout: fixed;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
-    overflow: hidden;
+    overflow: visible;
 
     tr {
       border: 1px solid c.$color-border;
@@ -92,6 +92,7 @@
         width: 15px;
         height: 18px;
         flex-shrink: 0;
+        margin-left: v.$spacing-sm;
         transition: opacity 0.2s ease, transform 0.2s ease;
 
         &.active {

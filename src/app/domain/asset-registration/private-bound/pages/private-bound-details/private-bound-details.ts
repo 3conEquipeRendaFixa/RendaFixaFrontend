@@ -168,6 +168,12 @@ export class PrivateBoundDetails implements OnInit {
 
   onConfirmEdit(): void {
     if (this.editingField && this.security) {
+      // Se estiver editando o apelido do ativo, faz a chamada PATCH para a API
+      if (this.editingField === 'tickerSymbolSurname') {
+        this.updateAssetSurname();
+        return;
+      }
+
       // Prioriza salvar em assetCharacteristic se existir
       if (this.assetCharacteristic) {
         const charHasField = (this.assetCharacteristic as unknown as Record<string, unknown>)[this.editingField] !== undefined;
@@ -197,6 +203,34 @@ export class PrivateBoundDetails implements OnInit {
 
   onCancelEdit(): void {
     this.cancelEdit();
+  }
+
+  private updateAssetSurname(): void {
+    if (!this.security || !this.securityCodigo) return;
+
+    this.service.updateAssetSurname('B3', this.securityCodigo, this.editingValue).subscribe({
+      next: (response) => {
+        console.log('Apelido atualizado com sucesso:', response);
+
+        // Atualiza o valor local após sucesso na API
+        if (this.assetCharacteristic) {
+          this.assetCharacteristic.tickerSymbolSurname = this.editingValue;
+        }
+        if (this.security) {
+          this.security.tickerSymbolSurname = this.editingValue;
+        }
+        if (this.debentureDetails) {
+          this.debentureDetails.tickerSymbolSurname = this.editingValue;
+        }
+
+        this.cancelEdit();
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Erro ao atualizar apelido:', error);
+        alert('Erro ao atualizar o apelido do ativo. Tente novamente.');
+      }
+    });
   }
 
   private cancelEdit(): void {
