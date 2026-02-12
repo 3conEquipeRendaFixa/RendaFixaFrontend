@@ -78,4 +78,25 @@ export const CUSTOMER_ROUTES: Routes = [
         (m) => m.PessoaJuridicaSFP
       ),
   },
+  {
+  path: 'contas/:codigo',
+  loadComponent: () =>
+    import('@domain/Customer/pages/contas/contas').then(
+      (m) => m.Contas
+    ),
+},
+{
+  path: 'documentos/:codigo',
+  loadComponent: () =>
+    import('@domain/Customer/pages/documentos/documentos').then(
+      (m) => m.Documentos
+    ),
+},
+{
+  path: 'enderecos/:codigo',
+  loadComponent: () =>
+    import('@domain/Customer/pages/enderecos/enderecos').then(
+      (m) => m.Enderecos
+    ),
+},
 ];

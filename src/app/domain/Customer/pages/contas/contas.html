@@ -1,0 +1,138 @@
+<div class="contas-page">
+  <!-- Breadcrumb -->
+  <srf-b3-breadcrumb [items]="breadcrumbItems" />
+
+  <!-- Header -->
+  <header class="client-header">
+    <button class="btn-back" (click)="goBack()">
+      <span class="arrow">←</span>
+    </button>
+    <div class="client-info">
+      <h1 class="client-name">{{ clientName() }}</h1>
+      <div class="client-tags">
+        <span class="tag tag-segment">Equities</span>
+        <span class="tag tag-segment">Derivativos</span>
+        <span class="tag tag-status" [class.inactive]="clientStatus() === 'inativo'">
+          {{ clientStatus() === 'ativo' ? 'Ativo' : 'Inativo' }}
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tabs -->
+  <nav class="tabs">
+    @for (tab of tabs; track tab.key) {
+      <button
+        class="tab"
+        [class.active]="tab.active"
+        [class.tab-dark]="tab.dark"
+        (click)="onTabClick(tab)">
+        {{ tab.label }}
+      </button>
+    }
+  </nav>
+
+  <!-- Conteúdo -->
+  <main class="content">
+    @if (isLoading) {
+      <div class="loading">
+        <p>Carregando...</p>
+      </div>
+    } @else {
+      <!-- Conta Balcão -->
+      <section class="section">
+        <div class="section-header">
+          <h3 class="section-title">Conta Balcão</h3>
+          <span class="section-subtitle">- Apenas 1 (uma) conta por cliente.</span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group titular-conta">
+            <label class="form-label">Titular da Conta Investidor (Conta Própria)<span class="required">*</span></label>
+            <div class="input-group-titular">
+              <input type="text" class="form-input" [value]="getTitularPart1()" readonly placeholder="00000">
+              <input type="text" class="form-input" [value]="getTitularPart2()" readonly placeholder="000">
+              <input type="text" class="form-input" [value]="getTitularPart3()" readonly placeholder="00">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Conta de Depósito<span class="required">*</span></label>
+            <input type="text" class="form-input" [value]="contaBalcao().contaDeposito" readonly placeholder="00000000000">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Conta de Investidor SELIC<span class="required">*</span></label>
+            <input type="text" class="form-input input-selic" [value]="contaBalcao().contaInvestidorSelic" readonly placeholder="00000000000">
+          </div>
+        </div>
+      </section>
+
+      <!-- Conta Listados -->
+      <section class="section">
+        <div class="section-header">
+          <h3 class="section-title">Conta Listados</h3>
+          <span class="section-subtitle">- Caso opere os segmentos de Ações a Vista e Derivativos de Ações, deverá ser incluída a conta de Listados.</span>
+        </div>
+
+        <div class="form-row form-row-6col">
+          <div class="form-group">
+            <label class="form-label">Segmento<span class="required">*</span></label>
+            <select class="form-select" disabled>
+              <option>Seleção</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tipo de Conta<span class="required">*</span></label>
+            <select class="form-select" disabled>
+              <option>{{ contasListados()[0]?.accTypeAccName || 'Seleção' }}</option>
+            </select>
+          </div>
+
+          <div class="form-group numero-conta">
+            <label class="form-label">Número da Conta<span class="required">*</span></label>
+            <input type="text" class="form-input" [value]="contasListados()[0]?.accTypeAccCode || ''" readonly placeholder="00000000000">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Regra de Movimentação<span class="required">*</span></label>
+            <select class="form-select" disabled>
+              <option>{{ contasListados()[0]?.accRuleMovAcrn || 'LIFO' }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tipo de Colaterização<span class="required">*</span></label>
+            <select class="form-select" disabled>
+              <option>{{ contasListados()[0]?.accTypeCollateralCode || 'Participante' }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Grupo de Afinidade<span class="required">*</span></label>
+            <select class="form-select" disabled>
+              <option>{{ contasListados()[0]?.accAffinityCode || 'Seleção' }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row form-row-2col">
+          <div class="form-group">
+            <label class="form-label">Status da Conta<span class="required">*</span></label>
+            <select class="form-select" disabled>
+              <option>{{ contasListados()[0]?.accStatRegDscn || 'Seleção' }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Status do Cadastro na B3<span class="required">*</span></label>
+            <select class="form-select" disabled>
+              <option>{{ contasListados()[0]?.accSendAccBvmfInd || 'Seleção' }}</option>
+            </select>
+          </div>
+        </div>
+      </section>
+    }
+  </main>
+</div>
