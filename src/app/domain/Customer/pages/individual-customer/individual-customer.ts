@@ -30,10 +30,10 @@ export interface NaturalPersonData {
 }
 
 @Component({
-  selector: 'app-customer-natural-person',
+  selector: 'app-individual-customer',
   imports: [CommonModule, FormsModule, Breadcrumb],
-  templateUrl: './customer-natural-person.html',
-  styleUrl: './customer-natural-person.scss',
+  templateUrl: './individual-customer.html',
+  styleUrl: './individual-customer.scss',
 })
 export class CustomerNaturalPerson implements OnInit {
   private readonly route = inject(ActivatedRoute);
