@@ -1,0 +1,97 @@
+<div class="documentos-page">
+  <!-- Breadcrumb -->
+  <srf-b3-breadcrumb [items]="breadcrumbItems" />
+
+  <!-- Header -->
+  <header class="client-header">
+    <button class="btn-back" (click)="goBack()">
+      <span class="arrow">←</span>
+    </button>
+    <div class="client-info">
+      <h1 class="client-name">{{ clientName() }}</h1>
+      <div class="client-tags">
+        <span class="tag tag-segment">Equities</span>
+        <span class="tag tag-segment">Derivativos</span>
+        <span class="tag tag-status" [class.inactive]="clientStatus() === 'inativo'">
+          {{ clientStatus() === 'ativo' ? 'Ativo' : 'Inativo' }}
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tabs -->
+  <nav class="tabs">
+    @for (tab of tabs; track tab.key) {
+      <button
+        class="tab"
+        [class.active]="tab.active"
+        [class.tab-dark]="tab.dark"
+        (click)="onTabClick(tab)">
+        {{ tab.label }}
+      </button>
+    }
+  </nav>
+
+  <!-- Conteúdo -->
+  <main class="content">
+    @if (isLoading) {
+      <div class="loading">
+        <p>Carregando...</p>
+      </div>
+    } @else {
+      @for (doc of documentos(); track doc.docDocmValue; let i = $index) {
+        <section class="document-card">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Tipo de Documento<span class="required">*</span></label>
+              <select class="form-select" disabled>
+                <option>{{ doc.docDocmTypeName || 'Seleção' }}</option>
+              </select>
+            </div>
+
+            <div class="form-group numero-documento">
+              <label class="form-label">Número do Documento<span class="required">*</span></label>
+              <input type="text" class="form-input" [value]="doc.docDocmValue" readonly placeholder="Número">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Órgão Emissor</label>
+              <select class="form-select" disabled>
+                <option>{{ doc.docIssuingAgencyAcrn || 'Seleção' }}</option>
+              </select>
+            </div>
+
+            <div class="form-group uf-emissor">
+              <label class="form-label">UF Emissor</label>
+              <select class="form-select" disabled>
+                <option>{{ doc.docStateAcrn || 'Seleção' }}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">País Emissor</label>
+              <select class="form-select" disabled>
+                <option>{{ doc.docCountryName || 'Seleção' }}</option>
+              </select>
+            </div>
+
+            <div class="form-group checkboxes">
+              <div class="checkbox-wrapper">
+                <input type="checkbox" [checked]="isChecked(doc.docMainDocm)" disabled>
+                <label>Documento de Identificação</label>
+              </div>
+              <div class="checkbox-wrapper">
+                <input type="checkbox" [checked]="isChecked(doc.docDomainBvmfInd)" disabled>
+                <label>Cadastrar na B3</label>
+              </div>
+            </div>
+          </div>
+        </section>
+      } @empty {
+        <div class="empty-state">
+          <p>Nenhum documento cadastrado.</p>
+        </div>
+      }
+    }
+  </main>
+</div>
