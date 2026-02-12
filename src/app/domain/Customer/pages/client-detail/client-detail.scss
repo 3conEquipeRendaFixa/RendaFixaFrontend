@@ -1,0 +1,198 @@
+@use 'styles/variables' as v;
+
+$font-family: 'Rubik', sans-serif;
+$font-size-xs: 10px;
+$font-size-sm: 12px;
+$font-size-base: 14px;
+$font-size-lg: 16px;
+
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 12px;
+$spacing-lg: 16px;
+
+$border-radius-sm: 5px;
+$border-radius-full: 50px;
+
+// ─── Page Layout ────────────────────────────────────────────
+.client-detail-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #F8FAFB;
+  font-family: $font-family;
+  color: v.$color-neutral-700;
+}
+
+// ─── Client Header ──────────────────────────────────────────
+.client-header {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-lg;
+  padding: $spacing-md $spacing-lg;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid v.$color-secondary;
+  border-radius: $border-radius-full;
+  cursor: pointer;
+  padding: 10px;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(v.$color-secondary, 0.05);
+  }
+
+  .back-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.client-info {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.client-name-row {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.client-name {
+  font-family: $font-family;
+  font-weight: 500;
+  font-size: $font-size-lg;
+  line-height: 1.185;
+  color: v.$color-secondary;
+  margin: 0;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: $border-radius-full;
+  font-family: $font-family;
+  font-weight: 400;
+  font-size: $font-size-sm;
+  line-height: 1.185;
+
+  &.active {
+    background: rgba(66, 175, 82, 0.1);
+    color: v.$color-success-dark;
+  }
+
+  &.inactive {
+    background: rgba(255, 36, 36, 0.1);
+    color: v.$color-danger-dark;
+  }
+}
+
+.client-modules {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  flex-wrap: wrap;
+}
+
+.module-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px $spacing-sm;
+  border: 1px solid v.$color-neutral-400;
+  border-radius: $border-radius-full;
+  font-family: $font-family;
+  font-weight: 400;
+  font-size: $font-size-sm;
+  line-height: 1em;
+  color: v.$color-neutral-400;
+}
+
+// ─── Tabs ───────────────────────────────────────────────────
+.tabs-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  padding: 0 $spacing-lg;
+}
+
+.tab {
+  padding: 10px 12px;
+  background: #F2F3F6;
+  border: 1px solid #E9E9EC;
+  border-bottom: none;
+  border-radius: $border-radius-sm $border-radius-sm 0 0;
+  cursor: pointer;
+  font-family: $font-family;
+  font-size: $font-size-sm;
+  font-weight: 400;
+  line-height: 1em;
+  color: #757E93;
+  height: 35px;
+  transition: all 0.2s ease;
+
+  &:hover:not(.active) {
+    background-color: rgba(v.$color-primary, 0.05);
+  }
+
+  &.active {
+    background: #F8F9FB;
+    color: v.$color-secondary;
+    font-weight: 500;
+    border-color: #E9E9EC;
+    border-left: 1px solid #E9E9EC;
+    border-right: 1px solid #E9E9EC;
+    border-top: 2px solid v.$color-secondary;
+    border-bottom: none;
+  }
+}
+
+// ─── Form Content ───────────────────────────────────────────
+.form-content {
+  margin: 0 $spacing-lg $spacing-lg;
+  background: #F8F9FB;
+  border: 1px solid v.$color-border;
+  border-radius: 0 $border-radius-sm $border-radius-sm $border-radius-sm;
+  padding: 20px;
+  min-height: 400px;
+}
+
+// ─── Tab Placeholder ────────────────────────────────────────
+.tab-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: v.$color-neutral-400;
+  font-size: $font-size-base;
+}
+
+// ─── Responsive ─────────────────────────────────────────────
+@media (max-width: 1200px) {
+  .tabs-wrapper {
+    gap: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .tabs-wrapper {
+    flex-direction: column;
+  }
+
+  .client-header {
+    flex-direction: column;
+    align-items: center;
+  }
+}

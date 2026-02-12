@@ -37,6 +37,13 @@ export const CUSTOMER_ROUTES: Routes = [
       ),
   },
   {
+    path: 'detail/:codigo',
+    loadComponent: () =>
+      import('@domain/Customer/pages/client-detail/client-detail').then(
+        (m) => m.ClientDetail
+      ),
+  },
+  {
     path: 'pessoa-juridica',
     loadComponent: () =>
       import('@domain/Customer/pages/pessoa-juridica/pessoa-juridica').then(

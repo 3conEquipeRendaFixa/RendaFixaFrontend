@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { ICustomerRecord, ICustomerApiRecord, CustomerFilters } from '../interfaces';
@@ -30,12 +30,42 @@ export class CustomerService {
 
 
   loadCustomers(filters: CustomerFilters = {}): Observable<ICustomerRecord[]> {
+    const params = this.buildCustomerListParams(filters);
+
     return this.http.post<ApiResponse<ICustomerApiRecord[]>>(
       `${this.apiUrl}/customer/customerList`,
-      filters
+      {},
+      { params }
     ).pipe(
       map(response => response.data.map(item => this.mapToCustomerRecord(item)))
     );
+  }
+
+  private buildCustomerListParams(filters: CustomerFilters): HttpParams {
+    let params = new HttpParams();
+
+    if (filters.tipoPessoa) {
+      params = params.set('typePsonCode', filters.tipoPessoa);
+    }
+
+    if (filters.residente) {
+      const resnAbroadIndFilter = filters.residente === 'Residente' ? 'N' : 'S';
+      params = params.set('resnAbroadIndFilter', resnAbroadIndFilter);
+    }
+
+    if (filters.nome) {
+      params = params.set('custNameFilter', filters.nome);
+    }
+
+    if (filters.numeroDocumento) {
+      params = params.set('docmValueFilter', filters.numeroDocumento);
+    }
+
+    if (filters.dataUltimaAlteracao) {
+      params = params.set('updateDateBeginFilter', filters.dataUltimaAlteracao);
+    }
+
+    return params;
   }
 
   private mapToCustomerRecord(api: ICustomerApiRecord): ICustomerRecord {
