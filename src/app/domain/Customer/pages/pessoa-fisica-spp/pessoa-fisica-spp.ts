@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Breadcrumb, BreadcrumbItem } from '@widget/components/breadcrumb/breadcrumb';
+import { CustomerService } from '@domain/Customer/services/customer.service';
+import { ICustomerInformationApiResponse } from '@domain/Customer/interfaces/ICustomerData';
 
 export interface ClientTab {
   label: string;
@@ -30,12 +32,15 @@ export class PessoaFisicaSPP implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
+  readonly clientName = signal<string>('');
+  readonly clientStatus = signal<'ativo' | 'inativo'>('ativo');
+  readonly clientModules = signal<string>('');
+
   codigo: string | null = null;
   isLoading = true;
 
-  readonly clientName = signal('Maria Silva');
-  readonly clientStatus = signal<'ativo' | 'inativo'>('inativo');
-  readonly clientModules = signal('Equities  |  Derivativos');
+  private readonly service = inject(CustomerService);
+  
 
   readonly formData = signal<PessoaFisicaSfpData>({
     moeda: '',
@@ -76,9 +81,47 @@ export class PessoaFisicaSPP implements OnInit {
   };
 
   ngOnInit(): void {
-    this.codigo = this.route.snapshot.paramMap.get('codigo');
+  this.codigo = this.route.snapshot.paramMap.get('codigo');
+
+  if (this.codigo) {
+    this.service.loadCustomerInformation(this.codigo).subscribe({
+      next: (data: unknown) => {
+        const customerData = data as ICustomerInformationApiResponse;
+        console.log('Customer information loaded:', customerData);
+
+          this.clientName.set(customerData.customer?.custCustName || '');
+          this.clientStatus.set(
+            customerData.customer?.custStatRegCode === 1 ? 'ativo' : 'inativo'
+          );
+        const pfSfpData = customerData.individualCustFinan;
+
+        this.formData.set({
+          moeda: pfSfpData?.indCustFinCurrencyCode.toString() || '',
+          valorRendaAtual: pfSfpData?.indCustFinAnnualIncomeValue?.toString() || '',
+          valorSituacaoPatrimonial: pfSfpData?.indCustFinFinancialValue?.toString() || '',
+          valorCapacidadeFinanceira: pfSfpData?.indCustFinCapacityValue?.toString() || '',
+          dataRendaAnual: pfSfpData?.indCustFinAnnualIncomeDate
+            ? this.formatDate(pfSfpData.indCustFinAnnualIncomeDate)
+            : '',
+          dataCapacidadeFinanceira: pfSfpData?.indCustFinCapacityDate
+            ? this.formatDate(pfSfpData.indCustFinCapacityDate)
+            : '',
+          dataSituacaoPatrimonial: pfSfpData?.indCustFinFinancialDate
+            ? this.formatDate(pfSfpData.indCustFinFinancialDate)
+            : '',
+        });
+
+        this.isLoading = false;
+      },
+      error: (error: Error) => {
+        console.error('Error loading customer information:', error);
+        this.isLoading = false;
+      },
+    });
+  } else {
     this.isLoading = false;
   }
+}
 
   goBack(): void {
     this.router.navigate(['/customer']);
@@ -90,5 +133,14 @@ export class PessoaFisicaSPP implements OnInit {
     if (route && this.codigo) {
       this.router.navigate(['/customer', route, this.codigo]);
     }
+  }
+
+  private formatDate(dateString: string): string {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   }
 }

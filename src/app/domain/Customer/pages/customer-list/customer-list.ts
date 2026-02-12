@@ -122,11 +122,16 @@ export class CustomerList implements OnInit {
   }
 
   private loadCustomers(): void {
-    const filters = this.convertToApiFilters(this.filterValues());
-    this.service.getCustomerList(filters).subscribe(data => {
-      this.allCustomers.set(data);
-      this.stateService.setCustomers(data);
-      this.currentPage.set(1);
+    this.service.loadCustomers().subscribe({
+      next: (data) => {
+        this.allCustomers.set(data);
+        this.stateService.setCustomers(data);
+        this.currentPage.set(1);
+        console.log('Customers loaded:', data);
+      },
+      error: (err) => {
+        console.error('Erro ao carregar clientes:', err);
+      }
     });
   }
 
@@ -186,7 +191,9 @@ export class CustomerList implements OnInit {
   }
 
   onActionClick(event: { action: GridAction; item: ICustomerRecord }): void {
-    console.log('Action clicked:', event.action.label, event.item);
+    this.router.navigate(['/customer/detail', event.item.custCode], {
+      queryParams: { tab: 'telefones' }
+    });
   }
 
   onPageChange(page: number): void {

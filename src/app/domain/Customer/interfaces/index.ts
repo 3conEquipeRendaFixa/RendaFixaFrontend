@@ -1,13 +1,25 @@
-export interface ICustomerRecord {
-  custCode?: number;
+export interface ICustomerApiRecord {
+  custCode: number;
   custName: string;
+  statRegCode: number;
+  updateDate: string;
+  insertDate: string;
   typePsonCode: string;
   resntAbroadInd: string;
   docmTypeCode: string;
   docmValue: string;
-  statRegCode: string;
-  insertDate: string;
-  updateDate?: string;
+}
+
+export interface ICustomerRecord {
+  custCode: number;
+  nome: string;
+  tipoPessoa: string;
+  residente: string;
+  tipoDocumento: string;
+  numeroDocumento: string;
+  statusInvestidor: string;
+  dataHoraInclusao: string;
+  dataUltimaAlteracao: string;
 }
 
 export interface CustomerFilters {
