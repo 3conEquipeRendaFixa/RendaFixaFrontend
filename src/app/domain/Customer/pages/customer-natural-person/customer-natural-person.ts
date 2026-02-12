@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Breadcrumb, BreadcrumbItem } from '@widget/components/breadcrumb/breadcrumb';
+import { CustomerDetailsService } from '../../services';
 
 export interface ClientTab {
   label: string;
@@ -10,22 +11,22 @@ export interface ClientTab {
   active?: boolean;
 }
 
-export interface PessoaFisicaData {
-  nacionalidade: string;
-  naturalidadeUf: string;
-  naturalidadeMunicipio: string;
-  paisResidencia: string;
-  genero: string;
-  escolaridade: string;
-  politicamenteExposto: string;
-  pessoaVinculada: boolean;
-  filiacaoPai: string;
-  filiacaoMae: string;
-  tipoDocumento: string;
-  numeroDocumento: string;
-  orgaoEmissor: string;
-  paisEmissor: string;
-  estadoEmissor: string;
+export interface NaturalPersonData {
+  nationality: string;
+  birthStateUf: string;
+  birthCity: string;
+  residenceCountry: string;
+  gender: string;
+  education: string;
+  politicallyExposed: string;
+  linkedPerson: boolean;
+  fatherName: string;
+  motherName: string;
+  documentType: string;
+  documentNumber: string;
+  issuingAgency: string;
+  issuingCountry: string;
+  issuingState: string;
 }
 
 @Component({
@@ -37,35 +38,36 @@ export interface PessoaFisicaData {
 export class CustomerNaturalPerson implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly customerDetailsService = inject(CustomerDetailsService);
 
   codigo: string | null = null;
 
-  readonly clientName = signal('Maria Silva');
+  readonly clientName = signal('');
   readonly clientStatus = signal<'ativo' | 'inativo'>('inativo');
   readonly clientModules = signal('Equities  |  Derivativos');
 
-  readonly formData = signal<PessoaFisicaData>({
-    nacionalidade: '',
-    naturalidadeUf: '',
-    naturalidadeMunicipio: '',
-    paisResidencia: '',
-    genero: '',
-    escolaridade: '',
-    politicamenteExposto: '',
-    pessoaVinculada: false,
-    filiacaoPai: '',
-    filiacaoMae: '',
-    tipoDocumento: '',
-    numeroDocumento: '',
-    orgaoEmissor: '',
-    paisEmissor: '',
-    estadoEmissor: '',
+  readonly formData = signal<NaturalPersonData>({
+    nationality: '',
+    birthStateUf: '',
+    birthCity: '',
+    residenceCountry: '',
+    gender: '',
+    education: '',
+    politicallyExposed: '',
+    linkedPerson: false,
+    fatherName: '',
+    motherName: '',
+    documentType: '',
+    documentNumber: '',
+    issuingAgency: '',
+    issuingCountry: '',
+    issuingState: '',
   });
 
   breadcrumbItems: BreadcrumbItem[] = [
     { label: 'PÁGINA INICIAL', route: '/' },
     { label: 'CADASTRO DE CLIENTES', route: '/customer' },
-    { label: 'MARIA SILVA', current: true },
+    { label: '', current: true },
   ];
 
   readonly tabs: ClientTab[] = [
@@ -92,6 +94,45 @@ export class CustomerNaturalPerson implements OnInit {
 
   ngOnInit(): void {
     this.codigo = this.route.snapshot.paramMap.get('codigo');
+    this.loadCustomerData();
+  }
+
+  private loadCustomerData(): void {
+    const custCode = Number(this.codigo);
+    if (!custCode) return;
+
+    this.customerDetailsService.getCustomerInformation(custCode).subscribe(data => {
+      const customer = data.customer;
+      const individual = data.individualCustomer;
+      const mainDoc = data.document?.find(d => d.docCustMainDocm === 'S');
+
+      this.clientName.set(customer.custCustName);
+      this.clientStatus.set(customer.custStatRegCode === 1 ? 'ativo' : 'inativo');
+
+      this.breadcrumbItems = [
+        { label: 'PÁGINA INICIAL', route: '/' },
+        { label: 'CADASTRO DE CLIENTES', route: '/customer' },
+        { label: customer.custCustName.toUpperCase(), current: true },
+      ];
+
+      this.formData.set({
+        nationality: individual?.indCustCountryName || '',
+        birthStateUf: individual?.indCustStateName || '',
+        birthCity: individual?.indCustNameCityBirth || '',
+        residenceCountry: individual?.indCustCountryResName || '',
+        gender: individual?.indCustGenderDscn || '',
+        education: individual?.indCustEducationDscn || '',
+        politicallyExposed: individual?.indCustPepInd === 'S' ? 'Sim' : 'Não',
+        linkedPerson: customer.custPsonLinkInd === 'S',
+        fatherName: individual?.indCustFatherName || '',
+        motherName: individual?.indCustMotherName || '',
+        documentType: mainDoc?.docDocmTypeName || '',
+        documentNumber: mainDoc?.docDocmValue || '',
+        issuingAgency: mainDoc?.docIssuingAgencyAcrn || '',
+        issuingCountry: mainDoc?.docCountryName || '',
+        issuingState: mainDoc?.docStateName || '',
+      });
+    });
   }
 
   goBack(): void {
@@ -106,7 +147,7 @@ export class CustomerNaturalPerson implements OnInit {
     }
   }
 
-  onPessoaVinculadaChange(checked: boolean): void {
-    this.formData.update(data => ({ ...data, pessoaVinculada: checked }));
+  onLinkedPersonChange(checked: boolean): void {
+    this.formData.update(data => ({ ...data, linkedPerson: checked }));
   }
 }

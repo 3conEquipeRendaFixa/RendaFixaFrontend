@@ -23,13 +23,13 @@
         [columns]="gridColumns"
         [data]="paginatedCustomers()"
         [actions]="gridActions"
-        [trackByKey]="'numeroDocumento'"
+        [trackByKey]="'custCode'"
         [showColumnDividers]="true"
         (rowClick)="onRowClick($event)"
         (actionClick)="onActionClick($event)"
       >
-        <ng-template gridCellDef="statusInvestidor" let-item>
-          <srf-b3-status-badge [status]="item.statusInvestidor" />
+        <ng-template gridCellDef="statRegCode" let-item>
+          <srf-b3-status-badge [status]="item.statRegCode" />
         </ng-template>
       </srf-b3-grid>
 

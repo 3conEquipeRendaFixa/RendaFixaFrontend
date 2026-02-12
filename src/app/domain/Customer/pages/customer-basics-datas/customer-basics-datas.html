@@ -50,9 +50,9 @@
           <label class="radio-label">
             <input
               type="radio"
-              name="tipoPessoa"
-              [checked]="formData().tipoPessoa === 'PF'"
-              (change)="onTipoPessoaChange('PF')"
+              name="typePsonCode"
+              [checked]="formData().typePsonCode === 'PF'"
+              (change)="onTypePsonCodeChange('PF')"
             />
             <span class="radio-custom"></span>
             <span class="radio-text">Pessoa Física</span>
@@ -60,9 +60,9 @@
           <label class="radio-label">
             <input
               type="radio"
-              name="tipoPessoa"
-              [checked]="formData().tipoPessoa === 'PJ'"
-              (change)="onTipoPessoaChange('PJ')"
+              name="typePsonCode"
+              [checked]="formData().typePsonCode === 'PJ'"
+              (change)="onTypePsonCodeChange('PJ')"
             />
             <span class="radio-custom"></span>
             <span class="radio-text">Pessoa Jurídica</span>
@@ -73,7 +73,7 @@
       <div class="form-field" style="width: 220px;">
         <span class="field-label">Tipo de Investidor*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
+          <span class="placeholder-text">{{ formData().investorType || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -83,21 +83,21 @@
       <div class="form-field" style="width: 200px;">
         <span class="field-label">Documento Principal*</span>
         <div class="field-input">
-          <span class="placeholder-text">000.000.000-00</span>
+          <span class="placeholder-text">{{ formData().mainDocument || '000.000.000-00' }}</span>
         </div>
       </div>
 
       <div class="form-field" style="width: 150px;">
         <span class="field-label">Código CVM</span>
         <div class="field-input">
-          <span class="placeholder-text">Digite</span>
+          <span class="placeholder-text">{{ formData().cvmCode || 'Digite' }}</span>
         </div>
       </div>
 
       <div class="form-field" style="width: 220px;">
         <span class="field-label">Status do Investidor*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
+          <span class="placeholder-text">{{ formData().investorStatus || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -107,7 +107,7 @@
       <div class="form-field" style="width: 220px;">
         <span class="field-label">Natureza Fiscal</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
+          <span class="placeholder-text">{{ formData().taxNature || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -120,21 +120,21 @@
       <div class="form-field" style="flex: 1; min-width: 300px;">
         <span class="field-label">Nome Completo do Investidor/Razão Social*</span>
         <div class="field-input">
-          <span class="placeholder-text">Texto</span>
+          <span class="placeholder-text">{{ formData().fullName || 'Texto' }}</span>
         </div>
       </div>
 
       <div class="form-field" style="width: 280px;">
         <span class="field-label">Nome Resumido do Investidor</span>
         <div class="field-input">
-          <span class="placeholder-text">Texto</span>
+          <span class="placeholder-text">{{ formData().shortName || 'Texto' }}</span>
         </div>
       </div>
 
       <div class="form-field" style="width: 178px;">
         <span class="field-label">Data de Nascimento/Fundação*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">00/00/0000</span>
+          <span class="placeholder-text">{{ formData().birthDate || '00/00/0000' }}</span>
           <svg class="calendar-icon" width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="0.5" y="2.5" width="14" height="13" rx="2" stroke="#AFAFAF"/>
             <line x1="0.5" y1="6.5" x2="14.5" y2="6.5" stroke="#AFAFAF"/>
@@ -150,8 +150,8 @@
           <label class="checkbox-label">
             <input
               type="checkbox"
-              [checked]="formData().perfilBalcao"
-              (change)="onPerfilChange('perfilBalcao', $any($event.target).checked)"
+              [checked]="formData().otcProfile"
+              (change)="onProfileChange('otcProfile', $any($event.target).checked)"
             />
             <span class="checkbox-custom"></span>
             <span class="checkbox-text">Balcão</span>
@@ -159,8 +159,8 @@
           <label class="checkbox-label">
             <input
               type="checkbox"
-              [checked]="formData().perfilListados"
-              (change)="onPerfilChange('perfilListados', $any($event.target).checked)"
+              [checked]="formData().listedProfile"
+              (change)="onProfileChange('listedProfile', $any($event.target).checked)"
             />
             <span class="checkbox-custom"></span>
             <span class="checkbox-text">Listados</span>

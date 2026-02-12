@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Breadcrumb, BreadcrumbItem } from '@widget/components/breadcrumb/breadcrumb';
+import { CustomerDetailsService } from '../../services';
 
 export interface ClientTab {
   label: string;
@@ -12,11 +13,11 @@ export interface ClientTab {
 
 export interface FatcaIrsData {
   usPerson: string;
-  perfilFatcaIrs: string;
-  perfilCrs: string;
+  fatcaIrsProfile: string;
+  crsProfile: string;
   giin: string;
-  codigoLei: string;
-  paisRelacionado: string;
+  leiCode: string;
+  relatedCountry: string;
 }
 
 @Component({
@@ -28,26 +29,27 @@ export interface FatcaIrsData {
 export class CustomerFatca implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly customerDetailsService = inject(CustomerDetailsService);
 
   codigo: string | null = null;
 
-  readonly clientName = signal('Maria Silva');
+  readonly clientName = signal('');
   readonly clientStatus = signal<'ativo' | 'inativo'>('inativo');
   readonly clientModules = signal('Equities  |  Derivativos');
 
   readonly formData = signal<FatcaIrsData>({
     usPerson: '',
-    perfilFatcaIrs: '',
-    perfilCrs: '',
+    fatcaIrsProfile: '',
+    crsProfile: '',
     giin: '',
-    codigoLei: '',
-    paisRelacionado: '',
+    leiCode: '',
+    relatedCountry: '',
   });
 
   breadcrumbItems: BreadcrumbItem[] = [
     { label: 'PÁGINA INICIAL', route: '/' },
     { label: 'CADASTRO DE CLIENTES', route: '/customer' },
-    { label: 'MARIA SILVA', current: true },
+    { label: '', current: true },
   ];
 
   readonly tabs: ClientTab[] = [
@@ -74,6 +76,36 @@ export class CustomerFatca implements OnInit {
 
   ngOnInit(): void {
     this.codigo = this.route.snapshot.paramMap.get('codigo');
+    this.loadCustomerData();
+  }
+
+  private loadCustomerData(): void {
+    const custCode = Number(this.codigo);
+    if (!custCode) return;
+
+    this.customerDetailsService.getCustomerInformation(custCode).subscribe(data => {
+      const customer = data.customer;
+
+      this.clientName.set(customer.custCustName);
+      this.clientStatus.set(customer.custStatRegCode === 1 ? 'ativo' : 'inativo');
+
+      this.breadcrumbItems = [
+        { label: 'PÁGINA INICIAL', route: '/' },
+        { label: 'CADASTRO DE CLIENTES', route: '/customer' },
+        { label: customer.custCustName.toUpperCase(), current: true },
+      ];
+
+      this.formData.set({
+        usPerson: customer.custFatcaUsPersonInd === 'S' ? 'Sim' : 'Não',
+        fatcaIrsProfile: customer.custFatcaIrsProfileCode || '',
+        crsProfile: customer.custFatcaCrsProfileCode || '',
+        giin: customer.custFatcaGiinCode || '',
+        leiCode: customer.custFatcaLeiCode || '',
+        relatedCountry: customer.custFatcaRelatedCountryName
+          ? `${customer.custFatcaRelatedCountry} - ${customer.custFatcaRelatedCountryName}`
+          : customer.custFatcaRelatedCountry || '',
+      });
+    });
   }
 
   goBack(): void {

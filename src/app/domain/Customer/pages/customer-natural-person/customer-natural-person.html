@@ -49,7 +49,7 @@
       <div class="form-field" style="width: 250px;">
         <span class="field-label">Nacionalidade*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
+          <span class="placeholder-text">{{ formData().nationality || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -59,7 +59,7 @@
       <div class="form-field" style="width: 200px;">
         <span class="field-label">Naturalidade UF</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
+          <span class="placeholder-text">{{ formData().birthStateUf || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -69,14 +69,14 @@
       <div class="form-field" style="width: 250px;">
         <span class="field-label">Naturalidade Município</span>
         <div class="field-input">
-          <span class="placeholder-text">Texto</span>
+          <span class="placeholder-text">{{ formData().birthCity || 'Texto' }}</span>
         </div>
       </div>
 
       <div class="form-field" style="width: 250px;">
         <span class="field-label">País de Residência/Sede*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
+          <span class="placeholder-text">{{ formData().residenceCountry || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -94,7 +94,7 @@
       <div class="form-field" style="width: 200px;">
         <span class="field-label">Gênero*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
+          <span class="placeholder-text">{{ formData().gender || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -104,7 +104,7 @@
       <div class="form-field" style="width: 220px;">
         <span class="field-label">Escolaridade</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
+          <span class="placeholder-text">{{ formData().education || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -114,7 +114,7 @@
       <div class="form-field" style="width: 220px;">
         <span class="field-label">Politicamente Exposto*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
+          <span class="placeholder-text">{{ formData().politicallyExposed || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -127,8 +127,8 @@
           <label class="checkbox-label">
             <input
               type="checkbox"
-              [checked]="formData().pessoaVinculada"
-              (change)="onPessoaVinculadaChange($any($event.target).checked)"
+              [checked]="formData().linkedPerson"
+              (change)="onLinkedPersonChange($any($event.target).checked)"
             />
             <span class="checkbox-custom"></span>
             <span class="checkbox-text">Sim</span>
@@ -147,14 +147,14 @@
       <div class="form-field" style="flex: 1; min-width: 300px;">
         <span class="field-label">Filiação - Nome do Pai</span>
         <div class="field-input">
-          <span class="placeholder-text">Texto</span>
+          <span class="placeholder-text">{{ formData().fatherName || 'Texto' }}</span>
         </div>
       </div>
 
       <div class="form-field" style="flex: 1; min-width: 300px;">
         <span class="field-label">Filiação - Nome da Mãe</span>
         <div class="field-input">
-          <span class="placeholder-text">Texto</span>
+          <span class="placeholder-text">{{ formData().motherName || 'Texto' }}</span>
         </div>
       </div>
     </div>
@@ -169,7 +169,7 @@
       <div class="form-field" style="width: 220px;">
         <span class="field-label">Tipo do Documento*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
+          <span class="placeholder-text">{{ formData().documentType || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -179,14 +179,14 @@
       <div class="form-field" style="width: 200px;">
         <span class="field-label">Número do Documento*</span>
         <div class="field-input">
-          <span class="placeholder-text">Digite</span>
+          <span class="placeholder-text">{{ formData().documentNumber || 'Digite' }}</span>
         </div>
       </div>
 
       <div class="form-field" style="width: 220px;">
         <span class="field-label">Órgão Emissor</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
+          <span class="placeholder-text">{{ formData().issuingAgency || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -196,7 +196,7 @@
       <div class="form-field" style="width: 220px;">
         <span class="field-label">País Emissor</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
+          <span class="placeholder-text">{{ formData().issuingCountry || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -206,7 +206,7 @@
       <div class="form-field" style="width: 200px;">
         <span class="field-label">Estado Emissor</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">Seleção</span>
+          <span class="placeholder-text">{{ formData().issuingState || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>

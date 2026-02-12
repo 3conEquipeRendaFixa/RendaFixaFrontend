@@ -5,18 +5,18 @@ import { environment } from '../../../../environments/environment';
 import { ICustomerRecord, CustomerFilters } from '../interfaces';
 
 const MOCK_CUSTOMERS: ICustomerRecord[] = [
-  { nome: 'Maria Silva', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Ativo', dataHoraInclusao: '28/02/2025 - 13:30:02' },
-  { nome: 'Maria Silva 2', tipoPessoa: 'PJ', residente: 'Sim', tipoDocumento: 'CNPJ', numeroDocumento: '00.000.000/0000-00', statusInvestidor: 'Ativo', dataHoraInclusao: '28/02/2025 - 13:28:14' },
-  { nome: 'Maria Silva 3', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Inativo', dataHoraInclusao: '28/02/2025 - 13:27:54' },
-  { nome: 'Maria Silva 4', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Inativo', dataHoraInclusao: '25/02/2025 - 11:12:09' },
-  { nome: 'Maria Silva 5', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Inativo', dataHoraInclusao: '25/02/2025 - 11:11:36' },
-  { nome: 'Maria Silva 6', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Inativo', dataHoraInclusao: '25/02/2025 - 11:09:23' },
-  { nome: 'Maria Silva 7', tipoPessoa: 'PF', residente: 'Não', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Bloqueado', dataHoraInclusao: '23/02/2025 - 16:33:17' },
-  { nome: 'Maria Silva 8', tipoPessoa: 'PF', residente: 'Não', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Bloqueado', dataHoraInclusao: '23/02/2025 - 16:25:15' },
-  { nome: 'Maria Silva 9', tipoPessoa: 'PF', residente: 'Não', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Bloqueado', dataHoraInclusao: '18/02/2025 - 11:14:11' },
-  { nome: 'Maria Silva 10', tipoPessoa: 'PF', residente: 'Não', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Bloqueado', dataHoraInclusao: '18/02/2025 - 08:19:56' },
-  { nome: 'Maria Silva 11', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Bloqueado', dataHoraInclusao: '17/02/2025 - 15:32:18' },
-  { nome: 'Maria Silva 12', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Inativo', dataHoraInclusao: '17/02/2025 - 12:05:35' },
+  { custName: 'Maria Silva', typePsonCode: 'PF', resntAbroadInd: 'Sim', docmTypeCode: 'CPF', docmValue: '000.000.000-00', statRegCode: 'Ativo', insertDate: '28/02/2025 - 13:30:02' },
+  { custName: 'Maria Silva 2', typePsonCode: 'PJ', resntAbroadInd: 'Sim', docmTypeCode: 'CNPJ', docmValue: '00.000.000/0000-00', statRegCode: 'Ativo', insertDate: '28/02/2025 - 13:28:14' },
+  { custName: 'Maria Silva 3', typePsonCode: 'PF', resntAbroadInd: 'Sim', docmTypeCode: 'CPF', docmValue: '000.000.000-00', statRegCode: 'Inativo', insertDate: '28/02/2025 - 13:27:54' },
+  { custName: 'Maria Silva 4', typePsonCode: 'PF', resntAbroadInd: 'Sim', docmTypeCode: 'CPF', docmValue: '000.000.000-00', statRegCode: 'Inativo', insertDate: '25/02/2025 - 11:12:09' },
+  { custName: 'Maria Silva 5', typePsonCode: 'PF', resntAbroadInd: 'Sim', docmTypeCode: 'CPF', docmValue: '000.000.000-00', statRegCode: 'Inativo', insertDate: '25/02/2025 - 11:11:36' },
+  { custName: 'Maria Silva 6', typePsonCode: 'PF', resntAbroadInd: 'Sim', docmTypeCode: 'CPF', docmValue: '000.000.000-00', statRegCode: 'Inativo', insertDate: '25/02/2025 - 11:09:23' },
+  { custName: 'Maria Silva 7', typePsonCode: 'PF', resntAbroadInd: 'Não', docmTypeCode: 'CPF', docmValue: '000.000.000-00', statRegCode: 'Bloqueado', insertDate: '23/02/2025 - 16:33:17' },
+  { custName: 'Maria Silva 8', typePsonCode: 'PF', resntAbroadInd: 'Não', docmTypeCode: 'CPF', docmValue: '000.000.000-00', statRegCode: 'Bloqueado', insertDate: '23/02/2025 - 16:25:15' },
+  { custName: 'Maria Silva 9', typePsonCode: 'PF', resntAbroadInd: 'Não', docmTypeCode: 'CPF', docmValue: '000.000.000-00', statRegCode: 'Bloqueado', insertDate: '18/02/2025 - 11:14:11' },
+  { custName: 'Maria Silva 10', typePsonCode: 'PF', resntAbroadInd: 'Não', docmTypeCode: 'CPF', docmValue: '000.000.000-00', statRegCode: 'Bloqueado', insertDate: '18/02/2025 - 08:19:56' },
+  { custName: 'Maria Silva 11', typePsonCode: 'PF', resntAbroadInd: 'Sim', docmTypeCode: 'CPF', docmValue: '000.000.000-00', statRegCode: 'Bloqueado', insertDate: '17/02/2025 - 15:32:18' },
+  { custName: 'Maria Silva 12', typePsonCode: 'PF', resntAbroadInd: 'Sim', docmTypeCode: 'CPF', docmValue: '000.000.000-00', statRegCode: 'Inativo', insertDate: '17/02/2025 - 12:05:35' },
 ];
 
 @Injectable({
@@ -27,32 +27,23 @@ export class CustomerService {
   private readonly apiUrl = environment.apiUrl;
 
   getAll(filters?: CustomerFilters): Observable<ICustomerRecord[]> {
-    // TODO: Substituir por chamada real ao backend quando disponível
-    // let params = new HttpParams();
-    // if (filters?.nome) params = params.set('nome', filters.nome);
-    // if (filters?.tipoDocumento) params = params.set('tipoDocumento', filters.tipoDocumento);
-    // if (filters?.numeroDocumento) params = params.set('numeroDocumento', filters.numeroDocumento);
-    // if (filters?.statusInvestidor) params = params.set('statusInvestidor', filters.statusInvestidor);
-    // if (filters?.residente) params = params.set('residente', filters.residente);
-    // return this.http.get<ICustomerRecord[]>(`${this.apiUrl}/customers`, { params });
-
     let result = [...MOCK_CUSTOMERS];
 
-    if (filters?.nome) {
-      const search = filters.nome.toLowerCase();
-      result = result.filter(c => c.nome.toLowerCase().includes(search));
+    if (filters?.custName) {
+      const search = filters.custName.toLowerCase();
+      result = result.filter(c => c.custName.toLowerCase().includes(search));
     }
-    if (filters?.tipoDocumento) {
-      result = result.filter(c => c.tipoDocumento === filters.tipoDocumento);
+    if (filters?.docmTypeCode) {
+      result = result.filter(c => c.docmTypeCode === filters.docmTypeCode);
     }
-    if (filters?.numeroDocumento) {
-      result = result.filter(c => c.numeroDocumento.includes(filters.numeroDocumento!));
+    if (filters?.docmValue) {
+      result = result.filter(c => c.docmValue.includes(filters.docmValue!));
     }
-    if (filters?.statusInvestidor) {
-      result = result.filter(c => c.statusInvestidor === filters.statusInvestidor);
+    if (filters?.statRegCode) {
+      result = result.filter(c => c.statRegCode === filters.statRegCode);
     }
-    if (filters?.residente) {
-      result = result.filter(c => c.residente === filters.residente);
+    if (filters?.resntAbroadInd) {
+      result = result.filter(c => c.resntAbroadInd === filters.resntAbroadInd);
     }
 
     return of(result);
