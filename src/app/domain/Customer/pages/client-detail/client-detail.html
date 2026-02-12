@@ -41,20 +41,26 @@
 
   <!-- Tab Content -->
   <div class="form-content">
-    @switch (activeTab()) {
-      @case ('telefones') {
-        <app-client-phones-tab />
-      }
-      @case ('emails') {
-        <app-client-emails-tab />
-      }
-      @case ('relacionamentos') {
-        <app-client-relationships-tab />
-      }
-      @default {
-        <div class="tab-placeholder">
-          <p>Conteúdo da aba em desenvolvimento.</p>
-        </div>
+    @if (isLoading) {
+      <div class="tab-placeholder">
+        <p>Carregando...</p>
+      </div>
+    } @else {
+      @switch (activeTab()) {
+        @case ('telefones') {
+          <app-client-phones-tab [phones]="phones()" />
+        }
+        @case ('emails') {
+          <app-client-emails-tab [emails]="emails()" />
+        }
+        @case ('relacionamentos') {
+          <app-client-relationships-tab [relationships]="relationships()" />
+        }
+        @default {
+          <div class="tab-placeholder">
+            <p>Conteúdo da aba em desenvolvimento.</p>
+          </div>
+        }
       }
     }
   </div>

@@ -1,4 +1,4 @@
-<main class="investidor-nr-page">
+<main class="pj-nr-page">
   <srf-b3-breadcrumb [items]="breadcrumbItems" />
 
   <!-- Client Header -->
@@ -41,34 +41,27 @@
   <div class="form-content">
     <!-- Row 1: Main fields -->
     <div class="form-row row-1">
-      <div class="form-field" style="width: 170px;">
-        <span class="field-label">CPF Investidor Não Residente*</span>
+      <div class="form-field" style="width: 251px;">
+        <span class="field-label">CNPJ Investidor Não Residente*</span>
         <div class="field-input">
-          <span class="placeholder-text">{{ formData().cpfInvestidor || '000.000.000-00' }}</span>
+          <span class="placeholder-text">{{ formData().cnpjInvestidorNr || '00.000.000/0000-00' }}</span>
         </div>
       </div>
 
-      <div class="form-field" style="width: 170px;">
-        <span class="field-label">Conta Ordinária de Private Bank*</span>
-        <div class="field-input">
-          <span class="placeholder-text">{{ formData().contaPrivateBank || '000.000.000-00' }}</span>
-        </div>
-      </div>
-
-      <div class="form-field" style="width: 305px;">
-        <span class="field-label">Tipo de Titularidade de Conta*</span>
+      <div class="form-field" style="width: 230px;">
+        <span class="field-label">País de Registro*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">{{ formData().tipoTitularidade || 'Seleção' }}</span>
+          <span class="placeholder-text">{{ formData().paisRegistro || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
         </div>
       </div>
 
-      <div class="form-field" style="width: 240px;">
-        <span class="field-label">Possui NIF*</span>
+      <div class="form-field" style="width: 227px;">
+        <span class="field-label">Jurisdição*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">{{ formData().possuiNif || 'Seleção' }}</span>
+          <span class="placeholder-text">{{ formData().jurisdicao || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -76,41 +69,6 @@
       </div>
 
       <div class="form-field" style="width: 189px;">
-        <span class="field-label">Número de Identificação Fiscal (NIF)*</span>
-        <div class="field-input">
-          <span class="placeholder-text">{{ formData().nif || 'Digite' }}</span>
-        </div>
-      </div>
-
-      <div class="form-field" style="width: 178px;">
-        <span class="field-label">Data Comunicado Form. Saída do País</span>
-        <div class="field-input has-icon">
-          <span class="placeholder-text">{{ formData().dataComunicadoSaida || '00/00/0000' }}</span>
-          <svg class="calendar-icon" width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0.5" y="2.5" width="14" height="13" rx="2" stroke="#AFAFAF"/>
-            <line x1="0.5" y1="6.5" x2="14.5" y2="6.5" stroke="#AFAFAF"/>
-            <line x1="4" y1="0.5" x2="4" y2="3.5" stroke="#AFAFAF"/>
-            <line x1="11" y1="0.5" x2="11" y2="3.5" stroke="#AFAFAF"/>
-          </svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- Row 2: Período + Qualificação + Jurisdição -->
-    <div class="form-row row-2">
-      <div class="form-field" style="width: 216px;">
-        <span class="field-label">Período da Situação de Residente no Exterior</span>
-        <div class="date-range-group">
-          <div class="field-input date-range-start">
-            <span class="placeholder-text">{{ formData().periodoResidenteExteriorDe || 'De' }}</span>
-          </div>
-          <div class="field-input date-range-end">
-            <span class="placeholder-text">{{ formData().periodoResidenteExteriorAte || 'Até' }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-field" style="width: 178px;">
         <span class="field-label">Qualificação conforme ICVM 560*</span>
         <div class="field-input has-icon">
           <span class="placeholder-text">{{ formData().qualificacaoIcvm || 'Seleção' }}</span>
@@ -120,12 +78,68 @@
         </div>
       </div>
 
-      <div class="form-field" style="width: 251px;">
-        <span class="field-label">Jurisdição*</span>
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Tipo de Titularidade de Conta*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">{{ formData().jurisdicao || 'Seleção' }}</span>
+          <span class="placeholder-text">{{ formData().tipoTitularidade || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Número de Identificação Fiscal (NIF)*</span>
+        <div class="field-input">
+          <span class="placeholder-text">{{ formData().nif || 'Digite' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Cotista -->
+    <div class="section-header">
+      <h2 class="section-title">Cotista</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <!-- Row 2: Cotista fields -->
+    <div class="form-row row-2">
+      <div class="form-field" style="width: 251px;">
+        <span class="field-label">Conta Ordinária de Private Bank*</span>
+        <div class="field-input">
+          <span class="placeholder-text">{{ formData().contaPrivateBank || '000.000.000-00' }}</span>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 670px;">
+        <span class="field-label">Período da Situação de Residente no Exterior</span>
+        <div class="field-input">
+          <span class="placeholder-text">{{ formData().periodoResidenteExterior || 'Período' }}</span>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Data de Inclusão</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">{{ formData().dataInclusao || '00/00/0000' }}</span>
+          <svg class="calendar-icon" width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="2.5" width="14" height="13" rx="2" stroke="#AFAFAF"/>
+            <line x1="0.5" y1="6.5" x2="14.5" y2="6.5" stroke="#AFAFAF"/>
+            <line x1="4" y1="0.5" x2="4" y2="3.5" stroke="#AFAFAF"/>
+            <line x1="11" y1="0.5" x2="11" y2="3.5" stroke="#AFAFAF"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Data de Exclusão</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">{{ formData().dataExclusao || '00/00/0000' }}</span>
+          <svg class="calendar-icon" width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="2.5" width="14" height="13" rx="2" stroke="#AFAFAF"/>
+            <line x1="0.5" y1="6.5" x2="14.5" y2="6.5" stroke="#AFAFAF"/>
+            <line x1="4" y1="0.5" x2="4" y2="3.5" stroke="#AFAFAF"/>
+            <line x1="11" y1="0.5" x2="11" y2="3.5" stroke="#AFAFAF"/>
           </svg>
         </div>
       </div>
@@ -149,7 +163,7 @@
               type="radio"
               name="tipoPessoa"
               [checked]="formData().tipoPessoaRepresentante === 'fisica'"
-              
+              (change)="onTipoPessoaChange('fisica')"
             />
             <span class="radio-custom"></span>
             <span class="radio-text">Pessoa Física</span>
@@ -159,7 +173,7 @@
               type="radio"
               name="tipoPessoa"
               [checked]="formData().tipoPessoaRepresentante === 'juridica'"
-              
+              (change)="onTipoPessoaChange('juridica')"
             />
             <span class="radio-custom"></span>
             <span class="radio-text">Pessoa Jurídica</span>

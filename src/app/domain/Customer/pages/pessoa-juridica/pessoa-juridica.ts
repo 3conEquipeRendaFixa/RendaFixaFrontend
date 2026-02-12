@@ -12,29 +12,28 @@ export interface ClientTab {
   active?: boolean;
 }
 
-export interface InvestidorNaoResidenteData {
-  cpfInvestidor: string;
-  contaPrivateBank: string;
-  tipoTitularidade: string;
-  possuiNif: string;
-  nif: string;
-  dataComunicadoSaida: string;
-  qualificacaoIcvm: string;
-  jurisdicao: string;
-  periodoResidenteExteriorDe: string;
-  periodoResidenteExteriorAte: string;
-  tipoPessoaRepresentante: 'fisica' | 'juridica';
-  cpfRepresentante: string;
-  nomeRepresentante: string;
+export interface PessoaJuridicaData {
+  paisRegistro: string;
+  atividadeEconomica: string;
+  grupoEconomico: string;
+  naturezaJuridica: string;
+  indicadorCvm286: string;
+  autorizaTransmOrdens: string;
+  adminCarteirasAdministradas: string;
+  adminFundosInvestimento: string;
+  classificacaoRiscoComitente: string;
+  descricaoClassificacaoRisco: string;
+  empresaSemFinsLucrativos: string;
+  dataUltimaAtualizacao: string;
 }
 
 @Component({
-  selector: 'app-pf-nao-residente',
+  selector: 'app-pessoa-juridica',
   imports: [CommonModule, FormsModule, Breadcrumb],
-  templateUrl: './pessoa-fisica-nao-residente.html',
-  styleUrl: './pessoa-fisica-nao-residente.scss',
+  templateUrl: './pessoa-juridica.html',
+  styleUrl: './pessoa-juridica.scss',
 })
-export class PessoaFisicaNaoResidente implements OnInit {
+export class PessoaJuridica implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly service = inject(CustomerService);
@@ -46,20 +45,19 @@ export class PessoaFisicaNaoResidente implements OnInit {
   readonly clientStatus = signal<'ativo' | 'inativo'>('ativo');
   readonly clientModules = signal<string>('');
 
-  readonly formData = signal<InvestidorNaoResidenteData>({
-    cpfInvestidor: '',
-    contaPrivateBank: '',
-    tipoTitularidade: '',
-    possuiNif: '',
-    nif: '',
-    dataComunicadoSaida: '',
-    qualificacaoIcvm: '',
-    jurisdicao: '',
-    periodoResidenteExteriorDe: '',
-    periodoResidenteExteriorAte: '',
-    tipoPessoaRepresentante: 'fisica',
-    cpfRepresentante: '',
-    nomeRepresentante: '',
+  readonly formData = signal<PessoaJuridicaData>({
+    paisRegistro: '',
+    atividadeEconomica: '',
+    grupoEconomico: '',
+    naturezaJuridica: '',
+    indicadorCvm286: '',
+    autorizaTransmOrdens: '',
+    adminCarteirasAdministradas: '',
+    adminFundosInvestimento: '',
+    classificacaoRiscoComitente: '',
+    descricaoClassificacaoRisco: '',
+    empresaSemFinsLucrativos: '',
+    dataUltimaAtualizacao: '',
   });
 
   breadcrumbItems: BreadcrumbItem[] = [
@@ -71,15 +69,15 @@ export class PessoaFisicaNaoResidente implements OnInit {
   readonly tabs: ClientTab[] = [
     { label: 'Dados Básicos', key: 'dados-basicos' },
     { label: 'FATCA IRS', key: 'fatca-irs' },
-    { label: 'Pessoa Física', key: 'pessoa-fisica' },
-    { label: 'Investidor Não Residente', key: 'investidor-nao-residente', active: true },
+    { label: 'Pessoa Jurídica', key: 'pessoa-juridica', active: true },
+    { label: 'Investidor Não Residente', key: 'investidor-nao-residente' },
     { label: 'Documentos', key: 'documentos' },
     { label: 'Telefones', key: 'telefones' },
     { label: 'E-mails', key: 'emails' },
     { label: 'Relacionamentos', key: 'relacionamentos' },
     { label: 'Endereços', key: 'enderecos' },
     { label: 'Contas', key: 'contas' },
-    { label: 'Pessoa Física SFP', key: 'pessoa-fisica-sfp' },
+    { label: 'Pessoa Jurídica SFP', key: 'pessoa-juridica-sfp' },
   ];
 
   ngOnInit(): void {
@@ -97,31 +95,24 @@ export class PessoaFisicaNaoResidente implements OnInit {
             customerData.customer?.custStatRegCode === 1 ? 'ativo' : 'inativo'
           );
           
-          // Map individualCustomerAbroad data to form
-          const abroadData = customerData.individualCustomerAbroad;
-          console.log('Abroad data:', abroadData);
+          // Map legalEntity data to form
+          const legalEntityData = customerData.legalEntity;
+          
           this.formData.set({
-            cpfInvestidor: abroadData?.indCustAbroadDocmValue || '',
-            contaPrivateBank: customerData.customer?.custDepOwnAccNumber || '',
-            tipoTitularidade: abroadData?.indCustAbroadAccOwnershipType || '',
-            possuiNif: abroadData?.indCustAbroadTaxpayerIdInd || '',
-            nif: abroadData?.indCustAbroadTaxpayerNumber || '',
-            dataComunicadoSaida: abroadData?.indCustAbroadDepartureNoticeDate 
-              ? this.formatDate(abroadData.indCustAbroadDepartureNoticeDate) 
+            paisRegistro: legalEntityData?.legEntCountryName || 'tentando setar',
+            atividadeEconomica: legalEntityData?.legEntEconomicActvName || '',
+            grupoEconomico: legalEntityData?.legEntEconomicGroupName || '',
+            naturezaJuridica: legalEntityData?.legEntLegalNatureCode?.toString() || '',
+            indicadorCvm286: legalEntityData?.legEntCVM286Ind || '',
+            autorizaTransmOrdens: legalEntityData?.legEntOrdersByThirdParties || '',
+            adminCarteirasAdministradas: legalEntityData?.legEntManagedPortfolioAdmin || '',
+            adminFundosInvestimento: legalEntityData?.legEntInvestFundManager || '',
+            classificacaoRiscoComitente: legalEntityData?.legEntRiskClassificationInd?.toString() || '',
+            descricaoClassificacaoRisco: legalEntityData?.legEntRiskClassificationDscn || '',
+            empresaSemFinsLucrativos: legalEntityData?.legEntNonprofitCompany || '',
+            dataUltimaAtualizacao: legalEntityData?.legEntFoundDate 
+              ? this.formatDate(legalEntityData.legEntFoundDate) 
               : '',
-            qualificacaoIcvm: abroadData?.indCustAbroadICV560Qualification || '',
-            jurisdicao: abroadData?.indCustAbroadInternationalJurisdictionCode || '',
-            periodoResidenteExteriorDe: abroadData?.indCustAbroadInitialDateAbroad 
-              ? this.formatDate(abroadData.indCustAbroadInitialDateAbroad) 
-              : '',
-            periodoResidenteExteriorAte: abroadData?.indCustAbroadFinalDateAbroad 
-              ? this.formatDate(abroadData.indCustAbroadFinalDateAbroad) 
-              : '',
-            tipoPessoaRepresentante: abroadData?.indCustAbroadLegalRepresentTypePsonCode === 'PF' 
-              ? 'fisica' 
-              : 'juridica',
-            cpfRepresentante: abroadData?.indCustAbroadLegalRepresentDocmValue || '',
-            nomeRepresentante: abroadData?.indCustAbroadLegalRepresentName || '',
           });
           
           this.isLoading = false;
@@ -137,14 +128,17 @@ export class PessoaFisicaNaoResidente implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/clientes']);
+    this.router.navigate(['/customer']);
   }
 
   onTabClick(tab: ClientTab): void {
-    this.router.navigate([`/cliente/${this.codigo}/${tab.key}`]);
+    if (tab.key === 'investidor-nao-residente' && this.codigo) {
+      this.router.navigate(['/customer/pessoa-juridica-nao-residente', this.codigo]);
+    }
+    if (tab.key === 'pessoa-juridica-sfp' && this.codigo) {
+      this.router.navigate(['/customer/pessoa-juridica-sfp', this.codigo]);
+    }
   }
-
-  
 
   private formatDate(dateString: string): string {
     if (!dateString) return '';

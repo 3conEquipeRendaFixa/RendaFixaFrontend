@@ -103,7 +103,7 @@ export class CustomerList implements OnInit {
       icon: 'icons/options.svg',
       label: 'Mais opções',
       route: '/customer',
-      routeIdKey: 'numeroDocumento'
+      routeIdKey: 'custCode'
     }
   ];
 
@@ -122,11 +122,16 @@ export class CustomerList implements OnInit {
   }
 
   private loadCustomers(): void {
-    const filters = this.convertToServiceFilters(this.filterValues());
-    this.service.getAll(filters).subscribe(data => {
-      this.allCustomers.set(data);
-      this.stateService.setCustomers(data);
-      this.currentPage.set(1);
+    this.service.loadCustomers().subscribe({
+      next: (data) => {
+        this.allCustomers.set(data);
+        this.stateService.setCustomers(data);
+        this.currentPage.set(1);
+        console.log('Customers loaded:', data);
+      },
+      error: (err) => {
+        console.error('Erro ao carregar clientes:', err);
+      }
     });
   }
 
@@ -159,13 +164,13 @@ export class CustomerList implements OnInit {
   }
 
   onRowClick(item: ICustomerRecord): void {
-    this.router.navigate(['/customer/detail', item.numeroDocumento], {
+    this.router.navigate(['/customer/detail', item.custCode], {
       queryParams: { tab: 'telefones' }
     });
   }
 
   onActionClick(event: { action: GridAction; item: ICustomerRecord }): void {
-    this.router.navigate(['/customer/detail', event.item.numeroDocumento], {
+    this.router.navigate(['/customer/detail', event.item.custCode], {
       queryParams: { tab: 'telefones' }
     });
   }

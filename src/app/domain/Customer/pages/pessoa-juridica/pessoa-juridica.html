@@ -1,0 +1,167 @@
+<main class="pessoa-juridica-page">
+  <srf-b3-breadcrumb [items]="breadcrumbItems" />
+
+  <!-- Client Header -->
+  <div class="client-header">
+    <button class="back-button" (click)="goBack()" aria-label="Voltar">
+      <img src="icons/voltar.svg" alt="Voltar" class="back-icon" />
+    </button>
+
+    <div class="client-info">
+      <div class="client-name-row">
+        <h1 class="client-name">{{ clientName() }}</h1>
+        <div
+          class="status-chip"
+          [class.inactive]="clientStatus() === 'inativo'"
+          [class.active]="clientStatus() === 'ativo'"
+        >
+          {{ clientStatus() === 'ativo' ? 'Ativo' : 'Inativo' }}
+        </div>
+      </div>
+      <div class="client-modules-badge">
+        <span class="badge-text">{{ clientModules() }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-wrapper">
+    @for (tab of tabs; track tab.key) {
+      <button class="tab" [class.active]="tab.active" (click)="onTabClick(tab)">
+        {{ tab.label }}
+      </button>
+    }
+  </div>
+
+  <!-- Form Content -->
+  <div class="form-content">
+    <!-- Row 1 -->
+    <div class="form-row row-1">
+      <div class="form-field" style="width: 240px;">
+        <span class="field-label">País de Registro (Residência Fiscal)*</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">{{ formData().paisRegistro }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Atividade Econômica*</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">{{ formData().atividadeEconomica }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 301px;">
+        <span class="field-label">Grupo Econômico</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">{{ formData().grupoEconomico }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Natureza Jurídica*</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">{{ formData().naturezaJuridica }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Indicador CVM 286*</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">{{ formData().indicadorCvm286 }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Autoriza Transm. de Ordens Terceiros?</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">{{ formData().autorizaTransmOrdens }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="form-row row-2">
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Admin. de Carteiras Administradas?</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">{{ formData().adminCarteirasAdministradas }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Admin. de Fundos de Investimento?</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">{{ formData().adminFundosInvestimento }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Classificação de Risco do Comitente</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">{{ formData().classificacaoRiscoComitente }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 363px;">
+        <span class="field-label">Descrição da Classificação de Risco do Comitente</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">{{ formData().descricaoClassificacaoRisco }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Empresa sem Fins Lucrativos*</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">{{ formData().empresaSemFinsLucrativos }}</span>
+          <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-field" style="width: 178px;">
+        <span class="field-label">Data da Última Atualização</span>
+        <div class="field-input has-icon">
+          <span class="placeholder-text">{{ formData().dataUltimaAtualizacao }}</span>
+          <svg class="calendar-icon" width="15" height="17" viewBox="0 0 15 17" fill="none">
+            <rect x="0.5" y="2.5" width="14" height="13" rx="2" stroke="#AFAFAF"/>
+            <line x1="0.5" y1="6.5" x2="14.5" y2="6.5" stroke="#AFAFAF"/>
+            <line x1="4" y1="0.5" x2="4" y2="3.5" stroke="#AFAFAF"/>
+            <line x1="11" y1="0.5" x2="11" y2="3.5" stroke="#AFAFAF"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

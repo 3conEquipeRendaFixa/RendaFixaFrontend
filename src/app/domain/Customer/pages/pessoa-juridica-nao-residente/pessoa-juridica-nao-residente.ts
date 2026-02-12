@@ -12,29 +12,29 @@ export interface ClientTab {
   active?: boolean;
 }
 
-export interface InvestidorNaoResidenteData {
-  cpfInvestidor: string;
-  contaPrivateBank: string;
-  tipoTitularidade: string;
-  possuiNif: string;
-  nif: string;
-  dataComunicadoSaida: string;
-  qualificacaoIcvm: string;
+export interface PjInvestidorNaoResidenteData {
+  cnpjInvestidorNr: string;
+  paisRegistro: string;
   jurisdicao: string;
-  periodoResidenteExteriorDe: string;
-  periodoResidenteExteriorAte: string;
+  qualificacaoIcvm: string;
+  tipoTitularidade: string;
+  nif: string;
+  contaPrivateBank: string;
+  periodoResidenteExterior: string;
+  dataInclusao: string;
+  dataExclusao: string;
   tipoPessoaRepresentante: 'fisica' | 'juridica';
   cpfRepresentante: string;
   nomeRepresentante: string;
 }
 
 @Component({
-  selector: 'app-pf-nao-residente',
+  selector: 'app-pj-nao-residente',
   imports: [CommonModule, FormsModule, Breadcrumb],
-  templateUrl: './pessoa-fisica-nao-residente.html',
-  styleUrl: './pessoa-fisica-nao-residente.scss',
+  templateUrl: './pessoa-juridica-nao-residente.html',
+  styleUrl: './pessoa-juridica-nao-residente.scss',
 })
-export class PessoaFisicaNaoResidente implements OnInit {
+export class PessoaJuridicaNaoResidente implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly service = inject(CustomerService);
@@ -46,17 +46,17 @@ export class PessoaFisicaNaoResidente implements OnInit {
   readonly clientStatus = signal<'ativo' | 'inativo'>('ativo');
   readonly clientModules = signal<string>('');
 
-  readonly formData = signal<InvestidorNaoResidenteData>({
-    cpfInvestidor: '',
-    contaPrivateBank: '',
-    tipoTitularidade: '',
-    possuiNif: '',
-    nif: '',
-    dataComunicadoSaida: '',
-    qualificacaoIcvm: '',
+  readonly formData = signal<PjInvestidorNaoResidenteData>({
+    cnpjInvestidorNr: '',
+    paisRegistro: '',
     jurisdicao: '',
-    periodoResidenteExteriorDe: '',
-    periodoResidenteExteriorAte: '',
+    qualificacaoIcvm: '',
+    tipoTitularidade: '',
+    nif: '',
+    contaPrivateBank: '',
+    periodoResidenteExterior: '',
+    dataInclusao: '',
+    dataExclusao: '',
     tipoPessoaRepresentante: 'fisica',
     cpfRepresentante: '',
     nomeRepresentante: '',
@@ -71,7 +71,7 @@ export class PessoaFisicaNaoResidente implements OnInit {
   readonly tabs: ClientTab[] = [
     { label: 'Dados Básicos', key: 'dados-basicos' },
     { label: 'FATCA IRS', key: 'fatca-irs' },
-    { label: 'Pessoa Física', key: 'pessoa-fisica' },
+    { label: 'Pessoa Jurídica', key: 'pessoa-juridica' },
     { label: 'Investidor Não Residente', key: 'investidor-nao-residente', active: true },
     { label: 'Documentos', key: 'documentos' },
     { label: 'Telefones', key: 'telefones' },
@@ -79,7 +79,7 @@ export class PessoaFisicaNaoResidente implements OnInit {
     { label: 'Relacionamentos', key: 'relacionamentos' },
     { label: 'Endereços', key: 'enderecos' },
     { label: 'Contas', key: 'contas' },
-    { label: 'Pessoa Física SFP', key: 'pessoa-fisica-sfp' },
+    { label: 'Pessoa Jurídica SFP', key: 'pessoa-juridica-sfp' },
   ];
 
   ngOnInit(): void {
@@ -97,31 +97,23 @@ export class PessoaFisicaNaoResidente implements OnInit {
             customerData.customer?.custStatRegCode === 1 ? 'ativo' : 'inativo'
           );
           
-          // Map individualCustomerAbroad data to form
-          const abroadData = customerData.individualCustomerAbroad;
-          console.log('Abroad data:', abroadData);
+          // Map legalEntityAbroad data to form
+          const abroadData = customerData.legalEntityAbroad;
+          
           this.formData.set({
-            cpfInvestidor: abroadData?.indCustAbroadDocmValue || '',
+            cnpjInvestidorNr: customerData.customer?.custDepOwnAccNumber || 'tentando setar',
+            paisRegistro: abroadData?.legEntAbroadInternationalJurisdictionName || 'tentando setar',
+            jurisdicao: abroadData?.legEntAbroadInternationalJurisdictionCode || 'tentando setar',
+            qualificacaoIcvm: '', // Não há campo correspondente no JSON para PJ
+            tipoTitularidade: abroadData?.legEntAbroadAccOwnershipType || '',
+            nif: abroadData?.legEntAbroadTaxpayerIdNumber || '',
             contaPrivateBank: customerData.customer?.custDepOwnAccNumber || '',
-            tipoTitularidade: abroadData?.indCustAbroadAccOwnershipType || '',
-            possuiNif: abroadData?.indCustAbroadTaxpayerIdInd || '',
-            nif: abroadData?.indCustAbroadTaxpayerNumber || '',
-            dataComunicadoSaida: abroadData?.indCustAbroadDepartureNoticeDate 
-              ? this.formatDate(abroadData.indCustAbroadDepartureNoticeDate) 
-              : '',
-            qualificacaoIcvm: abroadData?.indCustAbroadICV560Qualification || '',
-            jurisdicao: abroadData?.indCustAbroadInternationalJurisdictionCode || '',
-            periodoResidenteExteriorDe: abroadData?.indCustAbroadInitialDateAbroad 
-              ? this.formatDate(abroadData.indCustAbroadInitialDateAbroad) 
-              : '',
-            periodoResidenteExteriorAte: abroadData?.indCustAbroadFinalDateAbroad 
-              ? this.formatDate(abroadData.indCustAbroadFinalDateAbroad) 
-              : '',
-            tipoPessoaRepresentante: abroadData?.indCustAbroadLegalRepresentTypePsonCode === 'PF' 
-              ? 'fisica' 
-              : 'juridica',
-            cpfRepresentante: abroadData?.indCustAbroadLegalRepresentDocmValue || '',
-            nomeRepresentante: abroadData?.indCustAbroadLegalRepresentName || '',
+            periodoResidenteExterior: '',
+            dataInclusao: '',
+            dataExclusao: '',
+            tipoPessoaRepresentante: 'juridica',
+            cpfRepresentante: '',
+            nomeRepresentante: '',
           });
           
           this.isLoading = false;
@@ -137,14 +129,21 @@ export class PessoaFisicaNaoResidente implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/clientes']);
+    this.router.navigate(['/customer']);
   }
 
   onTabClick(tab: ClientTab): void {
-    this.router.navigate([`/cliente/${this.codigo}/${tab.key}`]);
+    if (tab.key === 'pessoa-juridica' && this.codigo) {
+      this.router.navigate(['/customer/pessoa-juridica', this.codigo]);
+    }
+    if (tab.key === 'pessoa-juridica-sfp' && this.codigo) {
+      this.router.navigate(['/customer/pessoa-juridica-sfp', this.codigo]);
+    }
   }
 
-  
+  onTipoPessoaChange(tipo: 'fisica' | 'juridica'): void {
+    this.formData.update(data => ({ ...data, tipoPessoaRepresentante: tipo }));
+  }
 
   private formatDate(dateString: string): string {
     if (!dateString) return '';

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -18,16 +18,7 @@ export interface RelationshipRecord {
   styleUrl: './client-relationships-tab.scss',
 })
 export class ClientRelationshipsTab {
-  readonly relationships = signal<RelationshipRecord[]>([
-    {
-      tipoRelacionamento: 'Cônjuge',
-      cpfPessoa: '',
-      nomePessoa: '',
-      inicioRelacionamento: '',
-      fimRelacionamento: '',
-      cadastrarB3: false,
-    },
-  ]);
+  readonly relationships = input<RelationshipRecord[]>([]);
 
   readonly tiposRelacionamento = [
     { value: 'Cônjuge', label: 'Cônjuge' },

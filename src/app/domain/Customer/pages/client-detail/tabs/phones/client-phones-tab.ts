@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -18,16 +18,7 @@ export interface PhoneRecord {
   styleUrl: './client-phones-tab.scss',
 })
 export class ClientPhonesTab {
-  readonly phones = signal<PhoneRecord[]>([
-    {
-      ddi: '+55',
-      ddd: '11',
-      numero: '9 9999-0000',
-      ramal: '',
-      tipoTelefone: 'Celular',
-      finalidade: '',
-    },
-  ]);
+  readonly phones = input<PhoneRecord[]>([]);
 
   readonly tiposTelefone = [
     { value: 'Celular', label: 'Celular' },
