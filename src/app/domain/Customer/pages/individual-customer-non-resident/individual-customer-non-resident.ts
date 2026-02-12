@@ -161,7 +161,7 @@ export class PessoaFisicaNaoResidente implements OnInit {
       'pessoa-fisica': 'pessoa-fisica',
       'contas': 'contas',
       'investidor-nao-residente': 'pessoa-fisica-nao-residente',
-      'pessoa-fisica-sfp': 'pessoa-fisica-spp',
+      'pessoa-fisica-sfp': 'pessoa-fisica-sfp',
       'documentos': 'documentos',
       'enderecos': 'enderecos',
     };

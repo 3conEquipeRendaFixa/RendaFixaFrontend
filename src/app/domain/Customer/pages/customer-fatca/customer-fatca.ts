@@ -126,7 +126,7 @@ export class CustomerFatca implements OnInit {
       'pessoa-juridica': 'pessoa-juridica',
       'contas': 'contas',
       'investidor-nao-residente': isPF ? 'pessoa-fisica-nao-residente' : 'pessoa-juridica-nao-residente',
-      'pessoa-fisica-sfp': 'pessoa-fisica-spp',
+      'pessoa-fisica-sfp': 'pessoa-fisica-sfp',
       'pessoa-juridica-sfp': 'pessoa-juridica-sfp',
       'documentos': 'documentos',
       'enderecos': 'enderecos',
