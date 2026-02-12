@@ -11,7 +11,7 @@ export const CUSTOMER_ROUTES: Routes = [
   {
     path: 'dados-basicos/:codigo',
     loadComponent: () =>
-      import('@domain/Customer/pages/customer-basics-datas/customer-basics-datas').then(
+      import('@domain/Customer/pages/customer-basic-data/customer-basic-data').then(
         (m) => m.CustomerBasicsDatas
       ),
   },
@@ -32,28 +32,28 @@ export const CUSTOMER_ROUTES: Routes = [
   {
     path: 'pessoa-fisica-nao-residente',
     loadComponent: () =>
-      import('@domain/Customer/pages/pessoa-fisica-nao-residente/pessoa-fisica-nao-residente').then(
+      import('@domain/Customer/pages/individual-customer-non-resident/individual-customer-non-resident').then(
         (m) => m.PessoaFisicaNaoResidente
       ),
   },
   {
     path: 'pessoa-fisica-nao-residente/:codigo',
     loadComponent: () =>
-      import('@domain/Customer/pages/pessoa-fisica-nao-residente/pessoa-fisica-nao-residente').then(
+      import('@domain/Customer/pages/individual-customer-non-resident/individual-customer-non-resident').then(
         (m) => m.PessoaFisicaNaoResidente
       ),
   },
   {
     path: 'pessoa-fisica-spp',
     loadComponent: () =>
-      import('@domain/Customer/pages/pessoa-fisica-spp/pessoa-fisica-spp').then(
+      import('@domain/Customer/pages/individual-customer-sfp/individual-customer-sfp').then(
         (m) => m.PessoaFisicaSPP
       ),
   },
   {
     path: 'pessoa-fisica-spp/:codigo',
     loadComponent: () =>
-      import('@domain/Customer/pages/pessoa-fisica-spp/pessoa-fisica-spp').then(
+      import('@domain/Customer/pages/individual-customer-sfp/individual-customer-sfp').then(
         (m) => m.PessoaFisicaSPP
       ),
   },
@@ -67,64 +67,64 @@ export const CUSTOMER_ROUTES: Routes = [
   {
     path: 'pessoa-juridica',
     loadComponent: () =>
-      import('@domain/Customer/pages/pessoa-juridica/pessoa-juridica').then(
+      import('@domain/Customer/pages/legal-customer/legal-customer').then(
         (m) => m.PessoaJuridica
       ),
   },
   {
     path: 'pessoa-juridica/:codigo',
     loadComponent: () =>
-      import('@domain/Customer/pages/pessoa-juridica/pessoa-juridica').then(
+      import('@domain/Customer/pages/legal-customer/legal-customer').then(
         (m) => m.PessoaJuridica
       ),
   },
   {
     path: 'pessoa-juridica-nao-residente',
     loadComponent: () =>
-      import('@domain/Customer/pages/pessoa-juridica-nao-residente/pessoa-juridica-nao-residente').then(
+      import('@domain/Customer/pages/legal-customer-non-resident/legal-customer-non-resident').then(
         (m) => m.PessoaJuridicaNaoResidente
       ),
   },
   {
     path: 'pessoa-juridica-nao-residente/:codigo',
     loadComponent: () =>
-      import('@domain/Customer/pages/pessoa-juridica-nao-residente/pessoa-juridica-nao-residente').then(
+      import('@domain/Customer/pages/legal-customer-non-resident/legal-customer-non-resident').then(
         (m) => m.PessoaJuridicaNaoResidente
       ),
   },
   {
     path: 'pessoa-juridica-sfp',
     loadComponent: () =>
-      import('@domain/Customer/pages/pessoa-juridica-sfp/pessoa-juridica-sfp').then(
+      import('@domain/Customer/pages/legal-customer-sfp/legal-customer-sfp').then(
         (m) => m.PessoaJuridicaSFP
       ),
   },
   {
     path: 'pessoa-juridica-sfp/:codigo',
     loadComponent: () =>
-      import('@domain/Customer/pages/pessoa-juridica-sfp/pessoa-juridica-sfp').then(
+      import('@domain/Customer/pages/legal-customer-sfp/legal-customer-sfp').then(
         (m) => m.PessoaJuridicaSFP
       ),
   },
   {
-  path: 'contas/:codigo',
-  loadComponent: () =>
-    import('@domain/Customer/pages/contas/contas').then(
-      (m) => m.Contas
-    ),
-},
-{
-  path: 'documentos/:codigo',
-  loadComponent: () =>
-    import('@domain/Customer/pages/documentos/documentos').then(
-      (m) => m.Documentos
-    ),
-},
-{
-  path: 'enderecos/:codigo',
-  loadComponent: () =>
-    import('@domain/Customer/pages/enderecos/enderecos').then(
-      (m) => m.Enderecos
-    ),
-},
+    path: 'contas/:codigo',
+    loadComponent: () =>
+      import('@domain/Customer/pages/accounts/accounts').then(
+        (m) => m.Contas
+      ),
+  },
+  {
+    path: 'documentos/:codigo',
+    loadComponent: () =>
+      import('@domain/Customer/pages/documents/documents').then(
+        (m) => m.Documentos
+      ),
+  },
+  {
+    path: 'enderecos/:codigo',
+    loadComponent: () =>
+      import('@domain/Customer/pages/addresses/addresses').then(
+        (m) => m.Enderecos
+      ),
+  },
 ];

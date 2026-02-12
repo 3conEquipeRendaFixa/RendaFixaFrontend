@@ -13,16 +13,21 @@ export interface ICustomerApiRecord {
 export interface ICustomerRecord {
   custCode: number;
   nome: string;
-  tipoPessoa: string;
-  residente: string;
-  tipoDocumento: string;
-  numeroDocumento: string;
-  statusInvestidor: string;
-  dataHoraInclusao: string;
-  dataUltimaAlteracao: string;
+  typePsonCode: string;
+  resntAbroadInd: string;
+  docmTypeCode: string;
+  docmValue: string;
+  statRegCode: string;
+  insertDate: string;
+  updateDate: string;
 }
 
 export interface CustomerFilters {
+  tipoPessoa: string;
+  residente: string;
+  nome: string;
+  numeroDocumento: string;
+  dataUltimaAlteracao: string;
   custName?: string;
   typePsonCode?: string;
   docmTypeCode?: string;

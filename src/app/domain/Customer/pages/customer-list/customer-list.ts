@@ -8,7 +8,7 @@ import { Breadcrumb, BreadcrumbItem } from '@widget/components/breadcrumb/breadc
 import { FilterPanel, FilterField, FilterValues } from '@widget/components/filter-panel';
 import { StatusBadge } from '@widget/components/status-badge/status-badge';
 import { Pagination } from '@widget/components/pagination/pagination';
-import { CustomerDetailsService, CustomerStateService } from '../../services';
+import { CustomerService, CustomerStateService } from '../../services';
 import { ICustomerRecord, CustomerListFilters } from '../../interfaces';
 
 @Component({
@@ -18,7 +18,7 @@ import { ICustomerRecord, CustomerListFilters } from '../../interfaces';
   styleUrl: './customer-list.scss',
 })
 export class CustomerList implements OnInit {
-  private readonly service = inject(CustomerDetailsService);
+  private readonly service = inject(CustomerService);
   private readonly stateService = inject(CustomerStateService);
   private readonly router = inject(Router);
 

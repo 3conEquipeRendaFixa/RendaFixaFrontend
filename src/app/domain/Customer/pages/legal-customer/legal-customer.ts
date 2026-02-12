@@ -30,8 +30,8 @@ export interface PessoaJuridicaData {
 @Component({
   selector: 'app-pessoa-juridica',
   imports: [CommonModule, FormsModule, Breadcrumb],
-  templateUrl: './pessoa-juridica.html',
-  styleUrl: './pessoa-juridica.scss',
+  templateUrl: './legal-customer.html',
+  styleUrl: './legal-customer.scss',
 })
 export class PessoaJuridica implements OnInit {
   private readonly route = inject(ActivatedRoute);
@@ -62,8 +62,8 @@ export class PessoaJuridica implements OnInit {
 
   breadcrumbItems: BreadcrumbItem[] = [
     { label: 'PÁGINA INICIAL', route: '/' },
-    { label: 'CADASTRO DE CLIENTES' },
-    { label: 'MARIA SILVA', current: true },
+    { label: 'CADASTRO DE CLIENTES', route: '/customer' },
+    { label: '', current: true },
   ];
 
   readonly tabs: ClientTab[] = [
@@ -94,6 +94,12 @@ export class PessoaJuridica implements OnInit {
           this.clientStatus.set(
             customerData.customer?.custStatRegCode === 1 ? 'ativo' : 'inativo'
           );
+
+          this.breadcrumbItems = [
+            { label: 'PÁGINA INICIAL', route: '/' },
+            { label: 'CADASTRO DE CLIENTES', route: '/customer' },
+            { label: (customerData.customer?.custCustName || '').toUpperCase(), current: true },
+          ];
           
           // Map legalEntity data to form
           const legalEntityData = customerData.legalEntity;
@@ -132,11 +138,28 @@ export class PessoaJuridica implements OnInit {
   }
 
   onTabClick(tab: ClientTab): void {
-    if (tab.key === 'investidor-nao-residente' && this.codigo) {
-      this.router.navigate(['/customer/pessoa-juridica-nao-residente', this.codigo]);
+    if (tab.active || !this.codigo) return;
+
+    const detailTabs = ['telefones', 'emails', 'relacionamentos'];
+    if (detailTabs.includes(tab.key)) {
+      this.router.navigate(['/customer/detail', this.codigo], { queryParams: { tab: tab.key } });
+      return;
     }
-    if (tab.key === 'pessoa-juridica-sfp' && this.codigo) {
-      this.router.navigate(['/customer/pessoa-juridica-sfp', this.codigo]);
+
+    const routeMap: Record<string, string> = {
+      'dados-basicos': 'dados-basicos',
+      'fatca-irs': 'fatca-irs',
+      'pessoa-juridica': 'pessoa-juridica',
+      'contas': 'contas',
+      'investidor-nao-residente': 'pessoa-juridica-nao-residente',
+      'pessoa-juridica-sfp': 'pessoa-juridica-sfp',
+      'documentos': 'documentos',
+      'enderecos': 'enderecos',
+    };
+
+    const route = routeMap[tab.key];
+    if (route) {
+      this.router.navigate(['/customer', route, this.codigo]);
     }
   }
 

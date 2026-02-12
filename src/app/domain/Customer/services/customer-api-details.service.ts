@@ -49,7 +49,7 @@ export class CustomerDetailsService {
   private mapToCustomerRecord(item: ICustomerListItem): ICustomerRecord {
     return {
       custCode: item.custCode,
-      custName: item.custName,
+      nome: item.custName,
       typePsonCode: item.typePsonCode,
       resntAbroadInd: item.resntAbroadInd === 'N' ? 'Sim' : 'Não',
       docmTypeCode: item.docmTypeCode,

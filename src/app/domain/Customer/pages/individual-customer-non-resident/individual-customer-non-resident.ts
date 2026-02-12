@@ -31,8 +31,8 @@ export interface InvestidorNaoResidenteData {
 @Component({
   selector: 'app-pf-nao-residente',
   imports: [CommonModule, FormsModule, Breadcrumb],
-  templateUrl: './pessoa-fisica-nao-residente.html',
-  styleUrl: './pessoa-fisica-nao-residente.scss',
+  templateUrl: './individual-customer-non-resident.html',
+  styleUrl: './individual-customer-non-resident.scss',
 })
 export class PessoaFisicaNaoResidente implements OnInit {
   private readonly route = inject(ActivatedRoute);
@@ -65,7 +65,7 @@ export class PessoaFisicaNaoResidente implements OnInit {
   breadcrumbItems: BreadcrumbItem[] = [
     { label: 'PÁGINA INICIAL', route: '/' },
     { label: 'CADASTRO DE CLIENTES', route: '/customer' },
-    { label: 'MARIA SILVA', current: true },
+    { label: '', current: true },
   ];
 
   readonly tabs: ClientTab[] = [
@@ -82,14 +82,6 @@ export class PessoaFisicaNaoResidente implements OnInit {
     { label: 'Relacionamentos', key: 'relacionamentos' },
   ];
 
-  private readonly tabRouteMap: Record<string, string> = {
-    'dados-basicos': 'dados-basicos',
-    'fatca-irs': 'fatca-irs',
-    'pessoa-fisica': 'pessoa-fisica',
-    'investidor-nao-residente': 'pessoa-fisica-nao-residente',
-    'pessoa-fisica-sfp': 'pessoa-fisica-spp',
-  };
-
   ngOnInit(): void {
     this.codigo = this.route.snapshot.paramMap.get('codigo');
     
@@ -104,6 +96,12 @@ export class PessoaFisicaNaoResidente implements OnInit {
           this.clientStatus.set(
             customerData.customer?.custStatRegCode === 1 ? 'ativo' : 'inativo'
           );
+
+          this.breadcrumbItems = [
+            { label: 'PÁGINA INICIAL', route: '/' },
+            { label: 'CADASTRO DE CLIENTES', route: '/customer' },
+            { label: (customerData.customer?.custCustName || '').toUpperCase(), current: true },
+          ];
           
           // Map individualCustomerAbroad data to form
           const abroadData = customerData.individualCustomerAbroad;
@@ -149,16 +147,29 @@ export class PessoaFisicaNaoResidente implements OnInit {
   }
 
   onTabClick(tab: ClientTab): void {
-    if (tab.active) return;
-    const route = this.tabRouteMap[tab.key];
-    if (route && this.codigo) {
+    if (tab.active || !this.codigo) return;
+
+    const detailTabs = ['telefones', 'emails', 'relacionamentos'];
+    if (detailTabs.includes(tab.key)) {
+      this.router.navigate(['/customer/detail', this.codigo], { queryParams: { tab: tab.key } });
+      return;
+    }
+
+    const routeMap: Record<string, string> = {
+      'dados-basicos': 'dados-basicos',
+      'fatca-irs': 'fatca-irs',
+      'pessoa-fisica': 'pessoa-fisica',
+      'contas': 'contas',
+      'investidor-nao-residente': 'pessoa-fisica-nao-residente',
+      'pessoa-fisica-sfp': 'pessoa-fisica-spp',
+      'documentos': 'documentos',
+      'enderecos': 'enderecos',
+    };
+
+    const route = routeMap[tab.key];
+    if (route) {
       this.router.navigate(['/customer', route, this.codigo]);
     }
-    this.router.navigate(['/clientes']);
-  }
-
-  onTabClick(tab: ClientTab): void {
-    this.router.navigate([`/cliente/${this.codigo}/${tab.key}`]);
   }
 
   private formatDate(dateString: string): string {

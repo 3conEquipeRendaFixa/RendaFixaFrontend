@@ -36,6 +36,7 @@ export class CustomerFatca implements OnInit {
   readonly clientName = signal('');
   readonly clientStatus = signal<'ativo' | 'inativo'>('inativo');
   readonly clientModules = signal('Equities  |  Derivativos');
+  readonly tipoPessoa = signal<'PF' | 'PJ'>('PF');
 
   readonly formData = signal<FatcaIrsData>({
     usPerson: '',
@@ -52,27 +53,22 @@ export class CustomerFatca implements OnInit {
     { label: '', current: true },
   ];
 
-  readonly tabs: ClientTab[] = [
-    { label: 'Dados Básicos', key: 'dados-basicos' },
-    { label: 'FATCA IRS', key: 'fatca-irs', active: true },
-    { label: 'Pessoa Física', key: 'pessoa-fisica' },
-    { label: 'Contas', key: 'contas' },
-    { label: 'Investidor Não Residente', key: 'investidor-nao-residente' },
-    { label: 'Pessoa Física SFP', key: 'pessoa-fisica-sfp' },
-    { label: 'Documentos', key: 'documentos' },
-    { label: 'Endereços', key: 'enderecos' },
-    { label: 'Telefones', key: 'telefones' },
-    { label: 'E-mails', key: 'emails' },
-    { label: 'Relacionamentos', key: 'relacionamentos' },
-  ];
-
-  private readonly tabRouteMap: Record<string, string> = {
-    'dados-basicos': 'dados-basicos',
-    'fatca-irs': 'fatca-irs',
-    'pessoa-fisica': 'pessoa-fisica',
-    'investidor-nao-residente': 'pessoa-fisica-nao-residente',
-    'pessoa-fisica-sfp': 'pessoa-fisica-spp',
-  };
+  get tabs(): ClientTab[] {
+    const isPF = this.tipoPessoa() === 'PF';
+    return [
+      { label: 'Dados Básicos', key: 'dados-basicos' },
+      { label: 'FATCA IRS', key: 'fatca-irs', active: true },
+      { label: isPF ? 'Pessoa Física' : 'Pessoa Jurídica', key: isPF ? 'pessoa-fisica' : 'pessoa-juridica' },
+      { label: 'Contas', key: 'contas' },
+      { label: 'Investidor Não Residente', key: 'investidor-nao-residente' },
+      { label: isPF ? 'Pessoa Física SFP' : 'Pessoa Jurídica SFP', key: isPF ? 'pessoa-fisica-sfp' : 'pessoa-juridica-sfp' },
+      { label: 'Documentos', key: 'documentos' },
+      { label: 'Endereços', key: 'enderecos' },
+      { label: 'Telefones', key: 'telefones' },
+      { label: 'E-mails', key: 'emails' },
+      { label: 'Relacionamentos', key: 'relacionamentos' },
+    ];
+  }
 
   ngOnInit(): void {
     this.codigo = this.route.snapshot.paramMap.get('codigo');
@@ -85,9 +81,10 @@ export class CustomerFatca implements OnInit {
 
     this.customerDetailsService.getCustomerInformation(custCode).subscribe(data => {
       const customer = data.customer;
-
+      console.log(data);
       this.clientName.set(customer.custCustName);
       this.clientStatus.set(customer.custStatRegCode === 1 ? 'ativo' : 'inativo');
+      this.tipoPessoa.set(customer.custTypePsonCode as 'PF' | 'PJ');
 
       this.breadcrumbItems = [
         { label: 'PÁGINA INICIAL', route: '/' },
@@ -113,9 +110,30 @@ export class CustomerFatca implements OnInit {
   }
 
   onTabClick(tab: ClientTab): void {
-    if (tab.active) return;
-    const route = this.tabRouteMap[tab.key];
-    if (route && this.codigo) {
+    if (tab.active || !this.codigo) return;
+
+    const detailTabs = ['telefones', 'emails', 'relacionamentos'];
+    if (detailTabs.includes(tab.key)) {
+      this.router.navigate(['/customer/detail', this.codigo], { queryParams: { tab: tab.key } });
+      return;
+    }
+
+    const isPF = this.tipoPessoa() === 'PF';
+    const routeMap: Record<string, string> = {
+      'dados-basicos': 'dados-basicos',
+      'fatca-irs': 'fatca-irs',
+      'pessoa-fisica': 'pessoa-fisica',
+      'pessoa-juridica': 'pessoa-juridica',
+      'contas': 'contas',
+      'investidor-nao-residente': isPF ? 'pessoa-fisica-nao-residente' : 'pessoa-juridica-nao-residente',
+      'pessoa-fisica-sfp': 'pessoa-fisica-spp',
+      'pessoa-juridica-sfp': 'pessoa-juridica-sfp',
+      'documentos': 'documentos',
+      'enderecos': 'enderecos',
+    };
+
+    const route = routeMap[tab.key];
+    if (route) {
       this.router.navigate(['/customer', route, this.codigo]);
     }
   }

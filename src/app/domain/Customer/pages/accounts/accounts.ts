@@ -33,8 +33,8 @@ export interface ContaListadosData {
 @Component({
   selector: 'app-contas',
   imports: [CommonModule, FormsModule, Breadcrumb],
-  templateUrl: './contas.html',
-  styleUrl: './contas.scss',
+  templateUrl: './accounts.html',
+  styleUrl: './accounts.scss',
 })
 export class Contas implements OnInit {
   private readonly route = inject(ActivatedRoute);
@@ -43,6 +43,7 @@ export class Contas implements OnInit {
 
   readonly clientName = signal<string>('');
   readonly clientStatus = signal<'ativo' | 'inativo'>('ativo');
+  readonly tipoPessoa = signal<'PF' | 'PJ'>('PF');
 
   codigo: string | null = null;
   isLoading = true;
@@ -61,19 +62,22 @@ export class Contas implements OnInit {
     { label: '', current: true },
   ];
 
-  readonly tabs: ClientTab[] = [
-    { label: 'Dados Básicos', key: 'dados-basicos' },
-    { label: 'FATCA IRS', key: 'fatca-irs' },
-    { label: 'Pessoa Física', key: 'pessoa-fisica' },
-    { label: 'Contas', key: 'contas', active: true },
-    { label: 'Investidor Não Residente', key: 'investidor-nao-residente' },
-    { label: 'Pessoa Física SFP', key: 'pessoa-fisica-sfp' },
-    { label: 'Documentos', key: 'documentos', dark: true },
-    { label: 'Endereços', key: 'enderecos', dark: true },
-    { label: 'Telefones', key: 'telefones', dark: true },
-    { label: 'E-mails', key: 'emails', dark: true },
-    { label: 'Relacionamentos', key: 'relacionamentos', dark: true },
-  ];
+  get tabs(): ClientTab[] {
+    const isPF = this.tipoPessoa() === 'PF';
+    return [
+      { label: 'Dados Básicos', key: 'dados-basicos' },
+      { label: 'FATCA IRS', key: 'fatca-irs' },
+      { label: isPF ? 'Pessoa Física' : 'Pessoa Jurídica', key: isPF ? 'pessoa-fisica' : 'pessoa-juridica' },
+      { label: 'Contas', key: 'contas', active: true },
+      { label: 'Investidor Não Residente', key: 'investidor-nao-residente' },
+      { label: isPF ? 'Pessoa Física SFP' : 'Pessoa Jurídica SFP', key: isPF ? 'pessoa-fisica-sfp' : 'pessoa-juridica-sfp' },
+      { label: 'Documentos', key: 'documentos' },
+      { label: 'Endereços', key: 'enderecos' },
+      { label: 'Telefones', key: 'telefones' },
+      { label: 'E-mails', key: 'emails' },
+      { label: 'Relacionamentos', key: 'relacionamentos' },
+    ];
+  }
 
   ngOnInit(): void {
     this.codigo = this.route.snapshot.paramMap.get('codigo');
@@ -87,6 +91,9 @@ export class Contas implements OnInit {
           this.clientName.set(data.customer?.custCustName || 'Cliente');
           this.clientStatus.set(
             data.customer?.custStatRegCode === 1 ? 'ativo' : 'inativo'
+          );
+          this.tipoPessoa.set(
+            data.customer?.custTypePsonCode === 'PF' ? 'PF' : 'PJ'
           );
 
           // Breadcrumb
@@ -119,16 +126,31 @@ export class Contas implements OnInit {
   }
 
   onTabClick(tab: ClientTab): void {
-    if (!this.codigo) return;
-    
-    const routes: Record<string, string> = {
-      'pessoa-fisica-sfp': `/customer/pessoa-fisica-spp/${this.codigo}`,
-      'investidor-nao-residente': `/customer/pessoa-fisica-nao-residente/${this.codigo}`,
-      'pessoa-juridica': `/customer/pessoa-juridica/${this.codigo}`,
+    if (tab.active || !this.codigo) return;
+
+    const detailTabs = ['telefones', 'emails', 'relacionamentos'];
+    if (detailTabs.includes(tab.key)) {
+      this.router.navigate(['/customer/detail', this.codigo], { queryParams: { tab: tab.key } });
+      return;
+    }
+
+    const isPF = this.tipoPessoa() === 'PF';
+    const routeMap: Record<string, string> = {
+      'dados-basicos': 'dados-basicos',
+      'fatca-irs': 'fatca-irs',
+      'pessoa-fisica': 'pessoa-fisica',
+      'pessoa-juridica': 'pessoa-juridica',
+      'contas': 'contas',
+      'investidor-nao-residente': isPF ? 'pessoa-fisica-nao-residente' : 'pessoa-juridica-nao-residente',
+      'pessoa-fisica-sfp': 'pessoa-fisica-spp',
+      'pessoa-juridica-sfp': 'pessoa-juridica-sfp',
+      'documentos': 'documentos',
+      'enderecos': 'enderecos',
     };
 
-    if (routes[tab.key]) {
-      this.router.navigate([routes[tab.key]]);
+    const route = routeMap[tab.key];
+    if (route) {
+      this.router.navigate(['/customer', route, this.codigo]);
     }
   }
 

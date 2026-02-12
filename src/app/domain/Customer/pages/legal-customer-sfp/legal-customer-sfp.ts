@@ -25,8 +25,8 @@ export interface PessoaJuridicaSfpData {
 @Component({
   selector: 'app-pj-sfp',
   imports: [CommonModule, FormsModule, Breadcrumb],
-  templateUrl: './pessoa-juridica-sfp.html',
-  styleUrl: './pessoa-juridica-sfp.scss',
+  templateUrl: './legal-customer-sfp.html',
+  styleUrl: './legal-customer-sfp.scss',
 })
 export class PessoaJuridicaSFP implements OnInit {
   private readonly route = inject(ActivatedRoute);
@@ -52,8 +52,8 @@ export class PessoaJuridicaSFP implements OnInit {
 
   breadcrumbItems: BreadcrumbItem[] = [
     { label: 'PÁGINA INICIAL', route: '/' },
-    { label: 'CADASTRO DE CLIENTES' },
-    { label: 'MARIA SILVA', current: true },
+    { label: 'CADASTRO DE CLIENTES', route: '/customer' },
+    { label: '', current: true },
   ];
 
   readonly tabs: ClientTab[] = [
@@ -84,6 +84,12 @@ export class PessoaJuridicaSFP implements OnInit {
           this.clientStatus.set(
             customerData.customer?.custStatRegCode === 1 ? 'ativo' : 'inativo'
           );
+
+          this.breadcrumbItems = [
+            { label: 'PÁGINA INICIAL', route: '/' },
+            { label: 'CADASTRO DE CLIENTES', route: '/customer' },
+            { label: (customerData.customer?.custCustName || '').toUpperCase(), current: true },
+          ];
           
           // Map legalEntityFinancial data to form
           const financialData = customerData.legalEntityFinancial;
@@ -121,11 +127,28 @@ export class PessoaJuridicaSFP implements OnInit {
   }
 
   onTabClick(tab: ClientTab): void {
-    if (tab.key === 'pessoa-juridica' && this.codigo) {
-      this.router.navigate(['/customer/pessoa-juridica', this.codigo]);
+    if (tab.active || !this.codigo) return;
+
+    const detailTabs = ['telefones', 'emails', 'relacionamentos'];
+    if (detailTabs.includes(tab.key)) {
+      this.router.navigate(['/customer/detail', this.codigo], { queryParams: { tab: tab.key } });
+      return;
     }
-    if (tab.key === 'investidor-nao-residente' && this.codigo) {
-      this.router.navigate(['/customer/pessoa-juridica-nao-residente', this.codigo]);
+
+    const routeMap: Record<string, string> = {
+      'dados-basicos': 'dados-basicos',
+      'fatca-irs': 'fatca-irs',
+      'pessoa-juridica': 'pessoa-juridica',
+      'contas': 'contas',
+      'investidor-nao-residente': 'pessoa-juridica-nao-residente',
+      'pessoa-juridica-sfp': 'pessoa-juridica-sfp',
+      'documentos': 'documentos',
+      'enderecos': 'enderecos',
+    };
+
+    const route = routeMap[tab.key];
+    if (route) {
+      this.router.navigate(['/customer', route, this.codigo]);
     }
   }
 

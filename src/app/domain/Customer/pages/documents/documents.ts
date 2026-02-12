@@ -24,10 +24,10 @@ export interface DocumentoData {
 }
 
 @Component({
-  selector: 'app-documentos',
+  selector: 'app-documents',
   imports: [CommonModule, FormsModule, Breadcrumb],
-  templateUrl: './documentos.html',
-  styleUrl: './documentos.scss',
+  templateUrl: './documents.html',
+  styleUrl: './documents.scss',
 })
 export class Documentos implements OnInit {
   private readonly route = inject(ActivatedRoute);
@@ -54,10 +54,10 @@ export class Documentos implements OnInit {
     return [
       { label: 'Dados Básicos', key: 'dados-basicos' },
       { label: 'FATCA IRS', key: 'fatca-irs' },
-      { label: isPF ? 'Pessoa Física' : 'Pessoa Jurídica', key: 'pessoa' },
+      { label: isPF ? 'Pessoa Física' : 'Pessoa Jurídica', key: isPF ? 'pessoa-fisica' : 'pessoa-juridica' },
       { label: 'Contas', key: 'contas' },
       { label: 'Investidor Não Residente', key: 'investidor-nao-residente' },
-      { label: isPF ? 'Pessoa Física SFP' : 'Pessoa Jurídica SFP', key: 'pessoa-sfp' },
+      { label: isPF ? 'Pessoa Física SFP' : 'Pessoa Jurídica SFP', key: isPF ? 'pessoa-fisica-sfp' : 'pessoa-juridica-sfp' },
       { label: 'Documentos', key: 'documentos', active: true },
       { label: 'Endereços', key: 'enderecos' },
       { label: 'Telefones', key: 'telefones' },
@@ -118,16 +118,31 @@ export class Documentos implements OnInit {
   }
 
   onTabClick(tab: ClientTab): void {
-    if (!this.codigo) return;
+    if (tab.active || !this.codigo) return;
 
-    const routes: Record<string, string> = {
-      'contas': `/customer/contas/${this.codigo}`,
-      'pessoa-fisica-sfp': `/customer/pessoa-fisica-spp/${this.codigo}`,
-      'investidor-nao-residente': `/customer/pessoa-fisica-nao-residente/${this.codigo}`,
+    const detailTabs = ['telefones', 'emails', 'relacionamentos'];
+    if (detailTabs.includes(tab.key)) {
+      this.router.navigate(['/customer/detail', this.codigo], { queryParams: { tab: tab.key } });
+      return;
+    }
+
+    const isPF = this.tipoPessoa() === 'PF';
+    const routeMap: Record<string, string> = {
+      'dados-basicos': 'dados-basicos',
+      'fatca-irs': 'fatca-irs',
+      'pessoa-fisica': 'pessoa-fisica',
+      'pessoa-juridica': 'pessoa-juridica',
+      'contas': 'contas',
+      'investidor-nao-residente': isPF ? 'pessoa-fisica-nao-residente' : 'pessoa-juridica-nao-residente',
+      'pessoa-fisica-sfp': 'pessoa-fisica-spp',
+      'pessoa-juridica-sfp': 'pessoa-juridica-sfp',
+      'documentos': 'documentos',
+      'enderecos': 'enderecos',
     };
 
-    if (routes[tab.key]) {
-      this.router.navigate([routes[tab.key]]);
+    const route = routeMap[tab.key];
+    if (route) {
+      this.router.navigate(['/customer', route, this.codigo]);
     }
   }
 

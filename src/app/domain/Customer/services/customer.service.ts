@@ -27,7 +27,13 @@ export class CustomerService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = environment.apiUrl;
 
-  loadCustomers(filters: CustomerFilters = {}): Observable<ICustomerRecord[]> {
+  loadCustomers(filters: CustomerFilters = {
+    tipoPessoa: '',
+    residente: '',
+    nome: '',
+    numeroDocumento: '',
+    dataUltimaAlteracao: ''
+  }): Observable<ICustomerRecord[]> {
     const params = this.buildCustomerListParams(filters);
 
     return this.http.post<ApiResponse<ICustomerApiRecord[]>>(
@@ -70,13 +76,13 @@ export class CustomerService {
     return {
       custCode: api.custCode,
       nome: api.custName,
-      tipoPessoa: api.typePsonCode,
-      residente: api.resntAbroadInd === 'N' ? 'Sim' : 'Não',
-      tipoDocumento: api.docmTypeCode,
-      numeroDocumento: api.docmValue,
-      statusInvestidor: this.mapStatus(api.statRegCode),
-      dataHoraInclusao: this.formatDate(api.insertDate),
-      dataUltimaAlteracao: this.formatDate(api.updateDate),
+      typePsonCode: api.typePsonCode,
+      resntAbroadInd: api.resntAbroadInd === 'N' ? 'Sim' : 'Não',
+      docmTypeCode: api.docmTypeCode,
+      docmValue: api.docmValue,
+      statRegCode: this.mapStatus(api.statRegCode),
+      insertDate: this.formatDate(api.insertDate),
+      updateDate: this.formatDate(api.updateDate),
     };
   }
 
