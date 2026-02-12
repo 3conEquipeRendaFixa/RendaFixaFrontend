@@ -8,8 +8,8 @@ import { Breadcrumb, BreadcrumbItem } from '@widget/components/breadcrumb/breadc
 import { FilterPanel, FilterField, FilterValues } from '@widget/components/filter-panel';
 import { StatusBadge } from '@widget/components/status-badge/status-badge';
 import { Pagination } from '@widget/components/pagination/pagination';
-import { CustomerService, CustomerStateService } from '../../services';
-import { ICustomerRecord, CustomerFilters } from '../../interfaces';
+import { CustomerDetailsService, CustomerStateService } from '../../services';
+import { ICustomerRecord, CustomerListFilters } from '../../interfaces';
 
 @Component({
   selector: 'app-customer-list',
@@ -18,7 +18,7 @@ import { ICustomerRecord, CustomerFilters } from '../../interfaces';
   styleUrl: './customer-list.scss',
 })
 export class CustomerList implements OnInit {
-  private readonly service = inject(CustomerService);
+  private readonly service = inject(CustomerDetailsService);
   private readonly stateService = inject(CustomerStateService);
   private readonly router = inject(Router);
 
@@ -29,7 +29,7 @@ export class CustomerList implements OnInit {
 
   filterFields: FilterField[] = [
     {
-      key: 'tipoPessoa',
+      key: 'typePsonCode',
       label: 'Tipo Pessoa',
       type: 'select',
       required: true,
@@ -40,16 +40,16 @@ export class CustomerList implements OnInit {
       ]
     },
     {
-      key: 'residente',
+      key: 'resntAbroadInd',
       label: 'Residência',
       type: 'checkbox-group',
       options: [
-        { value: 'Não Residente', label: 'Não Residente' },
-        { value: 'Residente', label: 'Residente' },
+        { value: 'S', label: 'Não Residente' },
+        { value: 'N', label: 'Residente' },
       ]
     },
     {
-      key: 'tipoDocumento',
+      key: 'docmTypeCode',
       label: 'Tipo Documento',
       type: 'select',
       placeholder: 'CPF',
@@ -59,19 +59,19 @@ export class CustomerList implements OnInit {
       ]
     },
     {
-      key: 'numeroDocumento',
+      key: 'docmValue',
       label: 'Nro. Documento Identificação',
       type: 'text',
       placeholder: '000.000.000-00'
     },
     {
-      key: 'nome',
+      key: 'custName',
       label: 'Nome do Cliente',
       type: 'text',
       placeholder: 'Maria Silva'
     },
     {
-      key: 'dataUltimaAlteracao',
+      key: 'updateDate',
       label: 'Data Últ. Alteração',
       type: 'date',
       placeholder: '00/00/0000'
@@ -90,12 +90,12 @@ export class CustomerList implements OnInit {
   });
 
   gridColumns: GridColumn[] = [
-    { key: 'nome', label: 'Nome do Cliente', width: '45%', sortable: true },
-    { key: 'residente', label: 'Residente', width: '10%', sortable: true },
-    { key: 'tipoDocumento', label: 'Tipo Doc.', width: '8%', sortable: true },
-    { key: 'numeroDocumento', label: 'Número Doc.', width: '12%', sortable: true },
-    { key: 'statusInvestidor', label: 'Status Investidor', width: '10%', sortable: true },
-    { key: 'dataHoraInclusao', label: 'Data/Hora Inclusão', width: '12%', sortable: true },
+    { key: 'custName', label: 'Nome do Cliente', width: '45%', sortable: true },
+    { key: 'resntAbroadInd', label: 'Residente', width: '10%', sortable: true },
+    { key: 'docmTypeCode', label: 'Tipo Doc.', width: '8%', sortable: true },
+    { key: 'docmValue', label: 'Número Doc.', width: '12%', sortable: true },
+    { key: 'statRegCode', label: 'Status Investidor', width: '10%', sortable: true },
+    { key: 'insertDate', label: 'Data/Hora Inclusão', width: '12%', sortable: true },
   ];
 
   gridActions: GridAction[] = [
@@ -135,15 +135,38 @@ export class CustomerList implements OnInit {
     });
   }
 
-  private convertToServiceFilters(values: FilterValues): CustomerFilters {
-    const residenteArr = values['residente'] as string[] | null;
-    return {
-      nome: (values['nome'] as string) || '',
-      tipoDocumento: (values['tipoDocumento'] as string) || '',
-      numeroDocumento: (values['numeroDocumento'] as string) || '',
-      statusInvestidor: (values['statusInvestidor'] as string) || '',
-      residente: residenteArr && residenteArr.length === 1 ? residenteArr[0] : '',
-    };
+  private convertToApiFilters(values: FilterValues): CustomerListFilters {
+    const residenteArr = values['resntAbroadInd'] as string[] | null;
+    const updateDate = values['updateDate'] as string;
+
+    const filters: CustomerListFilters = {};
+
+    if (values['typePsonCode']) {
+      filters.typePsonCode = values['typePsonCode'] as string;
+    }
+
+    if (residenteArr && residenteArr.length === 1) {
+      filters.resnAbroadIndFilter = residenteArr[0];
+    }
+
+    if (values['custName']) {
+      filters.custNameFilter = values['custName'] as string;
+    }
+
+    if (values['docmValue']) {
+      filters.docmValueFilter = values['docmValue'] as string;
+    }
+
+    if (updateDate) {
+      const beginDate = new Date(updateDate);
+      filters.updateDateBeginFilter = beginDate.toISOString();
+
+      const endDate = new Date(updateDate);
+      endDate.setHours(23, 59, 59, 999);
+      filters.UpdateDateEndFilter = endDate.toISOString();
+    }
+
+    return filters;
   }
 
   onFilterSearch(values: FilterValues): void {
@@ -164,9 +187,7 @@ export class CustomerList implements OnInit {
   }
 
   onRowClick(item: ICustomerRecord): void {
-    this.router.navigate(['/customer/detail', item.custCode], {
-      queryParams: { tab: 'telefones' }
-    });
+    this.router.navigate(['/customer/dados-basicos', item.custCode]);
   }
 
   onActionClick(event: { action: GridAction; item: ICustomerRecord }): void {

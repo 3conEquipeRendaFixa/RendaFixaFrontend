@@ -20,14 +20,12 @@ import { ICustomerInformationApiResponse } from '../interfaces/ICustomerData';
 //   { nome: 'Maria Silva 11', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Bloqueado', dataHoraInclusao: '17/02/2025 - 15:32:18' },
 //   { nome: 'Maria Silva 12', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Inativo', dataHoraInclusao: '17/02/2025 - 12:05:35' },
 // ];
-
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = environment.apiUrl;
-
 
   loadCustomers(filters: CustomerFilters = {}): Observable<ICustomerRecord[]> {
     const params = this.buildCustomerListParams(filters);
@@ -138,7 +136,6 @@ export class CustomerService {
     // if (filters?.residente) {
     //   result = result.filter(c => c.residente === filters.residente);
     // }
-
     // return of(result);
   }
 }
