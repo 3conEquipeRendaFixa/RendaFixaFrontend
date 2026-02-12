@@ -44,7 +44,8 @@ export class PessoaFisicaNaoResidente implements OnInit {
 
   readonly clientName = signal<string>('');
   readonly clientStatus = signal<'ativo' | 'inativo'>('ativo');
-  readonly clientModules = signal<string>('');
+  readonly clientModules = signal('Equities  |  Derivativos');
+  readonly tipoPessoa = signal<'PF' | 'PJ'>('PF');
 
   readonly formData = signal<InvestidorNaoResidenteData>({
     cpfInvestidor: '',
@@ -68,47 +69,47 @@ export class PessoaFisicaNaoResidente implements OnInit {
     { label: '', current: true },
   ];
 
-  readonly tabs: ClientTab[] = [
-    { label: 'Dados Básicos', key: 'dados-basicos' },
-    { label: 'FATCA IRS', key: 'fatca-irs' },
-    { label: 'Pessoa Física', key: 'pessoa-fisica' },
-    { label: 'Contas', key: 'contas' },
-    { label: 'Investidor Não Residente', key: 'investidor-nao-residente', active: true },
-    { label: 'Pessoa Física SFP', key: 'pessoa-fisica-sfp' },
-    { label: 'Documentos', key: 'documentos' },
-    { label: 'Endereços', key: 'enderecos' },
-    { label: 'Telefones', key: 'telefones' },
-    { label: 'E-mails', key: 'emails' },
-    { label: 'Relacionamentos', key: 'relacionamentos' },
-  ];
+  get tabs(): ClientTab[] {
+    const isPF = this.tipoPessoa() === 'PF';
+    return [
+      { label: 'Dados Básicos', key: 'dados-basicos' },
+      { label: 'FATCA IRS', key: 'fatca-irs' },
+      { label: isPF ? 'Pessoa Física' : 'Pessoa Jurídica', key: isPF ? 'pessoa-fisica' : 'pessoa-juridica' },
+      { label: 'Contas', key: 'contas' },
+      { label: 'Investidor Não Residente', key: 'investidor-nao-residente', active: true },
+      { label: isPF ? 'Pessoa Física SFP' : 'Pessoa Jurídica SFP', key: isPF ? 'pessoa-fisica-sfp' : 'pessoa-juridica-sfp' },
+      { label: 'Documentos', key: 'documentos' },
+      { label: 'Endereços', key: 'enderecos' },
+      { label: 'Telefones', key: 'telefones' },
+      { label: 'E-mails', key: 'emails' },
+      { label: 'Relacionamentos', key: 'relacionamentos' },
+    ];
+  }
 
   ngOnInit(): void {
     this.codigo = this.route.snapshot.paramMap.get('codigo');
     
     if (this.codigo) {
       this.service.loadCustomerInformation(this.codigo).subscribe({
-        next: (data: unknown) => {
-          const customerData = data as ICustomerInformationApiResponse;
-          console.log('Customer information loaded:', customerData);
-          
-          // Set client header info
-          this.clientName.set(customerData.customer?.custCustName || '');
+        next: (data: ICustomerInformationApiResponse) => {
+          this.clientName.set(data.customer?.custCustName || '');
           this.clientStatus.set(
-            customerData.customer?.custStatRegCode === 1 ? 'ativo' : 'inativo'
+            data.customer?.custStatRegCode === 1 ? 'ativo' : 'inativo'
+          );
+          this.tipoPessoa.set(
+            data.customer?.custTypePsonCode === 'PF' ? 'PF' : 'PJ'
           );
 
           this.breadcrumbItems = [
             { label: 'PÁGINA INICIAL', route: '/' },
             { label: 'CADASTRO DE CLIENTES', route: '/customer' },
-            { label: (customerData.customer?.custCustName || '').toUpperCase(), current: true },
+            { label: (data.customer?.custCustName || '').toUpperCase(), current: true },
           ];
-          
-          // Map individualCustomerAbroad data to form
-          const abroadData = customerData.individualCustomerAbroad;
-          console.log('Abroad data:', abroadData);
+
+          const abroadData = data.individualCustomerAbroad;
           this.formData.set({
             cpfInvestidor: abroadData?.indCustAbroadDocmValue || '',
-            contaPrivateBank: customerData.customer?.custDepOwnAccNumber || '',
+            contaPrivateBank: data.customer?.custDepOwnAccNumber || '',
             tipoTitularidade: abroadData?.indCustAbroadAccOwnershipType || '',
             possuiNif: abroadData?.indCustAbroadTaxpayerIdInd || '',
             nif: abroadData?.indCustAbroadTaxpayerNumber || '',
@@ -155,13 +156,16 @@ export class PessoaFisicaNaoResidente implements OnInit {
       return;
     }
 
+    const isPF = this.tipoPessoa() === 'PF';
     const routeMap: Record<string, string> = {
       'dados-basicos': 'dados-basicos',
       'fatca-irs': 'fatca-irs',
       'pessoa-fisica': 'pessoa-fisica',
+      'pessoa-juridica': 'pessoa-juridica',
       'contas': 'contas',
-      'investidor-nao-residente': 'pessoa-fisica-nao-residente',
+      'investidor-nao-residente': isPF ? 'pessoa-fisica-nao-residente' : 'pessoa-juridica-nao-residente',
       'pessoa-fisica-sfp': 'pessoa-fisica-spp',
+      'pessoa-juridica-sfp': 'pessoa-juridica-sfp',
       'documentos': 'documentos',
       'enderecos': 'enderecos',
     };

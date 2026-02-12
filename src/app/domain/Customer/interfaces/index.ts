@@ -12,7 +12,7 @@ export interface ICustomerApiRecord {
 
 export interface ICustomerRecord {
   custCode: number;
-  nome: string;
+  custName: string;
   typePsonCode: string;
   resntAbroadInd: string;
   docmTypeCode: string;

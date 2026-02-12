@@ -1,10 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { ICustomerRecord, ICustomerApiRecord, CustomerFilters } from '../interfaces';
 import { ApiResponse } from '../../../shared/interfaces/api-response.interface';
 import { ICustomerInformationApiResponse } from '../interfaces/ICustomerData';
+import { CustomerStateService } from './customer-state.service';
 
 // const MOCK_CUSTOMERS: ICustomerRecord[] = [
 //   { nome: 'Maria Silva', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Ativo', dataHoraInclusao: '28/02/2025 - 13:30:02' },
@@ -26,6 +27,7 @@ import { ICustomerInformationApiResponse } from '../interfaces/ICustomerData';
 export class CustomerService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = environment.apiUrl;
+  private readonly stateService = inject(CustomerStateService);
 
   loadCustomers(filters: CustomerFilters = {
     tipoPessoa: '',
@@ -75,7 +77,7 @@ export class CustomerService {
   private mapToCustomerRecord(api: ICustomerApiRecord): ICustomerRecord {
     return {
       custCode: api.custCode,
-      nome: api.custName,
+      custName: api.custName,
       typePsonCode: api.typePsonCode,
       resntAbroadInd: api.resntAbroadInd === 'N' ? 'Sim' : 'Não',
       docmTypeCode: api.docmTypeCode,
@@ -108,13 +110,19 @@ export class CustomerService {
   }
 
   loadCustomerInformation(custCode: string): Observable<ICustomerInformationApiResponse> {
+    const cached = this.stateService.getCachedCustomerInfo(custCode);
+    if (cached) {
+      return of(cached);
+    }
+
     return this.http.post<ApiResponse<ICustomerInformationApiResponse>>(
       `${this.apiUrl}/customer/customerInformation/${custCode}`,
-      {} // corpo vazio para o POST
+      {}
     ).pipe(
-      map(response => response.data)
+      map(response => response.data),
+      tap(data => this.stateService.cacheCustomerInfo(custCode, data))
     );
-}
+  }
   getAll(): Observable<ICustomerRecord[]> {
     // TODO: Substituir por chamada real ao backend quando disponível
     // if (filters?.nome) params = params.set('nome', filters.nome);

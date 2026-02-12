@@ -10,7 +10,6 @@ export interface ClientTab {
   label: string;
   key: string;
   active?: boolean;
-  dark?: boolean;
 }
 
 export interface DocumentoData {
@@ -36,6 +35,7 @@ export class Documentos implements OnInit {
 
   readonly clientName = signal<string>('');
   readonly clientStatus = signal<'ativo' | 'inativo'>('ativo');
+  readonly clientModules = signal('Equities  |  Derivativos');
   readonly tipoPessoa = signal<'PF' | 'PJ'>('PF');
 
   codigo: string | null = null;
@@ -72,23 +72,20 @@ export class Documentos implements OnInit {
     if (this.codigo) {
       this.service.loadCustomerInformation(this.codigo).subscribe({
         next: (data: ICustomerInformationApiResponse) => {
-          console.log('Customer information loaded:', data);
-
-          // Cliente
-          this.clientName.set(data.customer?.custCustName || 'Cliente');
+          this.clientName.set(data.customer?.custCustName || '');
           this.clientStatus.set(
             data.customer?.custStatRegCode === 1 ? 'ativo' : 'inativo'
           );
-
-          // Tipo de Pessoa (PF ou PJ)
           this.tipoPessoa.set(
             data.customer?.custTypePsonCode === 'PF' ? 'PF' : 'PJ'
           );
 
-          // Breadcrumb
-          this.breadcrumbItems[2].label = this.clientName().toUpperCase();
+          this.breadcrumbItems = [
+            { label: 'PÁGINA INICIAL', route: '/' },
+            { label: 'CADASTRO DE CLIENTES', route: '/customer' },
+            { label: (data.customer?.custCustName || '').toUpperCase(), current: true },
+          ];
 
-          // Documentos
           this.documentos.set(
             data.document?.map((doc) => ({
               docDocmValue: doc.docDocmValue || '',

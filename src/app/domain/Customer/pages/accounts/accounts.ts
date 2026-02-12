@@ -10,7 +10,6 @@ export interface ClientTab {
   label: string;
   key: string;
   active?: boolean;
-  dark?: boolean;
 }
 
 export interface ContaBalcaoData {
@@ -43,6 +42,7 @@ export class Contas implements OnInit {
 
   readonly clientName = signal<string>('');
   readonly clientStatus = signal<'ativo' | 'inativo'>('ativo');
+  readonly clientModules = signal('Equities  |  Derivativos');
   readonly tipoPessoa = signal<'PF' | 'PJ'>('PF');
 
   codigo: string | null = null;
@@ -85,10 +85,7 @@ export class Contas implements OnInit {
     if (this.codigo) {
       this.service.loadCustomerInformation(this.codigo).subscribe({
         next: (data: ICustomerInformationApiResponse) => {
-          console.log('Customer information loaded:', data);
-
-          // Cliente
-          this.clientName.set(data.customer?.custCustName || 'Cliente');
+          this.clientName.set(data.customer?.custCustName || '');
           this.clientStatus.set(
             data.customer?.custStatRegCode === 1 ? 'ativo' : 'inativo'
           );
@@ -96,19 +93,19 @@ export class Contas implements OnInit {
             data.customer?.custTypePsonCode === 'PF' ? 'PF' : 'PJ'
           );
 
-          // Breadcrumb
-          this.breadcrumbItems[2].label = this.clientName().toUpperCase();
+          this.breadcrumbItems = [
+            { label: 'PÁGINA INICIAL', route: '/' },
+            { label: 'CADASTRO DE CLIENTES', route: '/customer' },
+            { label: (data.customer?.custCustName || '').toUpperCase(), current: true },
+          ];
 
-          // Conta Balcão
           this.contaBalcao.set({
             titularContaInvestidor: data.customer?.custDepOwnAccNumber || '',
             contaDeposito: data.customer?.custDepIndividDepositAcc?.toString() || '',
             contaInvestidorSelic: data.customer?.custDepSelicAcc || '',
           });
 
-          // Conta Listados
           this.contasListados.set(data.account || []);
-
           this.isLoading = false;
         },
         error: (error: Error) => {
@@ -154,7 +151,6 @@ export class Contas implements OnInit {
     }
   }
 
-  // Helpers para separar o número da conta titular
   getTitularPart1(): string {
     return this.contaBalcao().titularContaInvestidor?.substring(0, 5) || '';
   }

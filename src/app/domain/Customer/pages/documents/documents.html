@@ -1,40 +1,45 @@
 <!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
-<div class="documentos-page">
-  <!-- Breadcrumb -->
+<main class="documentos-page">
   <srf-b3-breadcrumb [items]="breadcrumbItems" />
 
-  <!-- Header -->
-  <header class="client-header">
-    <button class="btn-back" (click)="goBack()">
-      <span class="arrow">←</span>
+  <!-- Client Header -->
+  <div class="client-header">
+    <button class="back-button" (click)="goBack()" aria-label="Voltar">
+      <img src="icons/voltar.svg" alt="Voltar" class="back-icon" />
     </button>
+
     <div class="client-info">
-      <h1 class="client-name">{{ clientName() }}</h1>
-      <div class="client-tags">
-        <span class="tag tag-segment">Equities</span>
-        <span class="tag tag-segment">Derivativos</span>
-        <span class="tag tag-status" [class.inactive]="clientStatus() === 'inativo'">
+      <div class="client-name-row">
+        <h1 class="client-name">{{ clientName() }}</h1>
+        <div
+          class="status-chip"
+          [class.inactive]="clientStatus() === 'inativo'"
+          [class.active]="clientStatus() === 'ativo'"
+        >
           {{ clientStatus() === 'ativo' ? 'Ativo' : 'Inativo' }}
-        </span>
+        </div>
+      </div>
+      <div class="client-modules-badge">
+        <span class="badge-text">{{ clientModules() }}</span>
       </div>
     </div>
-  </header>
+  </div>
 
   <!-- Tabs -->
-  <nav class="tabs">
+  <div class="tabs-wrapper">
     @for (tab of tabs; track tab.key) {
       <button
         class="tab"
         [class.active]="tab.active"
-        [class.tab-dark]="tab.dark"
-        (click)="onTabClick(tab)">
+        (click)="onTabClick(tab)"
+      >
         {{ tab.label }}
       </button>
     }
-  </nav>
+  </div>
 
-  <!-- Conteúdo -->
-  <main class="content">
+  <!-- Form Content -->
+  <div class="form-content">
     @if (isLoading) {
       <div class="loading">
         <p>Carregando...</p>
@@ -94,5 +99,5 @@
         </div>
       }
     }
-  </main>
-</div>
+  </div>
+</main>

@@ -34,13 +34,13 @@ export class PessoaFisicaSPP implements OnInit {
 
   readonly clientName = signal<string>('');
   readonly clientStatus = signal<'ativo' | 'inativo'>('ativo');
-  readonly clientModules = signal<string>('');
+  readonly clientModules = signal('Equities  |  Derivativos');
+  readonly tipoPessoa = signal<'PF' | 'PJ'>('PF');
 
   codigo: string | null = null;
   isLoading = true;
 
   private readonly service = inject(CustomerService);
-  
 
   readonly formData = signal<PessoaFisicaSfpData>({
     moeda: '',

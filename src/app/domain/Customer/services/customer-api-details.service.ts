@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable, map } from "rxjs";
+import { Observable, map, of, tap } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import {
   IApiResponse,
@@ -9,6 +9,8 @@ import {
   ICustomerRecord,
   CustomerListFilters
 } from "../interfaces";
+import { CustomerStateService } from "./customer-state.service";
+import { ICustomerInformationApiResponse } from "../interfaces/ICustomerData";
 
 const STATUS_MAP: Record<number, string> = {
   1: 'Ativo',
@@ -20,6 +22,7 @@ const STATUS_MAP: Record<number, string> = {
 export class CustomerDetailsService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = environment.apiUrl;
+  private readonly stateService = inject(CustomerStateService);
 
   getCustomerList(filters?: CustomerListFilters): Observable<ICustomerRecord[]> {
     const body: Record<string, string> = {};
@@ -39,17 +42,26 @@ export class CustomerDetailsService {
   }
 
   getCustomerInformation(custCode: number): Observable<ICustomerInformationData> {
+    const cached = this.stateService.getCachedCustomerInfo(String(custCode));
+    if (cached) {
+      return of(cached as unknown as ICustomerInformationData);
+    }
+
     return this.http.post<IApiResponse<ICustomerInformationData>>(
       `${this.apiUrl}/customer/customerInformation/${custCode}`, {}
     ).pipe(
-      map(response => response.data)
+      map(response => response.data),
+      tap(data => this.stateService.cacheCustomerInfo(
+        String(custCode),
+        data as unknown as ICustomerInformationApiResponse
+      ))
     );
   }
 
   private mapToCustomerRecord(item: ICustomerListItem): ICustomerRecord {
     return {
       custCode: item.custCode,
-      nome: item.custName,
+      custName: item.custName,
       typePsonCode: item.typePsonCode,
       resntAbroadInd: item.resntAbroadInd === 'N' ? 'Sim' : 'Não',
       docmTypeCode: item.docmTypeCode,
