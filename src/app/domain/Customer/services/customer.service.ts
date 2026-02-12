@@ -6,20 +6,12 @@ import { ICustomerRecord, ICustomerApiRecord, CustomerFilters } from '../interfa
 import { ApiResponse } from '../../../shared/interfaces/api-response.interface';
 import { ICustomerInformationApiResponse } from '../interfaces/ICustomerData';
 
-// const MOCK_CUSTOMERS: ICustomerRecord[] = [
-//   { nome: 'Maria Silva', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Ativo', dataHoraInclusao: '28/02/2025 - 13:30:02' },
-//   { nome: 'Maria Silva 2', tipoPessoa: 'PJ', residente: 'Sim', tipoDocumento: 'CNPJ', numeroDocumento: '00.000.000/0000-00', statusInvestidor: 'Ativo', dataHoraInclusao: '28/02/2025 - 13:28:14' },
-//   { nome: 'Maria Silva 3', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Inativo', dataHoraInclusao: '28/02/2025 - 13:27:54' },
-//   { nome: 'Maria Silva 4', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Inativo', dataHoraInclusao: '25/02/2025 - 11:12:09' },
-//   { nome: 'Maria Silva 5', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Inativo', dataHoraInclusao: '25/02/2025 - 11:11:36' },
-//   { nome: 'Maria Silva 6', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Inativo', dataHoraInclusao: '25/02/2025 - 11:09:23' },
-//   { nome: 'Maria Silva 7', tipoPessoa: 'PF', residente: 'Não', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Bloqueado', dataHoraInclusao: '23/02/2025 - 16:33:17' },
-//   { nome: 'Maria Silva 8', tipoPessoa: 'PF', residente: 'Não', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Bloqueado', dataHoraInclusao: '23/02/2025 - 16:25:15' },
-//   { nome: 'Maria Silva 9', tipoPessoa: 'PF', residente: 'Não', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Bloqueado', dataHoraInclusao: '18/02/2025 - 11:14:11' },
-//   { nome: 'Maria Silva 10', tipoPessoa: 'PF', residente: 'Não', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Bloqueado', dataHoraInclusao: '18/02/2025 - 08:19:56' },
-//   { nome: 'Maria Silva 11', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Bloqueado', dataHoraInclusao: '17/02/2025 - 15:32:18' },
-//   { nome: 'Maria Silva 12', tipoPessoa: 'PF', residente: 'Sim', tipoDocumento: 'CPF', numeroDocumento: '000.000.000-00', statusInvestidor: 'Inativo', dataHoraInclusao: '17/02/2025 - 12:05:35' },
-// ];
+const STATUS_MAP: Record<number, string> = {
+  1: 'Ativo',
+  2: 'Inativo',
+  3: 'Bloqueado',
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,65 +20,48 @@ export class CustomerService {
   private readonly apiUrl = environment.apiUrl;
 
   loadCustomers(filters: CustomerFilters = {}): Observable<ICustomerRecord[]> {
-    const params = this.buildCustomerListParams(filters);
+    const body: Record<string, string> = {};
+
+    if (filters.typePsonCode) body['typePsonCode'] = filters.typePsonCode;
+    if (filters.resntAbroadInd) body['resnAbroadIndFilter'] = filters.resntAbroadInd;
+    if (filters.custName) body['custNameFilter'] = filters.custName;
+    if (filters.docmValue) body['docmValueFilter'] = filters.docmValue;
+    if (filters.updateDate) {
+      body['updateDateBeginFilter'] = filters.updateDate;
+      const endDate = new Date(filters.updateDate);
+      endDate.setHours(23, 59, 59, 999);
+      body['UpdateDateEndFilter'] = endDate.toISOString();
+    }
 
     return this.http.post<ApiResponse<ICustomerApiRecord[]>>(
       `${this.apiUrl}/customer/customerList`,
-      {},
-      { params }
+      body
     ).pipe(
       map(response => response.data.map(item => this.mapToCustomerRecord(item)))
     );
   }
 
-  private buildCustomerListParams(filters: CustomerFilters): HttpParams {
-    let params = new HttpParams();
-
-    if (filters.tipoPessoa) {
-      params = params.set('typePsonCode', filters.tipoPessoa);
-    }
-
-    if (filters.residente) {
-      const resnAbroadIndFilter = filters.residente === 'Residente' ? 'N' : 'S';
-      params = params.set('resnAbroadIndFilter', resnAbroadIndFilter);
-    }
-
-    if (filters.nome) {
-      params = params.set('custNameFilter', filters.nome);
-    }
-
-    if (filters.numeroDocumento) {
-      params = params.set('docmValueFilter', filters.numeroDocumento);
-    }
-
-    if (filters.dataUltimaAlteracao) {
-      params = params.set('updateDateBeginFilter', filters.dataUltimaAlteracao);
-    }
-
-    return params;
+  loadCustomerInformation(custCode: string): Observable<ICustomerInformationApiResponse> {
+    return this.http.post<ApiResponse<ICustomerInformationApiResponse>>(
+      `${this.apiUrl}/customer/customerInformation/${custCode}`,
+      {}
+    ).pipe(
+      map(response => response.data)
+    );
   }
 
   private mapToCustomerRecord(api: ICustomerApiRecord): ICustomerRecord {
     return {
       custCode: api.custCode,
-      nome: api.custName,
-      tipoPessoa: api.typePsonCode,
-      residente: api.resntAbroadInd === 'N' ? 'Sim' : 'Não',
-      tipoDocumento: api.docmTypeCode,
-      numeroDocumento: api.docmValue,
-      statusInvestidor: this.mapStatus(api.statRegCode),
-      dataHoraInclusao: this.formatDate(api.insertDate),
-      dataUltimaAlteracao: this.formatDate(api.updateDate),
+      custName: api.custName,
+      typePsonCode: api.typePsonCode,
+      resntAbroadInd: api.resntAbroadInd === 'N' ? 'Sim' : 'Não',
+      docmTypeCode: api.docmTypeCode,
+      docmValue: api.docmValue,
+      statRegCode: STATUS_MAP[api.statRegCode] ?? 'Desconhecido',
+      insertDate: this.formatDate(api.insertDate),
+      updateDate: this.formatDate(api.updateDate),
     };
-  }
-
-  private mapStatus(statRegCode: number): string {
-    const statusMap: Record<number, string> = {
-      1: 'Ativo',
-      2: 'Inativo',
-      3: 'Bloqueado',
-    };
-    return statusMap[statRegCode] ?? 'Desconhecido';
   }
 
   private formatDate(dateStr: string): string {
@@ -99,43 +74,5 @@ export class CustomerService {
     const minutes = date.getMinutes().toString().padStart(2, '0');
     const seconds = date.getSeconds().toString().padStart(2, '0');
     return `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`;
-  }
-
-  loadCustomerInformation(custCode: string): Observable<ICustomerInformationApiResponse> {
-    return this.http.post<ApiResponse<ICustomerInformationApiResponse>>(
-      `${this.apiUrl}/customer/customerInformation/${custCode}`,
-      {} // corpo vazio para o POST
-    ).pipe(
-      map(response => response.data)
-    );
-}
-  getAll(): Observable<ICustomerRecord[]> {
-    // TODO: Substituir por chamada real ao backend quando disponível
-    // if (filters?.nome) params = params.set('nome', filters.nome);
-    // if (filters?.tipoDocumento) params = params.set('tipoDocumento', filters.tipoDocumento);
-    // if (filters?.numeroDocumento) params = params.set('numeroDocumento', filters.numeroDocumento);
-    // if (filters?.statusInvestidor) params = params.set('statusInvestidor', filters.statusInvestidor);
-    // if (filters?.residente) params = params.set('residente', filters.residente);
-    return this.http.get<ICustomerRecord[]>(`${this.apiUrl}/customer/customerList`);
-
-    // let result = [...MOCK_CUSTOMERS];
-
-    // if (filters?.nome) {
-    //   const search = filters.nome.toLowerCase();
-    //   result = result.filter(c => c.nome.toLowerCase().includes(search));
-    // }
-    // if (filters?.tipoDocumento) {
-    //   result = result.filter(c => c.tipoDocumento === filters.tipoDocumento);
-    // }
-    // if (filters?.numeroDocumento) {
-    //   result = result.filter(c => c.numeroDocumento.includes(filters.numeroDocumento!));
-    // }
-    // if (filters?.statusInvestidor) {
-    //   result = result.filter(c => c.statusInvestidor === filters.statusInvestidor);
-    // }
-    // if (filters?.residente) {
-    //   result = result.filter(c => c.residente === filters.residente);
-    // }
-    // return of(result);
   }
 }

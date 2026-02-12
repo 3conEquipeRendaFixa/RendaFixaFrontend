@@ -122,15 +122,15 @@ export class CustomerList implements OnInit {
   }
 
   private loadCustomers(): void {
-    this.service.loadCustomers().subscribe({
-      next: (data) => {
+    const filters = this.convertToApiFilters(this.filterValues());
+    this.service.getCustomerList(filters).subscribe({
+      next: (data: ICustomerRecord[]) => {
         this.allCustomers.set(data);
         this.stateService.setCustomers(data);
         this.currentPage.set(1);
-        console.log('Customers loaded:', data);
       },
-      error: (err) => {
-        console.error('Erro ao carregar clientes:', err);
+      error: (err: unknown) => {
+        console.error('Error loading customers:', err);
       }
     });
   }

@@ -12,14 +12,14 @@ export interface ICustomerApiRecord {
 
 export interface ICustomerRecord {
   custCode: number;
-  nome: string;
-  tipoPessoa: string;
-  residente: string;
-  tipoDocumento: string;
-  numeroDocumento: string;
-  statusInvestidor: string;
-  dataHoraInclusao: string;
-  dataUltimaAlteracao: string;
+  custName: string;
+  typePsonCode: string;
+  resntAbroadInd: string;
+  docmTypeCode: string;
+  docmValue: string;
+  statRegCode: string;
+  insertDate: string;
+  updateDate: string;
 }
 
 export interface CustomerFilters {

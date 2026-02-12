@@ -44,21 +44,21 @@
       <div class="form-field" style="width: 170px;">
         <span class="field-label">CPF Investidor Não Residente*</span>
         <div class="field-input">
-          <span class="placeholder-text">{{ formData().cpfInvestidor || '000.000.000-00' }}</span>
+          <span class="placeholder-text">{{ formData().investorCpf || '000.000.000-00' }}</span>
         </div>
       </div>
 
       <div class="form-field" style="width: 170px;">
         <span class="field-label">Conta Ordinária de Private Bank*</span>
         <div class="field-input">
-          <span class="placeholder-text">{{ formData().contaPrivateBank || '000.000.000-00' }}</span>
+          <span class="placeholder-text">{{ formData().privateBankAccount || '000.000.000-00' }}</span>
         </div>
       </div>
 
       <div class="form-field" style="width: 305px;">
         <span class="field-label">Tipo de Titularidade de Conta*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">{{ formData().tipoTitularidade || 'Seleção' }}</span>
+          <span class="placeholder-text">{{ formData().accountOwnershipType || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -68,7 +68,7 @@
       <div class="form-field" style="width: 240px;">
         <span class="field-label">Possui NIF*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">{{ formData().possuiNif || 'Seleção' }}</span>
+          <span class="placeholder-text">{{ formData().hasTaxpayerId || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -78,14 +78,14 @@
       <div class="form-field" style="width: 189px;">
         <span class="field-label">Número de Identificação Fiscal (NIF)*</span>
         <div class="field-input">
-          <span class="placeholder-text">{{ formData().nif || 'Digite' }}</span>
+          <span class="placeholder-text">{{ formData().taxpayerNumber || 'Digite' }}</span>
         </div>
       </div>
 
       <div class="form-field" style="width: 178px;">
         <span class="field-label">Data Comunicado Form. Saída do País</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">{{ formData().dataComunicadoSaida || '00/00/0000' }}</span>
+          <span class="placeholder-text">{{ formData().departureNoticeDate || '00/00/0000' }}</span>
           <svg class="calendar-icon" width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="0.5" y="2.5" width="14" height="13" rx="2" stroke="#AFAFAF"/>
             <line x1="0.5" y1="6.5" x2="14.5" y2="6.5" stroke="#AFAFAF"/>
@@ -102,10 +102,10 @@
         <span class="field-label">Período da Situação de Residente no Exterior</span>
         <div class="date-range-group">
           <div class="field-input date-range-start">
-            <span class="placeholder-text">{{ formData().periodoResidenteExteriorDe || 'De' }}</span>
+            <span class="placeholder-text">{{ formData().abroadPeriodFrom || 'De' }}</span>
           </div>
           <div class="field-input date-range-end">
-            <span class="placeholder-text">{{ formData().periodoResidenteExteriorAte || 'Até' }}</span>
+            <span class="placeholder-text">{{ formData().abroadPeriodTo || 'Até' }}</span>
           </div>
         </div>
       </div>
@@ -113,7 +113,7 @@
       <div class="form-field" style="width: 178px;">
         <span class="field-label">Qualificação conforme ICVM 560*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">{{ formData().qualificacaoIcvm || 'Seleção' }}</span>
+          <span class="placeholder-text">{{ formData().icvmQualification || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -123,7 +123,7 @@
       <div class="form-field" style="width: 251px;">
         <span class="field-label">Jurisdição*</span>
         <div class="field-input has-icon">
-          <span class="placeholder-text">{{ formData().jurisdicao || 'Seleção' }}</span>
+          <span class="placeholder-text">{{ formData().jurisdiction || 'Seleção' }}</span>
           <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4L6 8L10 4" stroke="#AFAFAF" stroke-width="1.5"/>
           </svg>
@@ -148,7 +148,7 @@
             <input
               type="radio"
               name="tipoPessoa"
-              [checked]="formData().tipoPessoaRepresentante === 'fisica'"
+              [checked]="formData().legalRepresentPersonType === 'individual'"
               
             />
             <span class="radio-custom"></span>
@@ -158,7 +158,7 @@
             <input
               type="radio"
               name="tipoPessoa"
-              [checked]="formData().tipoPessoaRepresentante === 'juridica'"
+              [checked]="formData().legalRepresentPersonType === 'corporate'"
               
             />
             <span class="radio-custom"></span>
@@ -170,14 +170,14 @@
       <div class="form-field" style="width: 170px;">
         <span class="field-label">CPF do Co-Representante Legal*</span>
         <div class="field-input">
-          <span class="placeholder-text">{{ formData().cpfRepresentante || '000.000.000-00' }}</span>
+          <span class="placeholder-text">{{ formData().legalRepresentCpf || '000.000.000-00' }}</span>
         </div>
       </div>
 
       <div class="form-field" style="flex: 1; min-width: 300px;">
         <span class="field-label">Nome do Representante Legal*</span>
         <div class="field-input">
-          <span class="placeholder-text">{{ formData().nomeRepresentante || 'Texto' }}</span>
+          <span class="placeholder-text">{{ formData().legalRepresentName || 'Texto' }}</span>
         </div>
       </div>
     </div>
