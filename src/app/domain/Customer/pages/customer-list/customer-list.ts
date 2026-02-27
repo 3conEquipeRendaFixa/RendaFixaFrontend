@@ -68,7 +68,7 @@ export class CustomerList implements OnInit {
       key: 'custName',
       label: 'Nome do Cliente',
       type: 'text',
-      placeholder: 'Maria Silva'
+      placeholder: 'Digite'
     },
     {
       key: 'updateDate',
@@ -80,6 +80,7 @@ export class CustomerList implements OnInit {
 
   filterValues = signal<FilterValues>({});
   allCustomers = signal<ICustomerRecord[]>([]);
+  hasSearched = signal(false);
   currentPage = signal<number>(1);
   pageSize = signal<number>(12);
 
@@ -116,18 +117,16 @@ export class CustomerList implements OnInit {
     const savedCustomers = this.stateService.getCustomers();
     if (savedCustomers && savedCustomers.length > 0) {
       this.allCustomers.set(savedCustomers);
-    } else {
-      this.loadCustomers();
+      this.hasSearched.set(true);
     }
   }
 
-  private loadCustomers(): void {
-    this.service.loadCustomers().subscribe({
+  private loadCustomers(filters: CustomerListFilters = {}): void {
+    this.service.loadCustomers(filters).subscribe({
       next: (data) => {
         this.allCustomers.set(data);
         this.stateService.setCustomers(data);
         this.currentPage.set(1);
-        console.log('Customers loaded:', data);
       },
       error: (err) => {
         console.error('Erro ao carregar clientes:', err);
@@ -172,7 +171,9 @@ export class CustomerList implements OnInit {
   onFilterSearch(values: FilterValues): void {
     this.filterValues.set(values);
     this.stateService.setFilterValues(values);
-    this.loadCustomers();
+    const apiFilters = this.convertToApiFilters(values);
+    this.hasSearched.set(true);
+    this.loadCustomers(apiFilters);
   }
 
   onFiltersChanged(values: FilterValues): void {
@@ -183,7 +184,8 @@ export class CustomerList implements OnInit {
   onFilterClear(): void {
     this.filterValues.set({});
     this.stateService.clearAll();
-    this.loadCustomers();
+    this.allCustomers.set([]);
+    this.hasSearched.set(false);
   }
 
   onRowClick(item: ICustomerRecord): void {

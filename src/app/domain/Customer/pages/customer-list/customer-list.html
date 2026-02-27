@@ -18,28 +18,38 @@
       />
     </section>
 
-    <div class="grid-section">
-      <srf-b3-grid
-        [columns]="gridColumns"
-        [data]="paginatedCustomers()"
-        [actions]="gridActions"
-        [trackByKey]="'custCode'"
-        [showColumnDividers]="true"
-        (rowClick)="onRowClick($event)"
-        (actionClick)="onActionClick($event)"
-      >
-        <ng-template gridCellDef="statRegCode" let-item>
-          <srf-b3-status-badge [status]="item.statRegCode" />
-        </ng-template>
-      </srf-b3-grid>
+    @if (hasSearched()) {
+      <div class="grid-section">
+        <srf-b3-grid
+          [columns]="gridColumns"
+          [data]="paginatedCustomers()"
+          [actions]="gridActions"
+          [trackByKey]="'custCode'"
+          [showColumnDividers]="true"
+          (rowClick)="onRowClick($event)"
+          (actionClick)="onActionClick($event)"
+        >
+          <ng-template gridCellDef="statRegCode" let-item>
+            <srf-b3-status-badge [status]="item.statRegCode" />
+          </ng-template>
+        </srf-b3-grid>
 
-      <srf-b3-pagination
-        [totalItems]="allCustomers().length"
-        [pageSize]="pageSize()"
-        [currentPage]="currentPage()"
-        (pageChange)="onPageChange($event)"
-        (pageSizeChange)="onPageSizeChange($event)"
-      />
-    </div>
+        <srf-b3-pagination
+          [totalItems]="allCustomers().length"
+          [pageSize]="pageSize()"
+          [currentPage]="currentPage()"
+          (pageChange)="onPageChange($event)"
+          (pageSizeChange)="onPageSizeChange($event)"
+        />
+      </div>
+    } @else {
+      <div class="empty-state">
+        <img src="icons/lupa.svg" alt="Pesquisar" class="empty-state-icon" />
+        <div class="empty-state-text">
+          <span class="empty-state-title">Nenhum registro foi encontrado.</span>
+          <span class="empty-state-subtitle">Utilize o filtro para pesquisar.</span>
+        </div>
+      </div>
+    }
   </div>
 </main>

@@ -68,3 +68,32 @@ $spacing-lg: 16px;
   margin-bottom: 40px;
   padding-bottom: 20px;
 }
+
+.empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 120px 0;
+}
+
+.empty-state-icon {
+  width: 36px;
+  height: 36px;
+  opacity: 0.5;
+}
+
+.empty-state-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.empty-state-title,
+.empty-state-subtitle {
+  font-family: $font-family;
+  font-size: 14px;
+  color: #AFAFAF;
+}

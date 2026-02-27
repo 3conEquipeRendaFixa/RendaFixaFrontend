@@ -16,17 +16,32 @@
       />
     </section>
 
-    <div class="grid-section">
-      <srf-b3-grid 
-        [columns]="gridColumns"
-        [data]="securities"
-        [actions]="gridActions"
-        [trackByKey]="'codigo'"
-        [showColumnDividers]="true"
-        (rowClick)="onRowClick($event)"
-        (actionClick)="onActionClick($event)"
-      />
-      <p class="results-info">{{ filteredResults }} resultados disponíveis</p>
-    </div>
+    @if (isLoading()) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <span class="loading-text">Carregando...</span>
+      </div>
+    } @else if (hasSearched()) {
+      <div class="grid-section">
+        <srf-b3-grid
+          [columns]="gridColumns"
+          [data]="securities"
+          [actions]="gridActions"
+          [trackByKey]="'codigo'"
+          [showColumnDividers]="true"
+          (rowClick)="onRowClick($event)"
+          (actionClick)="onActionClick($event)"
+        />
+        <p class="results-info">{{ filteredResults }} resultados disponíveis</p>
+      </div>
+    } @else {
+      <div class="empty-state">
+        <img src="icons/lupa.svg" alt="Pesquisar" class="empty-state-icon" />
+        <div class="empty-state-text">
+          <span class="empty-state-title">Nenhum registro foi encontrado.</span>
+          <span class="empty-state-subtitle">Utilize o filtro para pesquisar.</span>
+        </div>
+      </div>
+    }
   </div>
 </main>

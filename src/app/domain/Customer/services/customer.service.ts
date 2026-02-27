@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map, of, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { ICustomerRecord, ICustomerApiRecord, CustomerFilters } from '../interfaces';
+import { ICustomerRecord, ICustomerApiRecord, CustomerListFilters } from '../interfaces';
 import { ApiResponse } from '../../../shared/interfaces/api-response.interface';
 import { ICustomerInformationApiResponse } from '../interfaces/ICustomerData';
 import { CustomerStateService } from './customer-state.service';
@@ -29,14 +29,15 @@ export class CustomerService {
   private readonly apiUrl = environment.apiUrl;
   private readonly stateService = inject(CustomerStateService);
 
-  loadCustomers(filters: CustomerFilters = {
-    tipoPessoa: '',
-    residente: '',
-    nome: '',
-    numeroDocumento: '',
-    dataUltimaAlteracao: ''
-  }): Observable<ICustomerRecord[]> {
-    const params = this.buildCustomerListParams(filters);
+  loadCustomers(filters: CustomerListFilters = {}): Observable<ICustomerRecord[]> {
+    let params = new HttpParams();
+
+    if (filters.typePsonCode) params = params.set('typePsonCode', filters.typePsonCode);
+    if (filters.resnAbroadIndFilter) params = params.set('resnAbroadIndFilter', filters.resnAbroadIndFilter);
+    if (filters.custNameFilter) params = params.set('custNameFilter', filters.custNameFilter);
+    if (filters.docmValueFilter) params = params.set('docmValueFilter', filters.docmValueFilter);
+    if (filters.updateDateBeginFilter) params = params.set('updateDateBeginFilter', filters.updateDateBeginFilter);
+    if (filters.UpdateDateEndFilter) params = params.set('UpdateDateEndFilter', filters.UpdateDateEndFilter);
 
     return this.http.post<ApiResponse<ICustomerApiRecord[]>>(
       `${this.apiUrl}/customer/customerList`,
@@ -45,33 +46,6 @@ export class CustomerService {
     ).pipe(
       map(response => response.data.map(item => this.mapToCustomerRecord(item)))
     );
-  }
-
-  private buildCustomerListParams(filters: CustomerFilters): HttpParams {
-    let params = new HttpParams();
-
-    if (filters.tipoPessoa) {
-      params = params.set('typePsonCode', filters.tipoPessoa);
-    }
-
-    if (filters.residente) {
-      const resnAbroadIndFilter = filters.residente === 'Residente' ? 'N' : 'S';
-      params = params.set('resnAbroadIndFilter', resnAbroadIndFilter);
-    }
-
-    if (filters.nome) {
-      params = params.set('custNameFilter', filters.nome);
-    }
-
-    if (filters.numeroDocumento) {
-      params = params.set('docmValueFilter', filters.numeroDocumento);
-    }
-
-    if (filters.dataUltimaAlteracao) {
-      params = params.set('updateDateBeginFilter', filters.dataUltimaAlteracao);
-    }
-
-    return params;
   }
 
   private mapToCustomerRecord(api: ICustomerApiRecord): ICustomerRecord {

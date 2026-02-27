@@ -33,6 +33,13 @@ export class PrivateBoundStateService {
     this.securities = [];
   }
 
+  updateSecuritySurname(tickerSymbol: string, newSurname: string): void {
+    const item = this.securities.find(s => s.tickerSymbol === tickerSymbol);
+    if (item) {
+      item.tickerSymbolSurname = newSurname;
+    }
+  }
+
   clearAll(): void {
     this.filterValues = {};
     this.securities = [];

@@ -39,14 +39,14 @@ export class PrivateBoundList implements OnInit {
       placeholder: 'Selecione...',
       options: [
         { value: 'DEB', label: 'DEB' },
-        { value: 'CRI', label: 'CRI' },
-        { value: 'CRA', label: 'CRA' },
-        { value: 'CBIO', label: 'CBIO' },
-        { value: 'CFF', label: 'CFF' },
-        { value: 'LF', label: 'LF' },
-        { value: 'LCI', label: 'LCI' },
-        { value: 'LCA', label: 'LCA' },
-        { value: 'CDB', label: 'CDB' }
+        // { value: 'CRI', label: 'CRI' },
+        // { value: 'CRA', label: 'CRA' },
+        // { value: 'CBIO', label: 'CBIO' },
+        // { value: 'CFF', label: 'CFF' },
+        // { value: 'LF', label: 'LF' },
+        // { value: 'LCI', label: 'LCI' },
+        // { value: 'LCA', label: 'LCA' },
+        // { value: 'CDB', label: 'CDB' }
       ]
     },
     { key: 'tickerSymbol', label: 'Código do Ativo', type: 'text', placeholder: 'Digite...' },
@@ -70,6 +70,8 @@ export class PrivateBoundList implements OnInit {
 
   filterValues = signal<FilterValues>({});
   securities: IPrivateSecurityRecord[] = [];
+  hasSearched = signal(false);
+  isLoading = signal(false);
 
   gridColumns: GridColumn[] = [
     { key: 'registerName', label: 'Registradora', width: '10%', sortable: true },
@@ -102,18 +104,23 @@ export class PrivateBoundList implements OnInit {
     const savedSecurities = this.stateService.getSecurities();
     if (savedSecurities && savedSecurities.length > 0) {
       this.securities = savedSecurities;
-      console.log('Dados restaurados do cache:', savedSecurities.length, 'ativos');
-    } else {
-      // Só faz a requisição se não houver dados em cache
-      this.loadSecurities();
+      this.hasSearched.set(true);
     }
   }
 
   private loadSecurities(): void {
+    this.isLoading.set(true);
     const filters = this.convertToServiceFilters(this.filterValues());
-    this.service.getAll(filters).subscribe(data => {
-      this.securities = data;
-      this.stateService.setSecurities(data); // Salva os dados no cache
+    this.service.getAll(filters).subscribe({
+      next: (data) => {
+        this.securities = data;
+        this.stateService.setSecurities(data);
+        this.isLoading.set(false);
+      },
+      error: () => {
+        this.securities = [];
+        this.isLoading.set(false);
+      }
     });
   }
 
@@ -132,20 +139,21 @@ export class PrivateBoundList implements OnInit {
 
   onFilterSearch(values: FilterValues): void {
     this.filterValues.set(values);
-    this.stateService.setFilterValues(values); // Salva os filtros no serviço
+    this.stateService.setFilterValues(values);
+    this.hasSearched.set(true);
     this.loadSecurities();
   }
 
   onFiltersChanged(values: FilterValues): void {
     this.filterValues.set(values);
-    this.stateService.setFilterValues(values); // Salva os filtros no serviço
-    this.loadSecurities();
+    this.stateService.setFilterValues(values);
   }
 
   onFilterClear(): void {
     this.filterValues.set({});
-    this.stateService.clearAll(); // Limpa filtros e dados do serviço
-    this.loadSecurities();
+    this.stateService.clearAll();
+    this.securities = [];
+    this.hasSearched.set(false);
   }
 
   get filteredResults(): number {
